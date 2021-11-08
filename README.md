@@ -2,18 +2,20 @@
 
 Design Pattern là một giải pháp tổng thể cho các vấn đề chung trong thiết kế phần mềm. Nó cũng tương tự các bản thiết kể cho xây dựng nhà cửa, chúng được dùng để giải quyết các vấn đề lặp đi lặp lại trong thiết kế của bạn.
 
-Các design pattern không phải là những đoạn code cụ thể, mà chúng là những khái niệm tổng quát để giải quyết các vấn đề riêng biệt. Ta có thể tìm hiểu các design pattern và triển khai lên ứng dụng của bạn. Các pattern thường bị nhầm lẫn với thuật toán, vì chúng đều là những khái niệm mô tả giải pháp cho vấn đề. Trong khi thuật toán định nghĩa những hành động cụ thể để giải quyết vấn đề thì design pattern là một mô tả cao hơn cho các giải pháp. Code cho cùng một pattern có thể được triển khai trên hai ứng dụng khác nhau.
+Các design pattern không thể copy rồi paste nhưng cách bạn làm với các function có sẵn hay thư viện. Ở đây, design pattern không phải là những đoạn code cụ thể, mà chúng là những khái niệm tổng quát để giải quyết các vấn đề riêng biệt. Bạn có thể tìm hiểu các design pattern và triển khai lên ứng dụng của bạn. Các pattern thường bị nhầm lẫn với thuật toán, vì chúng đều là những khái niệm mô tả giải pháp cho vấn đề. Trong khi thuật toán là định nghĩa những hành động cụ thể để giải quyết vấn đề thì design pattern là một mô tả cao hơn cho các giải pháp. Code cho cùng một pattern có thể được triển khai trên hai ứng dụng khác nhau.
 
 ## Các design pattern bao gồm những gì ?
 
-Hầu hết các mô tả được thống nhất với nhau để cho mọi người có thể tái sử dụng cho nhiều trường hợp. Dưới đây là các thành phần thường có trong mô tả pattern:
+Hầu hết các tài liệu mô tả rất chính thống, để cho mọi người có thể tái sử dụng cho nhiều trường hợp. Dưới đây là các thành phần thường có trong mô tả pattern:
 
 - **Invention**: mục đích pattern, mô tả ngắn gọn cả vấn đề và giải pháp.
-- **Motivation**: giải thích thêm vấn đề và giải pháp mà mô hình tạo ra khả thi.
+- **Motivation**: giải thích thêm vấn đề và giải pháp mà mô hình khả thi.
 - **Structure**: cấu trúc của các lớp cho thấy từng phần của pattern và chúng có liên quan như thế nào.
 - **Example**: bằng một trong những ngôn ngữ lập trình phổ biến giúp bạn dễ dàng nắm bắt ý tưởng đằng sau pattern.
 
 # Tại sao nên học design pattern
+
+Sự thật là bạn có thể xoay sở để làm việc như một lập trình viên trong nhiều năm mà không cần biết về bất kỳ pattern nào. Rất nhiều người làm như vậy. Tuy nhiên, ngay cả trong trường hợp đó, bạn có thể đang triển khai một số pattern mà không hề hay biết. Vậy tại sao bạn lại dành thời gian tìm hiểu chúng?
 
 - Giúp sản phẩm của chúng ta linh hoạt, dễ dàng thay đổi và bảo trì hơn.
 - Có một điều luôn xảy ra trong phát triển phần mềm, đó là sự thay đổi về yêu cầu. Lúc này hệ thống phình to, các tính năng mới được thêm vào trong khi performance cần được tối ưu hơn.
