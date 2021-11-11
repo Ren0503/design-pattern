@@ -38,7 +38,7 @@ Giả sử client muốn một factory để tạo ghế (chair). Nó sẽ khôn
 
 Nếu bạn thắc mắc: client chỉ làm việc với Abstract interface, vậy thì cái gì sẽ tạo ra factory?. Thông thường ứng dụng sẽ tạo đối tượng concrete factory ở giai đoạn khởi tạo, nhưng trước đó ứng dụng sẽ tạo factory dựa trên kiểu cấu hình hoặc thiết lập môi trường.
 
-🏢 Cấu trúc
+# 🏢 Cấu trúc
 
 ![structure](./assets/structure.png)
 
@@ -65,30 +65,29 @@ Với cách tiếp cận này, client code không phụ thuộc concrete class c
 Như vậy bạn không cần chỉnh sửa client code mỗi lần thêm biến thể của phần tử UI trong ứng dụng. Bạn chỉ cần tạo một lớp factory mới tạo ra các phần tử này và sửa đổi một chút code khởi tạo để ứng dụng chọn lớp đó khi thích hợp.
 
 ```c
-// The abstract factory interface declares a set of methods that
-// return different abstract products. These products are called
-// a family and are related by a high-level theme or concept.
-// Products of one family are usually able to collaborate among
-// themselves. A family of products may have several variants,
-// but the products of one variant are incompatible with the
-// products of another variant.
+// Interface Abstract Factory khai bao tập hợp phương thức
+// trả về kiểu abstract product khác nhau. Các sản phẩm này
+// chung nhóm có quan hệ với nhau về theme hoặc khái niệm cấp cao.
+// Sản phẩm từ một nhóm thường có thể cộng tác với nhau. Nhóm 
+// sản phẩm thường có một hay nhiều biến thể, nhưng sản phẩm của
+// một biến thể này sẽ không tương thích với biến thể khác.
 interface GUIFactory is
     method createButton():Button
     method createCheckbox():Checkbox
 
 
-// Concrete factories produce a family of products that belong
-// to a single variant. The factory guarantees that the
-// resulting products are compatible. Signatures of the concrete
-// factory's methods return an abstract product, while inside
-// the method a concrete product is instantiated.
+// Concrete factory tạo ra nhóm sản phẩm thuộc về một biến thể.
+// Factory đảm bảo rằng sản phẩm tạo ra luôn tương thích.
+// Chữ ký số của phương thức concrete factory trả về 
+// abstract product, trong khi bên trong phương thức
+// concrete product được tạo ra.
 class WinFactory implements GUIFactory is
     method createButton():Button is
         return new WinButton()
     method createCheckbox():Checkbox is
         return new WinCheckbox()
 
-// Each concrete factory has a corresponding product variant.
+// Mỗi concrete factory có một biến thể sản phầm tương ứng.
 class MacFactory implements GUIFactory is
     method createButton():Button is
         return new MacButton()
@@ -96,41 +95,41 @@ class MacFactory implements GUIFactory is
         return new MacCheckbox()
 
 
-// Each distinct product of a product family should have a base
-// interface. All variants of the product must implement this
-// interface.
+// Mỗi sản phẩm riêng biệt của nhóm sản phẩm nên có một interface
+// cơ sở. Tất cả biết thể của sản phẩm sẽ được triển khai từ 
+// interface này
 interface Button is
     method paint()
 
-// Concrete products are created by corresponding concrete
-// factories.
+
+// Concrete product được tạo bởi concrete factory tương ứng.
 class WinButton implements Button is
     method paint() is
-        // Render a button in Windows style.
+        // Hiển thị button trong Windows
 
 class MacButton implements Button is
     method paint() is
-        // Render a button in macOS style.
+        // Hiển thị button trong MacOS
 
-// Here's the base interface of another product. All products
-// can interact with each other, but proper interaction is
-// possible only between products of the same concrete variant.
+// Đây là interface cơ sở của một sản phẩm khác. Tất cả 
+// sản phẩm có thể tương tác với nhau, nhưng chỉ có thể
+// tương tác thích hợp giữa hai sản phẩm cùng một biến thế.
 interface Checkbox is
     method paint()
 
 class WinCheckbox implements Checkbox is
     method paint() is
-        // Render a checkbox in Windows style.
+        // Hiển thị checkbox trong Windows
 
 class MacCheckbox implements Checkbox is
     method paint() is
-        // Render a checkbox in macOS style.
+        // Hiển thị checkbox trong MacOS
 
 
-// The client code works with factories and products only
-// through abstract types: GUIFactory, Button and Checkbox. This
-// lets you pass any factory or product subclass to the client
-// code without breaking it.
+// Client code làm việc với factory và sản phẩm chỉ thông qua
+// kiểu trừu tượng: GUIFactory, Button và Checkbox. Nó giúp bạn
+// chuyển bất kỳ lớp con của factory nào sang client code mà
+// không làm hỏng nó.
 class Application is
     private field factory: GUIFactory
     private field button: Button
@@ -142,9 +141,9 @@ class Application is
         button.paint()
 
 
-// The application picks the factory type depending on the
-// current configuration or environment settings and creates it
-// at runtime (usually at the initialization stage).
+// Ứng dụng chọn kiểu factory tùy thuộc vào cấu hình hiện tại 
+// hoặc thiết lập môi trường và tạo nó trong thời gian chạy
+// (thường ở giai đoạn khởi tạo).
 class ApplicationConfigurator is
     method main() is
         config = readApplicationConfigFile()
@@ -165,4 +164,44 @@ class ApplicationConfigurator is
 
 ⚡  Abstract Factory cung cấp cho bạn interface để tạo các đối tượng từ mỗi lớp trong nhóm sản phầm miễn là code của bạn tạo đối tượng thông qua interface, bạn sẽ không phải lo lắng các vấn để tạo sai biến thể của sản phẩm hay không phù hợp với sản phẩm đã tạo trong ứng dụng.
 
-📋 Triển khai
+- Khi triển khai Abstract Factory cần lưu ý nếu lớp của bạn có chứa phương thức Factory, nó sẽ làm mờ nhiệm vụ chính của Abstract.
+- Một thiết kế chương trình tốt là khi *mỗi lớp sẽ chỉ làm một nhiệm vụ*.Khi một lớp xử lý nhiều loại sản phẩm, nó có thể đáng giá khi trích xuất các phương thức factory của nó thành một lớp factory độc lập hoặc triển khai Abstract Factory toàn diện. 
+
+# 📋 Triển khai
+
+1. Lập sơ đồ ma trận cho các loại sản phẩm riêng biệt so với các biến thể của chúng.
+2. Khai báo interface, Abstract Product cho tất cả loại sản phẩm. Sau đó tạo ra lớp concrete product triển khai interface này.
+3. Khai báo interface, Abstract Factory với tập hợp phương thức khởi tạo cho tất cả abstract product.
+4. Triển khai các lớp concrete factory cho từng loại biến thể của sản phẩm
+5. Tạo code khởi tạo factory đâu đó trong ứng dụng. Nó sẽ khởi tạo một trong các lớp concrete factory, dựa trên cấu hình ứng dụng hoặc thiết lập môi trường. Truyền đối tượng factory này cho tất cả lớp tạo sản phẩm.
+6. Kiểm tra code và tìm tất cả các lệnh gọi trực tiếp đến constructor của sản phẩm. Thay thế chúng bằng các lệnh gọi đến phương thức tạo thích hợp trên đối tượng factory.
+
+# ⚖️ Ưu nhược điểm
+
+## Ưu điểm
+
+✔️ Bạn có thể chắc chắn rằng các sản phẩm lấy từ một factory sẽ tương thích với nhau.
+
+✔️ Tránh được kết hợp quá chặt chẽ giữa client code và concrete product.
+
+✔️ Single Responsibility Principle. Bạn có thể di chuyển code tạo sản phẩm vào một nơi trong chương trình, giúp hỗ trợ code dễ dàng hơn.
+
+✔️ Open/Closed Principle. Bạn có thể thêm các biến thể mới vào chương trình, mà không làm ảnh hưởng đến client code hiện tại.
+
+## Nhược điểm
+
+❌ Code có thể trở nên phức tạp khi bạn thêm vào quá nhiều interface và class để triển khai pattern.
+
+# 🔁 Quan hệ với các pattern khác
+
+Nhiều pattern bắt đầu bằng cách sử dụng **Factory Method** (ít phức tạp hơn và có thể tùy chỉnh nhiều hơn thông qua các lớp con) và phát triển theo hướng **Abstract Factory**, **Prototype** hoặc **Builder** (linh hoạt hơn nhưng phức tạp hơn).
+
+Các lớp **Abstract Factory** thường dựa trên một tập hợp các **Factory Method**, nhưng bạn cũng có thể sử dụng **Prototype** để soạn các phương thức trên các lớp này.
+
+**Builder** tập trung vào việc xây dựng các đối tượng phức tạp theo từng bước. **Abstract Factory** chuyên tạo các nhóm đối tượng. **Abstract Factory** trả lại sản phẩm ngay lập tức, trong khi **Builder** cho phép bạn chạy một số bước xây dựng bổ sung trước khi tìm nạp sản phẩm.
+
+**Abstract Factory** có thể dùng như một giải pháp thay thế cho **Facade** khi bạn chỉ muốn ẩn cách các đối tượng hệ thống con được tạo ra khỏi client code.
+
+Bạn có thể sử dụng **Abstract Factory** cùng với **Bridge**. Việc ghép nối này rất hữu ích khi một số abstract được xác định bởi **Bridge** chỉ có thể hoạt động với các triển khai cụ thể. Trong trường hợp này, **Abstract Factory** có thể đóng gói các quan hệ này và ẩn sự phức tạp khỏi client code.
+
+Tất cả các **Abstract Factory**, **Builder** và **Prototype** đều có thể được triển khai dưới dạng các **Singleton**.
