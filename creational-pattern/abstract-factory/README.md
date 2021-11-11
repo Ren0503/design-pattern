@@ -42,9 +42,9 @@ Nếu bạn thắc mắc: client chỉ làm việc với Abstract interface, v�
 
 ![structure](./assets/structure.png)
 
-1. **Abstract Product** khai báo inteface cho các sản phẩn riêng biệt nhưng có quan hệ với nhau tạo nên một nhóm sản phẩm.
+1. **Abstract Product** là inteface cho các sản phẩn riêng biệt nhưng có quan hệ với nhau tạo nên một nhóm sản phẩm.
 2. **Concrete Product** là các triển khai biến thể của abstract product, được gom nhóm theo biến thể. Mỗi abstract product (chair/sofa) sẽ được triển khai tất cả biến thể (modern, victorian).
-3. **Abstract Factory** interface khai báo tập hợp phương thức khởi tạo cho từng abstract product.
+3. **Abstract Factory** là interface có tập hợp phương thức khởi tạo cho từng abstract product.
 4. **Concrete Factory** là triển khai phương thức khởi tạo của abstract factory. Mỗi concrete factory tương ứng với biến thể cụ thể của sản phẩm và chỉ tạo sản phẩm theo biến thể đó.
 5. Mặc dù concrete factory tạo ra các concrete product, nhưng chữ ký của phương thức khởi tạo trả về sẽ tương ứng với abstract product. Với cách này client code sử dụng factory sẽ không cần quan tâm tới biến thể cụ thể của sản phẩm từ factory. Nó có thể làm việc với bất kỳ biến thể nào miễn là giao tiếp với các đối tượng thông qua abstract interface.
 

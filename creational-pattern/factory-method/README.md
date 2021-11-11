@@ -22,7 +22,7 @@ Kết quả là bạn có một đống code tạp nham với rất nhiều đi�
 
 ## 😊 Giải pháp
 
-Pattern Factory Method gợi ý giải pháp là thay vì tạo đối tượng qua các lệnh khởi tạo trực tiếp (sử dụng toán tử `new`) thì hãy tạo bằng cách gọi phương thức *factory*. Lưu ý là đối tượng vẫn được tạo thông qua toán tử `new`, nhưng nó sẽ được gọi từ trong phương thức *factory*. Các đối tượng được trả về theo phương thức factory thường được gọi là **products**.
+Factory Method gợi ý giải pháp là thay vì tạo đối tượng qua các lệnh khởi tạo trực tiếp (sử dụng toán tử `new`) thì hãy tạo bằng cách gọi phương thức *factory*. Lưu ý là đối tượng vẫn được tạo thông qua toán tử `new`, nhưng nó sẽ được gọi từ trong phương thức *factory*. Các đối tượng được trả về theo phương thức factory thường được gọi là **products**.
 
 ![solution1](./assets/solution1.png)
 
