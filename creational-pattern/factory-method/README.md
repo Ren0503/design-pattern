@@ -184,11 +184,17 @@ Do đó, bạn cần phải có một phương thức có khả năng tạo các
 6. Sau cùng, nếu phương thức factory ở lớp cơ sở trống, bạn có thể chuyển nó thành trừu tượng(abstract). Nếu còn sót lại gì đó thì ta sẽ thiết lập đó là hành vi mặc định của phương thức.
 
 ## ⚖️ Ưu nhược điểm
+
 **Ưu điểm**
+
  ✔️ Tránh được kết hợp quá chặt chẽ giữa creator và concrete product.
+
  ✔️ *Single Responsibility Principle*. Bạn có thể di chuyển code tạo product vào một nơi trong chương trình, giúp code hỗ trợ dễ dàng hơn.
+
  ✔️  *Open/Closed Principle*. Bạn có thể thêm các kiểu product mới vào chương trình, mà không làm ảnh hưởng đến client code hiện tại.
+
 **Nhược điểm**
+
 ❌ Code có thể trở nên phức tạp khi bạn thêm vào quá nhiều lớp con để triển khai pattern. Trường hợp tốt nhất là khi bạn triển khai pattern bằng cách sử dụng hệ thống phân cấp của lớp creator.
  
 ## 🔁 Quan hệ với các pattern khác
