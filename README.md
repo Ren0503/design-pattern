@@ -2,7 +2,7 @@
 
 Design Pattern là một giải pháp tổng thể cho các vấn đề chung trong thiết kế phần mềm. Nó cũng tương tự các bản thiết kế cho xây dựng nhà cửa, chúng được dùng để giải quyết các vấn đề lặp đi lặp lại trong thiết kế của bạn.
 
-Các design pattern không thể copy rồi paste nhưng cách bạn làm với các function có sẵn hay thư viện, vì chúng không phải là những đoạn code cụ thể. Design pattern ở đây là những khái niệm tổng quát để giải quyết các vấn đề riêng biệt. Bạn có thể tìm hiểu các design pattern và triển khai chúng lên ứng dụng của bạn. Các pattern thường bị nhầm lẫn với thuật toán, vì chúng đều là những khái niệm mô tả giải pháp cho một vấn đề nào đó. 
+Các design pattern không thể copy rồi paste như cách bạn làm với các function có sẵn hay thư viện, vì chúng không phải là những đoạn code cụ thể. Design pattern ở đây là những khái niệm tổng quát để giải quyết các vấn đề riêng biệt. Bạn có thể tìm hiểu các design pattern và triển khai chúng lên ứng dụng của bạn. Các pattern thường bị nhầm lẫn với thuật toán, vì chúng đều là những khái niệm mô tả giải pháp cho một vấn đề nào đó. 
 
 Trong khi thuật toán là định nghĩa những hành động cụ thể để giải quyết vấn đề thì design pattern lại là một mô tả cao hơn cho các giải pháp. Code cho cùng một pattern có thể được triển khai trên hai ứng dụng khác nhau.
 
@@ -45,7 +45,7 @@ Hệ thống các design pattern được chia thành 3 nhóm: nhóm Creational,
     + [**Factory Method**](./creational-pattern/factory-method)
     + [**Abstract Factory**](./creational-pattern/abstract-factory)
     + [**Builder**](./creational-pattern/builder)
-    + [**Prototype**](./creational-pattern/factory-method)
+    + [**Prototype**](./creational-pattern/prototype)
     + [**Singleton**](./creational-pattern/factory-method)
 - **Structural Pattern** giải thích cách tập hợp các đối tượng và lớp thành các cấu trúc lớn hơn, trong khi vẫn giữ cho cấu trúc linh hoạt và hiệu quả.
 - **Behavioral Pattern** quan tâm đến việc giao tiếp hiệu quả và phân công nhiệm vụ giữa các đối tượng.
