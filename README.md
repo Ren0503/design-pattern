@@ -43,8 +43,8 @@ Hệ thống các design pattern được chia thành 3 nhóm: nhóm Creational,
 
 - **Creational Pattern** cung cấp các cơ chế tạo đối tượng để tăng tính linh hoạt và tái sử dụng mã hiện có.
     + [**Factory Method**](./creational-pattern/factory-method)
-    + [**Abstract Factory**](./creational-pattern/factory-method)
-    + [**Builder**](./creational-pattern/factory-method)
+    + [**Abstract Factory**](./creational-pattern/abstract-factory)
+    + [**Builder**](./creational-pattern/builder)
     + [**Prototype**](./creational-pattern/factory-method)
     + [**Singleton**](./creational-pattern/factory-method)
 - **Structural Pattern** giải thích cách tập hợp các đối tượng và lớp thành các cấu trúc lớn hơn, trong khi vẫn giữ cho cấu trúc linh hoạt và hiệu quả.
