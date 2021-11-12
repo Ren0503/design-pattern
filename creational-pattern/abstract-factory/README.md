@@ -1,10 +1,12 @@
-# 📜 Mục đích
+# Abstract Factory
+
+## 📜 Mục đích
 
 **Abstract Factory** là một design pattern thuộc nhóm creational, dùng để tạo ra các đối tượng có quan hệ gần gũi với nhau mà không cần dùng đến concrete class cụ thể.
 
 ![intent](./assets/intent.png)
 
-# 😟 Vấn đề
+## 😟 Vấn đề
 
 Giả sử bạn đang tạo một trang bán đồ nội thất. Code của bạn bao gồm các lớp sau:
 1. Các sản phẩm có quan hệ gần gũi như: `Sofa`, `Chair` và `CoffeTable`.
@@ -18,7 +20,7 @@ Bạn cần có cách để khi tạo một đồ vật nội thất đơn lẻ,
 
 Bên cạnh đó, bạn không muốn thay đổi code mỗi khi thêm sản phẩm hoặc nhóm sản phẩm trong chương trình. Danh mục nội thất được cập nhật rất thường xuyên, và bạn không muốn thay đổi code mỗi khi nó diễn ra.
 
-# 😊 Giải pháp
+## 😊 Giải pháp
 
 Việc đầu tiên cần làm theo thiết kế Abstract Factory là khai báo inteface rõ ràng cho mỗi sản phẩm riêng biệt trong nhóm sản phẩm. Và tạo tất cả biến thể của sản phẩm theo sao inteface đó. Ví dụ tất cả biến thể của ghế được triển khai trong interface `Chair`, tất cả sofa được triển khai trong interface `Sofa` ,...
 
@@ -38,7 +40,7 @@ Giả sử client muốn một factory để tạo ghế (chair). Nó sẽ khôn
 
 Nếu bạn thắc mắc: client chỉ làm việc với Abstract interface, vậy thì cái gì sẽ tạo ra factory?. Thông thường ứng dụng sẽ tạo đối tượng concrete factory ở giai đoạn khởi tạo, nhưng trước đó ứng dụng sẽ tạo factory dựa trên kiểu cấu hình hoặc thiết lập môi trường.
 
-# 🏢 Cấu trúc
+## 🏢 Cấu trúc
 
 ![structure](./assets/structure.png)
 
@@ -48,7 +50,7 @@ Nếu bạn thắc mắc: client chỉ làm việc với Abstract interface, v�
 4. **Concrete Factory** là triển khai phương thức khởi tạo của abstract factory. Mỗi concrete factory tương ứng với biến thể cụ thể của sản phẩm và chỉ tạo sản phẩm theo biến thể đó.
 5. Mặc dù concrete factory tạo ra các concrete product, nhưng chữ ký của phương thức khởi tạo trả về sẽ tương ứng với abstract product. Với cách này client code sử dụng factory sẽ không cần quan tâm tới biến thể cụ thể của sản phẩm từ factory. Nó có thể làm việc với bất kỳ biến thể nào miễn là giao tiếp với các đối tượng thông qua abstract interface.
 
-# 👨‍💻 Mã giả
+## 👨‍💻 Mã giả
 
 Ví dụ này minh hoạ cách Abstract Factory có thể sử dụng để tạo các phần tử UI đa nền tảng mà không cần ghép client code với lớp UI cụ thể, đồng thời giữ cho tất cả các phần tử được tạo nhất quán với hệ điều hành đã chọn
 
@@ -158,7 +160,7 @@ class ApplicationConfigurator is
         Application app = new Application(factory)
 ```
 
-# 💡 Ứng dụng
+## 💡 Ứng dụng
 
 **🐞 Sử dụng Abstract Factory khi bạn cần làm việc với nhiều biến thể của một nhóm sản phẩm, mà bạn không muốn phụ thuộc vào concrete class của sản phẩm đó - chúng có thể chưa biết trước hoặc đơn giản là bạn muốn mở rộng trong tương lai.**
 
@@ -167,7 +169,7 @@ class ApplicationConfigurator is
 - Khi triển khai Abstract Factory cần lưu ý nếu lớp của bạn có chứa phương thức Factory, nó sẽ làm mờ nhiệm vụ chính của Abstract.
 - Một thiết kế chương trình tốt là khi *mỗi lớp sẽ chỉ làm một nhiệm vụ*.Khi một lớp xử lý nhiều loại sản phẩm, nó có thể đáng giá khi trích xuất các phương thức factory của nó thành một lớp factory độc lập hoặc triển khai Abstract Factory toàn diện. 
 
-# 📋 Triển khai
+## 📋 Triển khai
 
 1. Lập sơ đồ ma trận cho các loại sản phẩm riêng biệt so với các biến thể của chúng.
 2. Khai báo interface, Abstract Product cho tất cả loại sản phẩm. Sau đó tạo ra lớp concrete product triển khai interface này.
@@ -176,9 +178,9 @@ class ApplicationConfigurator is
 5. Tạo code khởi tạo factory đâu đó trong ứng dụng. Nó sẽ khởi tạo một trong các lớp concrete factory, dựa trên cấu hình ứng dụng hoặc thiết lập môi trường. Truyền đối tượng factory này cho tất cả lớp tạo sản phẩm.
 6. Kiểm tra code và tìm tất cả các lệnh gọi trực tiếp đến constructor của sản phẩm. Thay thế chúng bằng các lệnh gọi đến phương thức tạo thích hợp trên đối tượng factory.
 
-# ⚖️ Ưu nhược điểm
+## ⚖️ Ưu nhược điểm
 
-## Ưu điểm
+### Ưu điểm
 
 ✔️ Bạn có thể chắc chắn rằng các sản phẩm lấy từ một factory sẽ tương thích với nhau.
 
@@ -188,11 +190,11 @@ class ApplicationConfigurator is
 
 ✔️ Open/Closed Principle. Bạn có thể thêm các biến thể mới vào chương trình, mà không làm ảnh hưởng đến client code hiện tại.
 
-## Nhược điểm
+### Nhược điểm
 
 ❌ Code có thể trở nên phức tạp khi bạn thêm vào quá nhiều interface và class để triển khai pattern.
 
-# 🔁 Quan hệ với các pattern khác
+## 🔁 Quan hệ với các pattern khác
 
 Nhiều pattern bắt đầu bằng cách sử dụng **Factory Method** (ít phức tạp hơn và có thể tùy chỉnh nhiều hơn thông qua các lớp con) và phát triển theo hướng **Abstract Factory**, **Prototype** hoặc **Builder** (linh hoạt hơn nhưng phức tạp hơn).
 
@@ -205,3 +207,7 @@ Các lớp **Abstract Factory** thường dựa trên một tập hợp các **F
 Bạn có thể sử dụng **Abstract Factory** cùng với **Bridge**. Việc ghép nối này rất hữu ích khi một số abstract được xác định bởi **Bridge** chỉ có thể hoạt động với các triển khai cụ thể. Trong trường hợp này, **Abstract Factory** có thể đóng gói các quan hệ này và ẩn sự phức tạp khỏi client code.
 
 Tất cả các **Abstract Factory**, **Builder** và **Prototype** đều có thể được triển khai dưới dạng các **Singleton**.
+
+# Nguồn
+
+[**refactoring**](https://refactoring.guru/design-patterns/abstract-factory)
