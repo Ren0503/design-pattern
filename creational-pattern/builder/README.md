@@ -28,6 +28,7 @@ Trong phần lớn trường hợp, các tham số của bạn sẽ không đư�
 Ý tưởng của Builder pattern là bạn sẽ trích xuất các đoạn code khởi tạo đối tượng ra khởi lớp của nó và chuyển đến một đối tượng riêng biệt gọi là *builder*.
 
 ![solution1](./assets/solution1.png)
+
 *Builder pattern giúp bạn khởi tạo đối tượng phức tạp theo từng bước.*
 
 Pattern khởi tạo đối tượng theo trật tự từng bước một (vd như `buildWalls`, `buildDoor`,...).
@@ -47,7 +48,7 @@ Song điều này chỉ hoạt động khi client code gọi các lệnh khởi 
 
 Bạn có thể trích xuất một loạt lệnh gọi đến các bước của hàm khởi tạo, mà bạn sử dụng để xây dựng sản phẩm thành một lớp riêng biệt có tên là *director*.
 
-Lớp directory xác định thứ tự thực thi của các bước xây dưng, trong khi builder cung cấp việc triển khai cho các bước đó.
+Lớp director xác định thứ tự thực thi của các bước xây dưng, trong khi builder cung cấp việc triển khai cho các bước đó.
 
 ![directory](./assets/directory.png)
 
@@ -181,7 +182,7 @@ class CarManualBuilder implements Builder is
 // Director chỉ chịu trách nhiệm cho thực thi các bước xây dựng
 // theo một thứ tự cụ thể. Nó hữu ích khi tạo sản phẩm theo một
 // trật tự xác định hoặc một cấu hình rõ ràng.
-// Nói đúng hơn, lớp directory là tuỳ chọn, để client có thể gián
+// Nói đúng hơn, lớp director là tuỳ chọn, để client có thể gián
 // tiếp điều khiển builder.
 class Director is
     private field builder:Builder

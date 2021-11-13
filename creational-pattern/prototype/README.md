@@ -8,7 +8,7 @@
 
 ## 😟 Vấn đề
 
-Giả sử bạn đang có một đối tượng và bạn muốn tạo ra bản sao của nó. Vậy là thế nào ? Đầu tiên bạn sẽ tạo ra một đối tượng mới có cùng lớp, sau đó bạn sẽ lấy giá trị từ tất cả các trường của đối tượng gốc và gán nó sang cho đối tượng mới.
+Giả sử bạn đang có một đối tượng và bạn muốn tạo ra bản sao của nó. Vậy làm thế nào ? Đầu tiên bạn sẽ tạo ra một đối tượng mới có cùng lớp, sau đó bạn sẽ lấy giá trị từ tất cả các trường của đối tượng gốc và gán nó sang cho đối tượng mới.
 
 Hay lắm ! Nhưng nó có vấn đề. Không phải tất cả đối tượng đều có thể sao chép theo cách này vì có thể một vài trường của nó là riêng tư (private) và không thể truy cập từ bên ngoài đối tượng.
 
@@ -26,17 +26,18 @@ Triển khai phương thức `clone` là như nhau với mọi lớp. Phương t
 Đối tượng hỗ trợ sao chép gọi là *prototype*. Khi đối tượng của bạn có hàng chục trường và hàng trăm cấu hình khả khi, nhân bản chúng có thể xem như một giải pháp thay thế cho tạo lớp con.
 
 ![solution](./assets/solution.png)
+
 *Các prototype tạo sẵn có thể thay thế cho phân lớp.*
 
 Cách mà nó hoạt động: bạn tạo một tập hợp các đối tượng, được cấu hình theo nhiều cách khác nhau. Khi bạn cần một đối tượng giống như đối tượng bạn đã cấu hình, bạn chỉ cần sao chép một prototype thay vì xây dựng một đối tượng mới từ đầu.
 
 ## 🚗 Thế Giới Thực
 
-Trong cuộc sống thực, các prototype được sử dụng để thực hiện các thử nghiệm khác nhau trước khi bắt đầu sản xuất hàng loạt một sản phẩm. Tuy nhiên, trong trường hợp này các prototype không tham gia vào bất kỳ quá trình sản xuất thực nào, nó chỉ đóng vai trò thụ động.
+Trong cuộc sống thực, các prototype được sử dụng để thực hiện các thử nghiệm khác nhau trước khi bắt đầu sản xuất hàng loạt một sản phẩm. Tuy nhiên, trong trường hợp này các prototype không tham gia vào bất kỳ quá trình sản xuất thực nào, nó chỉ đóng vai trò thụ động. Vì các prototype trong công nghiệp không thực sự tự sao chép.
 
 ![analogy](./assets/analogy.png)
 
-Vì các prototype trong công nghiệp không thực sự tự sao chép. Một ví dụ thực nữa của pattern này quá trình nguyên phân trong sinh học. Sau khi nguyên phân, một cặp tế bào giống hệt nhau được hình thành. Tế bào gốc lúc này hoạt động như một prototype và đóng vai trò chủ động.
+Một ví dụ thực nữa của pattern này quá trình nguyên phân trong sinh học. Sau khi nguyên phân, một cặp tế bào giống hệt nhau được hình thành. Tế bào gốc lúc này hoạt động như một prototype và đóng vai trò chủ động.
 
 ## 🏢 Cấu trúc
 
@@ -52,7 +53,7 @@ Vì các prototype trong công nghiệp không thực sự tự sao chép. Một
 
 ![structure2](./assets/structure2.png)
 
-1. **Prototype Registry** cung cấp cách để truy cập dễ dàng các prototype được sử dụng thường xuyên. Nó lưu trữ một tập hợp đối tượng tạo sẵn cho việc sao chép. Prototype registry đơn giản nhất là bản đồ băm `name → prototype`. Tuy nhiên, nếu bạn cần các tiêu chí tìm kiếm tốt hơn một cái tên đơn giản, bạn có thể xây dựng một phiên bản registry mạnh mẽ hơn.
+1. **Prototype Registry** cung cấp cách để truy cập dễ dàng các prototype được sử dụng thường xuyên. Nó lưu trữ một tập hợp đối tượng đã tạo sẵn cho việc sao chép. Prototype registry đơn giản nhất là bản đồ băm `name → prototype`. Tuy nhiên, nếu bạn cần các tiêu chí tìm kiếm tốt hơn, bạn có thể tự xây dựng một phiên bản registry mạnh mẽ hơn.
 
 ## 👨‍💻 Mã giả
 
@@ -60,7 +61,7 @@ Trong ví dụ này, Prototype Pattern cho phép bạn tạo các bản sao chí
 
 ![pseudocode](./assets/pseudocode.png)
 
-Tất cả các lớp hình học theo sau một interface, cung cấp phương thức sao chép. Lớp con có thể gọi phương thức sao chép của lớp cha trước khi sao chép các trường giá trị của chính nó vào đối tượng kết quả. 
+Tất cả các lớp hình dạng theo sau một interface, cung cấp phương thức sao chép. Lớp con có thể gọi phương thức sao chép của lớp cha trước khi sao chép các trường giá trị của chính nó vào đối tượng kết quả. 
 
 ```c
 // Prototype cơ sở.
@@ -144,7 +145,7 @@ class Application is
 
         // Ví dụ, bạn không biết chính xác phần tử trong mảng hình
         // dạng. Tất cả những gì ta biết chỉ là đấy là hình dạng.
-        // Nhưng cảm ơn tính đa hình, khi ta gọi phương thức `clone`
+        // Nhưng nhờ tính đa hình, khi ta gọi phương thức `clone`
         // trên một hình dạng, chương trình kiểm tra lớp có thực và
         // chạy phương thức clone phù hợp đã định nghĩa trong lớp.
         // Đó là lý do vì sao ta lấy bản sao phù hợp thay vì 
@@ -175,7 +176,7 @@ Thay vì khởi tạo một lớp con phù hợp với một số cấu hình, c
 1. Tạo interface prototype và khai báo phương thức sao chép trong đó. Hoặc thêm phương thức vào tất cả các lớp của hệ phân cấp lớp, nếu bạn có.
 2. Lớp prototype phải định nghĩa hàm khởi tạo thay thế để chấp nhận đối tượng của lớp đó như một tham số. Hàm khởi tạo phải sao chép giá trị từ tất cả trường đã định nghĩa trong lớp từ đối tượng được truyền, vào đối tượng mới được tạo. Nếu bạn đang thay đổi một lớp con, bạn phải gọi hàm khởi tạo cha để cho phép lớp cha xử lý việc sao chép các trường riêng tư của nó.
 Nếu ngôn ngữ lập trình của bạn không hỗ trợ phương thức overloading, bạn phải định nghĩa phương thức đặc biệt cho sao chép đối tượng dữ liệu. Hàm khởi tạo là một nơi tiện lợi để làm điều này vì nó cung cấp kết quả đối tượng ngay sau khi bạn gọi toán tử mới.
-3. Phương thức sao chép thường chỉ bao gồm một dòng: chạy một toán tử mới với phiên bản prototype của hàm khởi tạo. Lưu ý rằng mọi lớp phải ghi đè(override) rõ ràng phương thức sao chép và sử dụng tên lớp của chính nó cùng với toán tử mới. Nếu không, phương thức sao chép có thể tạo ra một đối tượng của lớp cha.
+3. Phương thức sao chép thường chỉ bao gồm một dòng: chạy một toán tử mới với phiên bản prototype của hàm khởi tạo. Lưu ý rằng mọi lớp phải ghi đè(override) rõ ràng phương thức sao chép và sử dụng tên lớp của chính nó cùng với toán tử `new`. Nếu không, phương thức sao chép có thể tạo ra một đối tượng của lớp cha.
 4. Tuỳ chọn, tạo một prototype registry để lưu trữ một danh mục các prototype thường được sử dụng. 
 Bạn có thể triển khai registry như một lớp factory hoặc đặt nó vào một lớp prototype cơ sở với phương thức tĩnh cho tìm nạp prototype. Phương thức này tìm kiếm prototype dựa trên các tiêu chí tìm kiếm mà client code truyền đến phương thức. Tiêu chí có thể là một chuỗi đơn giản hoặc cũng có thể là một tập hợp các tham số tìm kiếm phức tạp. Sau khi tìm thấy prototype thích hợp, registry sẽ sao chép nó và trả lại bản sao cho client.
 Cuối cùng, thay thế các lệnh gọi trực tiếp đến các hàm khởi tạo của lớp con bằng các lệnh gọi đến phương thức factory của prototype registry.
