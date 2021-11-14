@@ -50,6 +50,8 @@ Hệ thống các design pattern được chia thành 3 nhóm: nhóm Creational,
     + [**Prototype**](./creational-pattern/prototype)
     + [**Singleton**](./creational-pattern/singleton)
 - **Structural Pattern** giải thích cách tập hợp các đối tượng và lớp thành các cấu trúc lớn hơn, trong khi vẫn giữ cho cấu trúc linh hoạt và hiệu quả.
+    + [**Adapter**](./structural-pattern/adapter)
+    + [**Bridge**](./structural-pattern/bridge)
 - **Behavioral Pattern** quan tâm đến việc giao tiếp hiệu quả và phân công nhiệm vụ giữa các đối tượng.
 
 # Nguồn

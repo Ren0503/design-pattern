@@ -72,7 +72,7 @@ Ví dụ cho pattern Adapter sẽ dựa trên câu thành ngữ: "chốt gỗ vu
 
 ![pseudocode](./assets/pseudocode.png)
 
-Adapter giả vờ là một chốt tròn(round peg), có bán kính bằng một nửa đường kính của hình vuông (nói cách khác, là bán kính của hình tròn nhỏ nhất có thể chứa chốt hình vuông).
+Adapter giả vờ là một chốt tròn(round peg), có bán kính bằng một nửa đường chéo của hình vuông (nói cách khác, là bán kính của hình tròn nhỏ nhất có thể chứa vừa hình vuông).
 
 ```c
 // Giả sử bạn có hai lớp với interface tương thích:
