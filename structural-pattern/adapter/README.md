@@ -161,6 +161,7 @@ Giải pháp tốt hơn là đưa các hàm bị thiếu vào lớp adapter. Sau
 ### Ưu điểm
 
 ✔️ *Single Responsibility Principle* Bạn có thể tách interface hoặc code chuyển đổi dữ liệu khỏi logic nghiệp vụ chính của chương trình.
+
 ✔️ *Open/Closed Principle* Bạn có thể giới thiệu các loại adapter mới vào chương trình mà không ảnh hưởng code client hiện có, miễn là chúng hoạt động với adapter thông qua client interface.
 
 ### Nhược điểm
@@ -178,3 +179,7 @@ Giải pháp tốt hơn là đưa các hàm bị thiếu vào lớp adapter. Sau
 **Facade** định nghĩa một interface mới cho các đối tượng hiện có, trong khi **Adapter** cố gắng làm cho interface hiện có có thể sử dụng được. **Adapter** thường chỉ bọc một đối tượng, trong khi **Facade** hoạt động với toàn bộ hệ thống con của các đối tượng.
 
 **Bridge**, **State**, **Strategy** (và ở một mức độ nào đó là **Adapter**) có cấu trúc rất giống nhau. Thật vậy, tất cả các pattern này đều dựa trên bố cục là ủy thác công việc cho các đối tượng khác. Tuy nhiên, chúng giải quyết các vấn đề khác nhau. Một pattern không chỉ là một công thức để cấu trúc code của bạn theo một cách cụ thể. Nó còn có thể giao tiếp với các nhà phát triển khác về vấn đề mà pattern giải quyết.
+
+# Nguồn
+
+[**refactoring**](https://refactoring.guru/design-patterns/adapter)
