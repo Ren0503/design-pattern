@@ -77,7 +77,7 @@ class Dialog is
 
     // Lưu ý, dù tên là creator, song không phải nhiệm vụ chính
     // của nó là tạo product. Nó được dùng để chứa nhưng logic 
-    // business cốt lõi dựa trên đối tượng product trả về từ phương
+    // nghiệp vụ cốt lõi dựa trên đối tượng product trả về từ phương
     // thức factory. Các lớp con có thể gián tiếp thay đổi logic
     // bằng cách override lên phương thức factory và trả về kiểu 
     // product khác từ nó.

@@ -269,7 +269,7 @@ Builder cho phép bạn xây dựng đối tượng từng bước, chỉ dùng 
 
 ✔️ Bạn có thể sử dụng lại code khởi tạo cho xây dựng sản phẩm có biểu diễn khác nhau.
 
-✔️ *Single Responsibility Principle*. Bạn có thể tách code khởi tạo phức tạp khỏi logic business của sản phẩm
+✔️ *Single Responsibility Principle*. Bạn có thể tách code khởi tạo phức tạp khỏi logic nghiệp vụ của sản phẩm
 
 ### Nhược điểm
 

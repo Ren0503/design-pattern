@@ -77,7 +77,7 @@ class Database is
                     Database.instance = new Database()
         return Database.instance
 
-    // Cuối cùng, bất kỳ singleton nào cũng có một vài logic business
+    // Cuối cùng, bất kỳ singleton nào cũng có một vài logic nghiệp vụ
     // để có thể thực thi các thực thể của nó.
     public method query(sql) is
         // Ví dụ, tất cả truy vấn cơ sở dữ liệu của ứng dụng
