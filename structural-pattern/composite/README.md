@@ -54,7 +54,7 @@ Quân đội của hầu hết quốc gia đều có cấu trúc như cây phân
 
 Lớp `CompoundGraphic` là một container có thể bao gồm bất kỳ số lượng hình dạng con nào, bao gồm cả các container khác. Một hình dạng container có cùng phương thức với hình dạng đơn giản. Tuy nhiên, thay vì thực hiện điều gì đó trên chính nó, thì nó chuyển yêu cầu xuống tất cả con của nó và tính tổng bằng đệ quy.
 
-Client code làm việc với tất cả hình dạng qua interface chung duy nhất cho tất cả lớp hình dạng. Do đó, client không biết nó đang làm việc với dạng đơn giản hay phức hợp. Nó có thể làm việc với các đối tượng có cấu trúc phức tạp mà không cần ghép với lớp cụ thể tạo nên cấu trúc đấy.
+Code client làm việc với tất cả hình dạng qua interface chung duy nhất cho tất cả lớp hình dạng. Do đó, client không biết nó đang làm việc với dạng đơn giản hay phức hợp. Nó có thể làm việc với các đối tượng có cấu trúc phức tạp mà không cần ghép với lớp cụ thể tạo nên cấu trúc đấy.
 
 ```c
 // Interface component khai báo các hoạt động chung cho
@@ -119,8 +119,8 @@ class CompoundGraphic implements Graphic is
         // sử dụng các tọa độ giới hạn.
 
 
-// Client code làm việc với tất cả component thông qua
-// interface cơ sở. Với cách này client code có thể 
+// Code client làm việc với tất cả component thông qua
+// interface cơ sở. Với cách này code client có thể 
 // hỗ trợ leaf đơn giản cũng như các container phức tạp.
 class ImageEditor is
     field all: CompoundGraphic
@@ -149,9 +149,9 @@ class ImageEditor is
 
 ⚡ Pattern Composite cung cấp cho bạn hai kiểu phần tử đơn giản có interface chung: leaf đơn giản và container(composite) phức tạp. Container có thể bao gồm leaf và container khác. Nó giúp bạn khởi tạo các đối tượng có cấu trúc đệ quy lồng nhau giống cây.
 
-**🐞 Sử dụng Composite khi bạn muốn client code xử lý đồng nhất cả phần tử đơn giản và phức tạp**
+**🐞 Sử dụng Composite khi bạn muốn code client xử lý đồng nhất cả phần tử đơn giản và phức tạp**
 
-⚡ Tất cả phần tử được xác định với pattern Composite chia sẻ chung interface. Sử dụng interface này, client code không cần quan tâm đến lớp cụ thể mà đối tượng làm việc.
+⚡ Tất cả phần tử được xác định với pattern Composite chia sẻ chung interface. Sử dụng interface này, code client không cần quan tâm đến lớp cụ thể mà đối tượng làm việc.
 
 ## 📋 Triển khai
 

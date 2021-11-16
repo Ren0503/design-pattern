@@ -8,7 +8,7 @@
 
 ## 😟 Vấn đề
 
-Hãy tưởng tượng một đối tượng phức tạp đòi hỏi nhiều công sức, phải tạo từng bước một với rất nhiều trường và các đối tượng lồng nhau. Các đoạn code khởi tạo như vậy sẽ nằm rất sâu trong hàm khởi tạo (constructor) khổng lồ với rất nhiều tham số. Hoặc tệ hơn là nó nằm rải rác trên các client code.
+Hãy tưởng tượng một đối tượng phức tạp đòi hỏi nhiều công sức, phải tạo từng bước một với rất nhiều trường và các đối tượng lồng nhau. Các đoạn code khởi tạo như vậy sẽ nằm rất sâu trong hàm khởi tạo (constructor) khổng lồ với rất nhiều tham số. Hoặc tệ hơn là nó nằm rải rác trên các code client.
 
 ![problem1](./assets/problem1.png)
 
@@ -42,7 +42,7 @@ Trong trường hợp đấy, ta cần tạo ra nhiều lớp builder khác nhau
 
 Ví dụ, cần xây dựng 3 ngôi nhà, cái thứ nhất được xây từ gỗ và kính, cái thứ hai được xây từ đá và sắt còn cái thứ ba được xây từ vàng và kim cương. Như vậy với lệnh gọi các bước thực hiện như nhau, ta sẽ có một ngôi nhà thông thường, một lâu đài và một cung điện. Tuy các nhiệm vụ giống nhau nhưng các xây dựng khác nhau với từng biến thể.
 
-Song điều này chỉ hoạt động khi client code gọi các lệnh khởi tạo tương tác với builder thông qua inteface chung.
+Song điều này chỉ hoạt động khi code client gọi các lệnh khởi tạo tương tác với builder thông qua inteface chung.
 
 ### Director
 
@@ -52,9 +52,9 @@ Lớp director xác định thứ tự thực thi của các bước xây dưng,
 
 ![directory](./assets/directory.png)
 
-Các lớp director là không bắt buộc. Bạn có thể gọi các bước xây dựng theo thứ tự cụ thể trực tiếp từ client code. Tuy nhiên, lớp director là nơi lý tưởng để đặt các quy trình khởi tạo khác nhau mà bạn có thể sử dụng lại trong chương trình của mình.
+Các lớp director là không bắt buộc. Bạn có thể gọi các bước xây dựng theo thứ tự cụ thể trực tiếp từ code client. Tuy nhiên, lớp director là nơi lý tưởng để đặt các quy trình khởi tạo khác nhau mà bạn có thể sử dụng lại trong chương trình của mình.
 
-Ngoài ra, lớp director sẽ ẩn hoàn toàn chi tiết khởi tạo của sản phẩm với client code. Client code chỉ cần liên kết với director, rồi nhận hàm khởi tạo từ director và kết quả từ builder.
+Ngoài ra, lớp director sẽ ẩn hoàn toàn chi tiết khởi tạo của sản phẩm với code client. Code client chỉ cần liên kết với director, rồi nhận hàm khởi tạo từ director và kết quả từ builder.
 
 ## 🏢 Cấu trúc
 
@@ -74,7 +74,7 @@ Ngoài ra, lớp director sẽ ẩn hoàn toàn chi tiết khởi tạo của s�
 
 Xe hơi là một đối tượng phức tạp có thể được tạo bằng hàng trăm cách khác nhau. Thay vì một lớp `Car` với hàm khởi tạo (constructor) khổng lồ, ta sẽ trích xuất code lắp ráp xe vào một lớp `CarBuilder` riêng biệt. Lớp này sẽ có tập hợp các phương pháp cấu hình cho từng bộ phận trong xe.
 
-Nếu client code cần lắp ráp xe theo một mô hình đặc biệt, được tinh chỉnh thì nó có thể làm việc trực tiếp với builder. Trong trường hợp khác, nó có thể uỷ thác việc lắp ráp cho lớp director, nơi biết cách sử dụng builder để tạo ra những mẫu xe thời thượng nhất.
+Nếu code client cần lắp ráp xe theo một mô hình đặc biệt, được tinh chỉnh thì nó có thể làm việc trực tiếp với builder. Trong trường hợp khác, nó có thể uỷ thác việc lắp ráp cho lớp director, nơi biết cách sử dụng builder để tạo ra những mẫu xe thời thượng nhất.
 
 Bạn có thể bị sốc nếu biết mọi chiếc xe đều có hướng dẫn sử dụng (hầu hết mọi người không đọc chúng :v). Hướng dẫn sử dụng là thứ mô tả mọi tính năng của chiếc xe đấy, vì vậy với các mẫu xe khác nhau sẽ có hướng dẫn sử dụng khác nhau. Đó là lý do bạn nên sử dụng cùng quy trình tạo cho chiếc xe và hướng dẫn sử dụng của nó. Dĩ nhiên, tạo hướng dẫn sử dụng không giống tạo một chiếc xe, đó là lý do ta cung cấp cho nó một lớp builder khác chuyên biệt cho việc tạo hướng dẫn sử dụng. Lớp này thực hiện các phương thức xây dựng tương tự như `CarBuilder`, nhưng thay vì chế tạo các bộ phận, nó chỉ mô tả chúng. Bằng cách truyền các builder vào cùng một đối tượng director, ta có thể tạo ra chiếc xe hay hướng dẫn sử dụng của nó.
 
@@ -146,7 +146,7 @@ class CarBuilder implements Builder is
     // Đó là lý do ta đặt lệnh gọi phương thức reset ngay phía
     // sau phương thức `getProduct`. Tuy nhiên, điều này là không
     // bắt buộc, bạn có thể để cho builder đợi đến lệnh gọi reset
-    // từ client code trước khi loại bỏ kết quả trước đó.
+    // từ code client trước khi loại bỏ kết quả trước đó.
     method getProduct():Car is
         product = this.car
         this.reset()
@@ -187,8 +187,8 @@ class CarManualBuilder implements Builder is
 class Director is
     private field builder:Builder
 
-    // Director làm việc với bất kỳ builder nào mà client code
-    // truyền vào nó. Với cách này, client code có thể thay đổi
+    // Director làm việc với bất kỳ builder nào mà code client
+    // truyền vào nó. Với cách này, code client có thể thay đổi
     // kiểu cuối cùng của sản phẩm vừa được lắp ráp.
     method setBuilder(builder:Builder)
         this.builder = builder
@@ -206,7 +206,7 @@ class Director is
         // ...
 
 
-// Client code tạo đối tượng builder, truyền nó vào director 
+// Code client tạo đối tượng builder, truyền nó vào director 
 // sau đó bắt đầu quá trình khởi tạo. Kêys quả cuối cùng được
 // truy xuất từ đối tượng builder.
 class Application is
@@ -250,7 +250,7 @@ Builder cho phép bạn xây dựng đối tượng từng bước, chỉ dùng 
 
 **🐞 Sử dụng Builder để tạo ra những cây Composite và các đối tượng phức tạp khác**
 
-⚡  Builder tạo sản phẩm theo từng bước một. Bạn có thể trì hoãn việc thực thi một số bước mà không làm ảnh hưởng đến sản phẩm cuối cùng. Bạn cũng có thể gọi đệ quy, điều này rất hữu ích khi bạn xây dựng đối tượng cây. Builder không để lộ sản phẩm khi đang thực hiện các bước tạo. Điều này tránh việc client code tìm nạp sản phẩm chưa hoàn chỉnh.
+⚡  Builder tạo sản phẩm theo từng bước một. Bạn có thể trì hoãn việc thực thi một số bước mà không làm ảnh hưởng đến sản phẩm cuối cùng. Bạn cũng có thể gọi đệ quy, điều này rất hữu ích khi bạn xây dựng đối tượng cây. Builder không để lộ sản phẩm khi đang thực hiện các bước tạo. Điều này tránh việc code client tìm nạp sản phẩm chưa hoàn chỉnh.
 
 ## 📋 Triển khai
 
@@ -258,7 +258,7 @@ Builder cho phép bạn xây dựng đối tượng từng bước, chỉ dùng 
 2. Khai báo các bước trong interface cơ sở Builder.
 3. Tạo lớp concrete builder cho từng biểu diễn sản phẩm và triển khai các bước khởi tạo của chúng. Đừng quên rằng việc triển khai phương thức để tìm nạp kết quả cho khởi tạo. Đó là lý do phương thức này không thể đặt trong interface Builder, vì các builder khác nhau có thể tạo ra các sản phẩm không cùng interface. Do đó bạn không biết kiểu trả về của phương thức. Tuy nhiên, nếu bạn đang xử lý các sản phẩm từ một hệ thống phân cấp, thì phương pháp tìm nạp có thể được thêm vào interface cơ sở một cách an toàn.
 4. Tạo lớp director. Nó bao gồm nhiều cách khác nhau để tạo sản phẩm trên cùng một đối tượng builder.
-5. Client code tạo ra cả đối tượng builder và director. Trước khi bắt đầu khởi tạo, client truyền đối tượng builder vào director, thông thường client chỉ làm một lần thông qua tham số của hàm khởi tạo director. Director sử dụng builder cho tất cả khởi tạo trong tương lai. Có một cách tiếp cận khác là builder chuyển trực tiếp đến phương thức constructor của director.
+5. Code client tạo ra cả đối tượng builder và director. Trước khi bắt đầu khởi tạo, client truyền đối tượng builder vào director, thông thường client chỉ làm một lần thông qua tham số của hàm khởi tạo director. Director sử dụng builder cho tất cả khởi tạo trong tương lai. Có một cách tiếp cận khác là builder chuyển trực tiếp đến phương thức constructor của director.
 6. Chỉ có thể nhận kết quả trực tiếp từ director nếu tất cả sản phẩm cùng theo một interface chung. Ngược lại thì phải nhận từ builder.
 
 ## ⚖️ Ưu nhược điểm

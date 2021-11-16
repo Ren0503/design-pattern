@@ -38,7 +38,7 @@ Ví dụ, cả hai lớp `Truck` và `Ship` đều được triển khai từ in
 
 ![solution3](./assets/solution3.png)
 
-Đoạn code sử dụng phương thức factory (thường được gọi là *client code*), không nhìn thấy sự khác biệt giữa những `product` trả về bởi các lớp con khác nhau. Client coi tất cả `product` là lớp trừu tượng **Transport**, đồng thời nó cũng biết các đối tượng transport phải có phương thức deliver. Nhưng chi tiết cách hoạt động thì nó không cần quan tâm.
+Đoạn code sử dụng phương thức factory (thường được gọi là *code client*), không nhìn thấy sự khác biệt giữa những `product` trả về bởi các lớp con khác nhau. Client coi tất cả `product` là lớp trừu tượng **Transport**, đồng thời nó cũng biết các đối tượng transport phải có phương thức deliver. Nhưng chi tiết cách hoạt động thì nó không cần quan tâm.
 
 ## 🏢 Cấu trúc
 
@@ -52,7 +52,7 @@ Ví dụ, cả hai lớp `Truck` và `Ship` đều được triển khai từ in
 
 ## 👨‍💻 Mã giả
 
-Ví dụ này minh hoạ cách phương thức Factory có thể sử dụng để tạo các phần tử UI đa nền tảng mà không cần ghép client code với lớp UI cụ thể.
+Ví dụ này minh hoạ cách phương thức Factory có thể sử dụng để tạo các phần tử UI đa nền tảng mà không cần ghép code client với lớp UI cụ thể.
 
 ![pseudocode](./assets/pseudocode.png)
 
@@ -134,7 +134,7 @@ class Application is
         else
             throw new Exception("Error! Unknown operating system.")
 
-    // Client code làm việc với thực thể của concrete creator,
+    // Code client làm việc với thực thể của concrete creator,
     // dù thông qua interface cơ sở. Miễn là client vẫn làm việc
     // creator thông qua interface, bạn có thể chuyển nó vào bất
     // kyf lớp con nào của creator.
@@ -163,7 +163,7 @@ Bây giờ hãy nghĩ về những việc phải làm với đối tượng hi�
 
 1. Bạn cần nơi để lưu trữ tất cả các đối tượng đã tạo.
 2. Khi ai đó yêu cầu một đối tượng, chương trình sẽ thực hiện tìm kiếm đối tượng đó trong pool.
-3. ...và trả về cho client code.
+3. ...và trả về cho code client.
 4. Nếu không có đối tượng, chương trình sẽ tạo ra một đối tượng mới (và thêm nó vào pool).
 
 Có khá nhiều code, và ta phải đặt chúng vào một nơi duy nhất để không rối chương trình do các đoạn code bị trùng.Có lẽ nơi rõ ràng và thuận tiện nhất mà code này có thể được đặt là tại hàm khởi tạo của lớp có các đối tượng mà ta đang cố gắng sử dụng lại. Tuy nhiên, một hàm khởi tạo luôn phải trả về các đối tượng mới theo định nghĩa. Nó không thể trả lại các phiên bản hiện có.
@@ -179,7 +179,7 @@ Do đó, bạn cần phải có một phương thức có khả năng tạo các
 3. Trong code creator tìm tất cả tham chiểu đến hàm khởi tạo product. Từng cái một, thay thế nó với lệnh gọi phương thức factory, trong khi trích xuất code tạo product vào phương thức factory. Bạn cần thêm tham số mẫu vào phương thức factory để điều khiển kiểu trả về của product.
 4. Bây giờ, tạo tập hợp lớp con của creator cho từng kiểu product trong phương thức factory. Ghi đề lên phương thức factory ở lớp con và trích xuất các bit phù hợp từ hàm khởi tạo với phương thức cơ sở.
 
-5. Nếu có quá nhiều kiểu product và nó không phù hợp tạo lớp con cho chúng, ta có thể tái sử dụng tham số điều khiển từ lớp cở sở ở lớp con. Ví dụ, bạn có một hệ thống phân cấp các lớp như sau: lớp cơ sở `Mail` với hai lớp con: `AirMail` và `GroundMail`; lớp `Transport` có `Plane`, `Truck` và `Train`. Trong khi lớp `AirMail` chỉ dùng đối tượng `Plane`, thì `GroundMail` làm việc với cả hai đối tượng `Truck` và `Train`. Bạn có thể tạo lớp con (tạm gọi `TrainMail`) để xử lý cả hai trường hợp, nhưng cũng có lựa chọn khác. Client code có thể gửi tham số vào phương thức factory của `GroundMail` để điều khiển kiểu product mà nó muốn nhận.
+5. Nếu có quá nhiều kiểu product và nó không phù hợp tạo lớp con cho chúng, ta có thể tái sử dụng tham số điều khiển từ lớp cở sở ở lớp con. Ví dụ, bạn có một hệ thống phân cấp các lớp như sau: lớp cơ sở `Mail` với hai lớp con: `AirMail` và `GroundMail`; lớp `Transport` có `Plane`, `Truck` và `Train`. Trong khi lớp `AirMail` chỉ dùng đối tượng `Plane`, thì `GroundMail` làm việc với cả hai đối tượng `Truck` và `Train`. Bạn có thể tạo lớp con (tạm gọi `TrainMail`) để xử lý cả hai trường hợp, nhưng cũng có lựa chọn khác. Code client có thể gửi tham số vào phương thức factory của `GroundMail` để điều khiển kiểu product mà nó muốn nhận.
 
 6. Sau cùng, nếu phương thức factory ở lớp cơ sở trống, bạn có thể chuyển nó thành trừu tượng(abstract). Nếu còn sót lại gì đó thì ta sẽ thiết lập đó là hành vi mặc định của phương thức.
 
@@ -191,7 +191,7 @@ Do đó, bạn cần phải có một phương thức có khả năng tạo các
 
  ✔️ *Single Responsibility Principle*. Bạn có thể di chuyển code tạo product vào một nơi trong chương trình, giúp code hỗ trợ dễ dàng hơn.
 
- ✔️  *Open/Closed Principle*. Bạn có thể thêm các kiểu product mới vào chương trình, mà không làm ảnh hưởng đến client code hiện tại.
+ ✔️  *Open/Closed Principle*. Bạn có thể thêm các kiểu product mới vào chương trình, mà không làm ảnh hưởng đến code client hiện tại.
 
 **Nhược điểm**
 

@@ -117,7 +117,7 @@ class Circle extends Shape is
         return new Circle(this)
 
 
-// Đâu đó trong client code.
+// Đâu đó trong code client.
 class Application is
     field shapes: array of Shape
 
@@ -163,7 +163,7 @@ class Application is
 
 ⚡ Chuyện này xảy ra khi bạn làm việc với đối tượng được truyền đến từ code bên thứ ba thông qua một vài interface. Các lớp cụ thể của đối tượng này là không xác định nên bạn không thể phụ thuộc nó, ngay cả khi muốn. 
 
-Pattern Prototype cung cấp cho client code một interface chung để làm việc với tất cả đối tượng hỗ trợ sao chép. Interface này giúp client code độc lập với lớp cụ thể từ đối tượng mà nó sao chép.
+Pattern Prototype cung cấp cho code client một interface chung để làm việc với tất cả đối tượng hỗ trợ sao chép. Interface này giúp code client độc lập với lớp cụ thể từ đối tượng mà nó sao chép.
 
 **🐞 Sử dụng Prototype khi bạn muốn giảm số lượng lớp con, chỉ khác nhau về cách chúng khởi tạo các đối tượng tương ứng**
 
@@ -178,7 +178,7 @@ Thay vì khởi tạo một lớp con phù hợp với một số cấu hình, c
 Nếu ngôn ngữ lập trình của bạn không hỗ trợ phương thức overloading, bạn phải định nghĩa phương thức đặc biệt cho sao chép đối tượng dữ liệu. Hàm khởi tạo là một nơi tiện lợi để làm điều này vì nó cung cấp kết quả đối tượng ngay sau khi bạn gọi toán tử mới.
 3. Phương thức sao chép thường chỉ bao gồm một dòng: chạy một toán tử mới với phiên bản prototype của hàm khởi tạo. Lưu ý rằng mọi lớp phải ghi đè(override) rõ ràng phương thức sao chép và sử dụng tên lớp của chính nó cùng với toán tử `new`. Nếu không, phương thức sao chép có thể tạo ra một đối tượng của lớp cha.
 4. Tuỳ chọn, tạo một prototype registry để lưu trữ một danh mục các prototype thường được sử dụng. 
-Bạn có thể triển khai registry như một lớp factory hoặc đặt nó vào một lớp prototype cơ sở với phương thức tĩnh cho tìm nạp prototype. Phương thức này tìm kiếm prototype dựa trên các tiêu chí tìm kiếm mà client code truyền đến phương thức. Tiêu chí có thể là một chuỗi đơn giản hoặc cũng có thể là một tập hợp các tham số tìm kiếm phức tạp. Sau khi tìm thấy prototype thích hợp, registry sẽ sao chép nó và trả lại bản sao cho client.
+Bạn có thể triển khai registry như một lớp factory hoặc đặt nó vào một lớp prototype cơ sở với phương thức tĩnh cho tìm nạp prototype. Phương thức này tìm kiếm prototype dựa trên các tiêu chí tìm kiếm mà code client truyền đến phương thức. Tiêu chí có thể là một chuỗi đơn giản hoặc cũng có thể là một tập hợp các tham số tìm kiếm phức tạp. Sau khi tìm thấy prototype thích hợp, registry sẽ sao chép nó và trả lại bản sao cho client.
 Cuối cùng, thay thế các lệnh gọi trực tiếp đến các hàm khởi tạo của lớp con bằng các lệnh gọi đến phương thức factory của prototype registry.
 
 ## ⚖️ Ưu nhược điểm

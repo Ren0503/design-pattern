@@ -32,7 +32,7 @@ Bước tiếp theo là khai báo *Abstract Factory* - là interface chứa tấ
 
 Vậy còn các biến thể của sản phẩm? Với từng biến thể của nhóm sản phẩm, ta tạo ra một lớp factory riêng biệt dựa trên interface **Abstract Factory**. Factory là lớp trả về kiểu sản phẩm riêng biệt. Ví dụ, `ModernFurnitureFactory` có thể tạo ra các đối tượng `ModernChair`, `ModernSofa` hay `ModernCoffeTable`.
 
-Client code làm việc với factory hay sản phẩm thông qua abstract interface. Thế nên bạn có thể thay đổi kiểu factory hay biến thể của sản phẩm cho client code nhận mà không gây ra bất kỳ lỗi gì.
+Code client làm việc với factory hay sản phẩm thông qua abstract interface. Thế nên bạn có thể thay đổi kiểu factory hay biến thể của sản phẩm cho code client nhận mà không gây ra bất kỳ lỗi gì.
 
 ![solution3](./assets/solution3.png)
 
@@ -48,23 +48,23 @@ Nếu bạn thắc mắc: client chỉ làm việc với Abstract interface, v�
 2. **Concrete Product** là các triển khai biến thể của abstract product, được gom nhóm theo biến thể. Mỗi abstract product (chair/sofa) sẽ được triển khai tất cả biến thể (modern, victorian).
 3. **Abstract Factory** là interface có tập hợp phương thức khởi tạo cho từng abstract product.
 4. **Concrete Factory** là triển khai phương thức khởi tạo của abstract factory. Mỗi concrete factory tương ứng với biến thể cụ thể của sản phẩm và chỉ tạo sản phẩm theo biến thể đó.
-5. Mặc dù concrete factory tạo ra các concrete product, nhưng chữ ký của phương thức khởi tạo trả về sẽ tương ứng với abstract product. Với cách này client code sử dụng factory sẽ không cần quan tâm tới biến thể cụ thể của sản phẩm từ factory. Nó có thể làm việc với bất kỳ biến thể nào miễn là giao tiếp với các đối tượng thông qua abstract interface.
+5. Mặc dù concrete factory tạo ra các concrete product, nhưng chữ ký của phương thức khởi tạo trả về sẽ tương ứng với abstract product. Với cách này code client sử dụng factory sẽ không cần quan tâm tới biến thể cụ thể của sản phẩm từ factory. Nó có thể làm việc với bất kỳ biến thể nào miễn là giao tiếp với các đối tượng thông qua abstract interface.
 
 ## 👨‍💻 Mã giả
 
-Ví dụ này minh hoạ cách Abstract Factory có thể sử dụng để tạo các phần tử UI đa nền tảng mà không cần ghép client code với lớp UI cụ thể, đồng thời giữ cho tất cả các phần tử được tạo nhất quán với hệ điều hành đã chọn
+Ví dụ này minh hoạ cách Abstract Factory có thể sử dụng để tạo các phần tử UI đa nền tảng mà không cần ghép code client với lớp UI cụ thể, đồng thời giữ cho tất cả các phần tử được tạo nhất quán với hệ điều hành đã chọn
 
 ![pseudocode](./assets/pseudocode.png)
 
 Các phần tử UI trên các ứng dụng đa nền tảng sẽ được triển khai giống nhau, sẽ có một chút khác biệt trên các hệ điều hành khác nhau. Hơn nữa, nhiệm vụ của bạn là đảm bảo style của các phần tử UI phù hợp với hệ điều hành hiện tại. Bạn sẽ không muốn chương trình hiển thị MacOS control khi được thực thi trên Windows.
 
-Abstract Factory sẽ khai báo tập hợp các phương thức khởi tạo mà client code có thể dùng để tạo các kiểu phần tử UI khác nhau. Concrete factory tương ứng với hệ điều hành cụ thể sẽ tạo ra các phần tử UI phù hợp với hệ điều hành đó.
+Abstract Factory sẽ khai báo tập hợp các phương thức khởi tạo mà code client có thể dùng để tạo các kiểu phần tử UI khác nhau. Concrete factory tương ứng với hệ điều hành cụ thể sẽ tạo ra các phần tử UI phù hợp với hệ điều hành đó.
 
 Nó hoạt động như sau: khi ứng dụng bắt đầu chạy, nó sẽ kiểm tra loại hệ điều hành hiện tại. Ứng dụng sẽ dùng thông tin đó để tạo ra một đối tượng factory từ lớp tương ứng với hệ điều hành. Các phần còn lại sẽ dùng factory để tạo ra phần tử UI. Điều này ngăn việc tạo các phần tử UI sai lệch.
 
-Với cách tiếp cận này, client code không phụ thuộc concrete class của factory hay phần tử UI, miễn là nó làm việc với các đối tượng thông qua abstract factory. Không những thế, client code còn hỗ trợ các factory khác và phần tử UI bạn thêm vào trong tương lai.
+Với cách tiếp cận này, code client không phụ thuộc concrete class của factory hay phần tử UI, miễn là nó làm việc với các đối tượng thông qua abstract factory. Không những thế, code client còn hỗ trợ các factory khác và phần tử UI bạn thêm vào trong tương lai.
 
-Như vậy bạn không cần chỉnh sửa client code mỗi lần thêm biến thể của phần tử UI trong ứng dụng. Bạn chỉ cần tạo một lớp factory mới tạo ra các phần tử này và sửa đổi một chút code khởi tạo để ứng dụng chọn lớp đó khi thích hợp.
+Như vậy bạn không cần chỉnh sửa code client mỗi lần thêm biến thể của phần tử UI trong ứng dụng. Bạn chỉ cần tạo một lớp factory mới tạo ra các phần tử này và sửa đổi một chút code khởi tạo để ứng dụng chọn lớp đó khi thích hợp.
 
 ```c
 // Interface Abstract Factory khai bao tập hợp phương thức
@@ -128,9 +128,9 @@ class MacCheckbox implements Checkbox is
         // Hiển thị checkbox trong MacOS
 
 
-// Client code làm việc với factory và sản phẩm chỉ thông qua
+// Code client làm việc với factory và sản phẩm chỉ thông qua
 // kiểu trừu tượng: GUIFactory, Button và Checkbox. Nó giúp bạn
-// chuyển bất kỳ lớp con của factory nào sang client code mà
+// chuyển bất kỳ lớp con của factory nào sang code client mà
 // không làm hỏng nó.
 class Application is
     private field factory: GUIFactory
@@ -184,11 +184,11 @@ class ApplicationConfigurator is
 
 ✔️ Bạn có thể chắc chắn rằng các sản phẩm lấy từ một factory sẽ tương thích với nhau.
 
-✔️ Tránh được kết hợp quá chặt chẽ giữa client code và concrete product.
+✔️ Tránh được kết hợp quá chặt chẽ giữa code client và concrete product.
 
 ✔️ Single Responsibility Principle. Bạn có thể di chuyển code tạo sản phẩm vào một nơi trong chương trình, giúp hỗ trợ code dễ dàng hơn.
 
-✔️ Open/Closed Principle. Bạn có thể thêm các biến thể mới vào chương trình, mà không làm ảnh hưởng đến client code hiện tại.
+✔️ Open/Closed Principle. Bạn có thể thêm các biến thể mới vào chương trình, mà không làm ảnh hưởng đến code client hiện tại.
 
 ### Nhược điểm
 
@@ -202,9 +202,9 @@ Các lớp **Abstract Factory** thường dựa trên một tập hợp các **F
 
 **Builder** tập trung vào việc xây dựng các đối tượng phức tạp theo từng bước. **Abstract Factory** chuyên tạo các nhóm đối tượng. **Abstract Factory** trả lại sản phẩm ngay lập tức, trong khi **Builder** cho phép bạn chạy một số bước xây dựng bổ sung trước khi tìm nạp sản phẩm.
 
-**Abstract Factory** có thể dùng như một giải pháp thay thế cho **Facade** khi bạn chỉ muốn ẩn cách các đối tượng hệ thống con được tạo ra khỏi client code.
+**Abstract Factory** có thể dùng như một giải pháp thay thế cho **Facade** khi bạn chỉ muốn ẩn cách các đối tượng hệ thống con được tạo ra khỏi code client.
 
-Bạn có thể sử dụng **Abstract Factory** cùng với **Bridge**. Việc ghép nối này rất hữu ích khi một số abstract được xác định bởi **Bridge** chỉ có thể hoạt động với các triển khai cụ thể. Trong trường hợp này, **Abstract Factory** có thể đóng gói các quan hệ này và ẩn sự phức tạp khỏi client code.
+Bạn có thể sử dụng **Abstract Factory** cùng với **Bridge**. Việc ghép nối này rất hữu ích khi một số abstract được xác định bởi **Bridge** chỉ có thể hoạt động với các triển khai cụ thể. Trong trường hợp này, **Abstract Factory** có thể đóng gói các quan hệ này và ẩn sự phức tạp khỏi code client.
 
 Tất cả các **Abstract Factory**, **Builder** và **Prototype** đều có thể được triển khai dưới dạng các **Singleton**.
 

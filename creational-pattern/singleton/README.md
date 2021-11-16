@@ -44,7 +44,7 @@ Chính phủ là một ví dụ điển hình của pattern Singleton. Mỗi qu�
 
 1. **Lớp Singleton** khai báo phương thức tĩnh `getInstance` để trả về cùng một thực thể của lớp đó.
 
-Hàm khởi tạo Singleton sẽ bị ẩn ở client code, gọi phương thức `getInstance` là cách duy nhất để lấy đối tượng Singleton.
+Hàm khởi tạo Singleton sẽ bị ẩn ở code client, gọi phương thức `getInstance` là cách duy nhất để lấy đối tượng Singleton.
 
 ## 👨‍💻 Mã giả
 
@@ -117,7 +117,7 @@ class Application is
 
 4. Thiết lập hàm khởi tạo riêng tư cho lớp. Phương thức tĩnh của lớp vẫn có thể gọi hàm khởi tạo nhưng không thể gọi đối tượng khác.
 
-5. Đi đến client code và thay thế tất cả lệnh gọi trực tiếp đến hàm khởi tạo singleton bằng cách lệnh gọi đến phương thức tĩnh.
+5. Đi đến code client và thay thế tất cả lệnh gọi trực tiếp đến hàm khởi tạo singleton bằng cách lệnh gọi đến phương thức tĩnh.
 
 ## ⚖️ Ưu nhược điểm
 
@@ -137,7 +137,7 @@ class Application is
 
 ❌ Pattern yêu cầu được xử lý đặc biệt trong môi trường đa luồng, để nhiều luồng sẽ không tạo ra một đối tượng Singleton nhiều lần.
 
-❌ Gặp khó khăn khi thực hiện unit test cho client code của Singleton, vì các framework test dựa trên kế thừa khi tạo ra các đối tượng giả. Vì hàm khởi tạo của lớp Singleton là private và việc ghi đè các phương thức tĩnh là không thể trong hầu hết các ngôn ngữ, nên bạn sẽ cần phải nghĩ ra một cách sáng tạo để mô phỏng lớp singleton. Hoặc chỉ không thực hiện test. Hoặc không sử dụng Singleton. 
+❌ Gặp khó khăn khi thực hiện unit test cho code client của Singleton, vì các framework test dựa trên kế thừa khi tạo ra các đối tượng giả. Vì hàm khởi tạo của lớp Singleton là private và việc ghi đè các phương thức tĩnh là không thể trong hầu hết các ngôn ngữ, nên bạn sẽ cần phải nghĩ ra một cách sáng tạo để mô phỏng lớp singleton. Hoặc chỉ không thực hiện test. Hoặc không sử dụng Singleton. 
 
 ## 🔁 Quan hệ với các pattern khác
 

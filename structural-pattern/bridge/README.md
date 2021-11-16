@@ -78,7 +78,7 @@ Lớp cơ sở của `Remote` khai báo trường tham chiếu liên kết với
 
 Bạn có thể phát triển lớp `Remote` độc lập với lớp `Device`. Tất cả những gì cần chỉ là tạo một lớp con remote mới. Ví dụ, điều khiển từ xa đơn gian chỉ có hai nút, bạn có thể mở rộng nó với các tính năng như pin dự phòng hay cảm ứng.
 
-Client code liên kết với remote mong muốn và đối tượng thiết bị cụ thể thông qua hàm khởi tạo của remote.
+Code client liên kết với remote mong muốn và đối tượng thiết bị cụ thể thông qua hàm khởi tạo của remote.
 
 ```c
 // "Abstraction" định nghĩa interface cho "control" của
@@ -135,7 +135,7 @@ class Radio implements Device is
     // ...
 
 
-// Đâu đó trong client code.
+// Đâu đó trong code client.
 tv = new Tv()
 remote = new RemoteControl(tv)
 remote.togglePower()
@@ -171,7 +171,7 @@ Nhân tiện, mục cuối cùng này là lý do chính khiến nhiều người
 4. Với tất cả nền tảng trong miền của bạn, tạo các lớp concrete implementation, đảm bảo rằng tất cả chúng theo interface implementation.
 5. Trong lớp abstraction, thêm trường tham chiếu cho kiểu implementation. Abstraction uỷ quyền hầu hất công việc cho đối tượng implementation có liên kết với trường đó.
 6. Nếu bạn có các logic cấp cao khác nhau, tạo refined abstraction cho từng biến thể được mở rộng bằng lớp abstraction cơ sở.
-7. Client code nên truyền đối tượng implementation vào hàm khởi tạo abstraction để liên kết một đối tượng này với đối tượng kia. Sau đó, client có thể quên đi implementation và chỉ làm việc với đối tượng abstraction.
+7. Code client nên truyền đối tượng implementation vào hàm khởi tạo abstraction để liên kết một đối tượng này với đối tượng kia. Sau đó, client có thể quên đi implementation và chỉ làm việc với đối tượng abstraction.
 
 ## ⚖️ Ưu nhược điểm
 
@@ -179,7 +179,7 @@ Nhân tiện, mục cuối cùng này là lý do chính khiến nhiều người
 
 ✔️ Bạn có thể tạo các lớp và ứng dụng độc lập với nền tảng.
 
-✔️ Client code hoạt động với abstraction cấp cao. Nó không hiển thị với các nền tảng chi tiết.
+✔️ Code client hoạt động với abstraction cấp cao. Nó không hiển thị với các nền tảng chi tiết.
 
 ✔️ *Open/Closed Principle* Bạn có thể giới thiệu abstraction và implementation mới một cách độc lập với nhau.
 
@@ -195,7 +195,7 @@ Nhân tiện, mục cuối cùng này là lý do chính khiến nhiều người
 
 **Bridge**, **State**, **Strategy** (và ở một mức độ nào đó là **Adapter**) có cấu trúc rất giống nhau. Thật vậy, tất cả các pattern này đều dựa trên bố cục là ủy thác công việc cho các đối tượng khác. Tuy nhiên, chúng giải quyết các vấn đề khác nhau. Một pattern không chỉ là một công thức để cấu trúc code của bạn theo một cách cụ thể. Nó còn có thể giao tiếp với các nhà phát triển khác về vấn đề mà pattern giải quyết.
 
-Bạn có thể sử dụng **Abstract Factory** cùng với **Bridge**. Việc ghép nối này rất hữu ích khi một số abstract được xác định bởi **Bridge** chỉ có thể hoạt động với các implementation cụ thể. Trong trường hợp này, **Abstract Factory** có thể đóng gói các quan hệ này và ẩn sự phức tạp khỏi client code.
+Bạn có thể sử dụng **Abstract Factory** cùng với **Bridge**. Việc ghép nối này rất hữu ích khi một số abstract được xác định bởi **Bridge** chỉ có thể hoạt động với các implementation cụ thể. Trong trường hợp này, **Abstract Factory** có thể đóng gói các quan hệ này và ẩn sự phức tạp khỏi code client.
 
 Bạn có thể kết hợp **Builder** với **Bridge**: lớp director đóng vai trò abstraction, trong khi các builder khác đóng vai trò implementation.
 

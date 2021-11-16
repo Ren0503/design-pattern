@@ -22,7 +22,7 @@ Vào một thời điểm nào đó, bạn nhận về góp ý là người dùn
 
 Nhưng lại có thêm một góp ý nữa là "Tại sao bạn không gửi nhiều kiểu thông báo cùng lúc? Nếu nhà bạn đang cháy, bạn có muốn nhận được thông tin từ mọi phương tiện không?"
 
-Bạn sẽ phải giải quyết thêm vấn đề này bằng cách tạo lớp con đặc biệt là kết hợp tất cả phương thức thông báo trong một lớp. Tuy nhiên, bạn sẽ nhanh chóng nhận ra là cách tiếp cận này làm cho code phình to lên, không chỉ là ở thư viện mà cả ở client code.
+Bạn sẽ phải giải quyết thêm vấn đề này bằng cách tạo lớp con đặc biệt là kết hợp tất cả phương thức thông báo trong một lớp. Tuy nhiên, bạn sẽ nhanh chóng nhận ra là cách tiếp cận này làm cho code phình to lên, không chỉ là ở thư viện mà cả ở code client.
 
 ![problem3](./assets/problem3.png)
 
@@ -51,11 +51,11 @@ Trong ví dụ thư viện thông báo, ta chỉ chuyển phương thức thông
 
 ![solution2](./assets/solution2.png)
 
-Client code chỉ cần bọc đối tượng notifier đơn giản vào tập hợp của decorato ứng với mong muốn client. Đối tượng kết quả sẽ có cấu trúc như một ngăn xếp.
+Code client chỉ cần bọc đối tượng notifier đơn giản vào tập hợp của decorato ứng với mong muốn client. Đối tượng kết quả sẽ có cấu trúc như một ngăn xếp.
 
 ![solution3](./assets/solution3.png)
 
-Decorator cuối cùng của ngăn xếp sẽ là đối tượng mà client thực sự làm việc. Vì tất cả decorator triển khai cùng interface, nên phần client code còn lại không quan tâm nó đang làm việc với đối tượng `notifier` thuần hay là decorator.
+Decorator cuối cùng của ngăn xếp sẽ là đối tượng mà client thực sự làm việc. Vì tất cả decorator triển khai cùng interface, nên phần code client còn lại không quan tâm nó đang làm việc với đối tượng `notifier` thuần hay là decorator.
 
 Ta có thể áp dụng cách tiếp cận này cho các hành vi khác như định dạng tin nhắn hoặc tạo danh sách người nhận. Client có thể tuỳ chỉnh đối tượng với bất kỳ decorator nào, miễn là nó theo cùng interface với những cái khác.
 
@@ -85,7 +85,7 @@ Trong ví dụ này, Decorator cho phép bạn nén và mã hóa dữ liệu nh�
 - Trước khi ghi dữ liệu vào ổ đĩa, decorator mã hoá và nén nó lại. Lớp gốc ghi dữ liệu - đã được mã hoá và bảo vệ - vào tệp mà không cần biết về bất kỳ thay đổi gì.
 - Sau khi dữ liệu được đọc từ ổ đĩa, nó đi đến cùng decorator, nơi giải nén và giải mã nó.
 
-Decorator và lớp nguồn dữ liệu triển khai cùng interface, điều này làm cho tất cả chúng có thể hoán đổi cho nhau trong client code.
+Decorator và lớp nguồn dữ liệu triển khai cùng interface, điều này làm cho tất cả chúng có thể hoán đổi cho nhau trong code client.
 
 ```c
 // Interface component xác định hành vi có thể
@@ -176,7 +176,7 @@ class Application is
         // File đã ghi dữ liệu được nén và mã hoá.
 
 
-// Lựa chọn 2. Client code sử dụng nguồn dữ liệu bên ngoài.
+// Lựa chọn 2. Code client sử dụng nguồn dữ liệu bên ngoài.
 // Đối tượng SalaryManager không biết và cũng không quan tâm
 // nơi lưu trữ dữ liệu cụ thể. Nó làm việc với nguồn dữ liệu
 // cấu hình trước từ ứng dụng.
@@ -213,7 +213,7 @@ class ApplicationConfigurator is
 
 **🐞 Sử dụng Decorator khi bạn cần thêm các hành vi bổ sung cho đối tượng khi đang chạy mà không làm ảnh hưởng đến code sử dụng đối tượng đó**
 
-⚡ Decorator cho phép bạn cấu trúc logic nghiệp vụ thành các lớp(layer), tạo decorator cho từng lớp và tạo đối tượng với các kết hợp khác nhau theo logic đấy khi đang chạy. Client code có thể xử lý mọi đối tượng giống nhau vì chúng theo cùng interface.
+⚡ Decorator cho phép bạn cấu trúc logic nghiệp vụ thành các lớp(layer), tạo decorator cho từng lớp và tạo đối tượng với các kết hợp khác nhau theo logic đấy khi đang chạy. Code client có thể xử lý mọi đối tượng giống nhau vì chúng theo cùng interface.
 
 **🐞 Sử dụng Decorator khi bạn cảm thấy khó khăn hoặc không thể mở rộng hành vi đối tượng bằng kế thừa**
 
@@ -227,7 +227,7 @@ class ApplicationConfigurator is
 4. Tạo lớp decorator cơ sở. Nó nên có trường lưu trữ tham chiếu đến các đối tượng được bọc. Trường này nên khai báo cùng kiểu interface component để cho phép liên kết đến concrete component cũng như các decorator. Decorator cơ sở sẽ uỷ thác tất cả công việc cho các đối tượng được bọc.
 5. Đảm bảo tất cả lớp triền khai theo interface component.
 6. Tạo concrete decorator bằng cách mở rộng nó từ decorator cơ sở. Concrete decorator phải thực thi hành vi của nó trước hoặc sau gọi đến phương thức cha (nơi lưu uỷ thác công việc cho đối tượng được bọc).
-7. Client code phải chịu trách nhiệm tạo decorator và soạn chúng khi cần sử dụng.
+7. Code client phải chịu trách nhiệm tạo decorator và soạn chúng khi cần sử dụng.
 
 ## ⚖️ Ưu nhược điểm
 

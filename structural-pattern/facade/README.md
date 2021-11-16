@@ -126,7 +126,7 @@ Ví dụ: hãy quay lại framework chuyển đổi video. Nó có thể đượ
 
 **Facade** định nghĩa một interface mới cho các đối tượng hiện có, trong khi **Adapter** cố gắng làm cho interface hiện có có thể sử dụng được. **Adapter** thường chỉ bọc một đối tượng, trong khi **Facade** hoạt động với toàn bộ hệ thống con của các đối tượng.
 
-**Abstract Factory** có thể dùng như một giải pháp thay thế cho **Facade** khi bạn chỉ muốn ẩn cách các đối tượng hệ thống con được tạo ra khỏi client code.
+**Abstract Factory** có thể dùng như một giải pháp thay thế cho **Facade** khi bạn chỉ muốn ẩn cách các đối tượng hệ thống con được tạo ra khỏi code client.
 
 **Flyweight** cho thấy cách tạo nhiều đối tượng nhỏ, trong khi **Facade** cho thấy cách tạo một đối tượng duy nhất đại diện cho toàn bộ hệ thống con.
 
