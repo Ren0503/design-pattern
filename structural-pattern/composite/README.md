@@ -145,13 +145,13 @@ class ImageEditor is
 
 ## 💡 Ứng dụng
 
-**Sử dụng Composite khi bạn muốn triển khai đối tượng có cấu trúc giống cây**
+**🐞 Sử dụng Composite khi bạn muốn triển khai đối tượng có cấu trúc giống cây**
 
-Pattern Composite cung cấp cho bạn hai kiểu phần tử đơn giản có interface chung: leaf đơn giản và container(composite) phức tạp. Container có thể bao gồm leaf và container khác. Nó giúp bạn khởi tạo các đối tượng có cấu trúc đệ quy lồng nhau giống cây.
+⚡ Pattern Composite cung cấp cho bạn hai kiểu phần tử đơn giản có interface chung: leaf đơn giản và container(composite) phức tạp. Container có thể bao gồm leaf và container khác. Nó giúp bạn khởi tạo các đối tượng có cấu trúc đệ quy lồng nhau giống cây.
 
-**Sử dụng Composite khi bạn muốn client code xử lý đồng nhất cả phần tử đơn giản và phức tạp**
+**🐞 Sử dụng Composite khi bạn muốn client code xử lý đồng nhất cả phần tử đơn giản và phức tạp**
 
-Tất cả phần tử được xác định với pattern Composite chia sẻ chung interface. Sử dụng interface này, client code không cần quan tâm đến lớp cụ thể mà đối tượng làm việc.
+⚡ Tất cả phần tử được xác định với pattern Composite chia sẻ chung interface. Sử dụng interface này, client code không cần quan tâm đến lớp cụ thể mà đối tượng làm việc.
 
 ## 📋 Triển khai
 
@@ -193,3 +193,7 @@ Bạn có thể triển khai các nút leaf chia sẻ của cây **Composite** d
 - Tuy nhiên, các pattern cũng có thể hợp tác: bạn có thể sử dụng **Decorator** để mở rộng hành vi của một đối tượng cụ thể trong cây **Composite**.
 
 Các thiết kế sử dụng nhiều **Composite** và **Decorator** thường có thể được hưởng lợi từ việc sử dụng Prototype. Áp dụng pattern cho phép bạn sao chép các cấu trúc phức tạp thay vì xây dựng lại chúng từ đầu.
+
+# Nguồn 
+
+[**refactoring**](https://refactoring.guru/design-patterns/composite)
