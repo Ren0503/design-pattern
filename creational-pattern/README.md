@@ -12,7 +12,7 @@ Cung cấp một interface cho tạo đối tượng ở lớp cha, nhưng cho p
 
 [![abstract-factory-mini](./assets/abstract-factory-mini.png)](./abstract-factory)
 
-Giúp bạn tạo các đối tượng có liên quan với nhau trong một nhóm mà không cần chỉ định lớp con cụ thể.
+Giúp bạn tạo các đối tượng có liên quan với nhau trong một nhóm mà không cần chỉ định đến lớp cụ thể của chúng.
 
 ## Builder
 
@@ -30,4 +30,4 @@ Giúp bạn sao chép một đối tượng mà code của bạn sẽ không ph�
 
 [![singleton-mini](./assets/singleton-mini.png)](./singleton)
 
- Đảm bảo ràng một lớp chỉ với một thực thế duy nhất, trong khi cung cấp điểm truy cập toàn cục cho thực thế đấy.
+ Đảm bảo ràng một lớp chỉ với một thực thể duy nhất, trong khi cung cấp điểm truy cập toàn cục cho thực thể đấy.

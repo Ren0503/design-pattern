@@ -13,6 +13,7 @@ Giả sử bạn đang có một đối tượng và bạn muốn tạo ra bản
 Hay lắm ! Nhưng nó có vấn đề. Không phải tất cả đối tượng đều có thể sao chép theo cách này vì có thể một vài trường của nó là riêng tư (private) và không thể truy cập từ bên ngoài đối tượng.
 
 ![problem](./assets/problem.png)
+
 *Copy đối tượng từ bên ngoài không phải lúc nào cũng tốt*
 
 Có nhiều hơn một vấn đề với cách tiếp cận này, là khi bạn biết lớp của đối tượng mà bạn tạo bản sao, code của bạn sẽ trở nên phụ thuộc vào lớp đó. Nếu điều này chưa làm bạn lo lắng thì còn một vấn đề nữa. Là thỉnh thoảng bạn chỉ biết interface của đối tượng, chứ không biết đến lớp cụ thể, khi đó tham số trong các phương thức của bạn sẽ chấp nhận bất kỳ đối tượng nào theo interface đấy.
@@ -45,7 +46,7 @@ Một ví dụ thực nữa của pattern này quá trình nguyên phân trong s
 
 ![structure1](./assets/structure1.png)
 
-1. **Prototype** interface khai báo phương thức sao chép. Trong đa số trường hợp, chỉ có một phương thức `clone`.
+1. **Prototype** là interface khai báo phương thức sao chép. Trong đa số trường hợp, nó chỉ có một phương thức `clone`.
 2. **Concrete Prototype** lớp triển khai phương thức sao chép. Ngoài việc sao chép dữ liệu của đối tượng ban đầu sang bản sao, phương pháp này cũng có thể xử lý một số trường hợp của quá trình sao chép liên quan đến việc sao chép các đối tượng được liên kết, gỡ rối các phụ thuộc đệ quy, ...
 3. **Client**  có thể tạo một bản sao của bất kỳ đối tượng nào theo interface prototype.
 
@@ -174,11 +175,17 @@ Thay vì khởi tạo một lớp con phù hợp với một số cấu hình, c
 ## 📋 Triển khai
 
 1. Tạo interface prototype và khai báo phương thức sao chép trong đó. Hoặc thêm phương thức vào tất cả các lớp của hệ phân cấp lớp, nếu bạn có.
+
 2. Lớp prototype phải định nghĩa hàm khởi tạo thay thế để chấp nhận đối tượng của lớp đó như một tham số. Hàm khởi tạo phải sao chép giá trị từ tất cả trường đã định nghĩa trong lớp từ đối tượng được truyền, vào đối tượng mới được tạo. Nếu bạn đang thay đổi một lớp con, bạn phải gọi hàm khởi tạo cha để cho phép lớp cha xử lý việc sao chép các trường riêng tư của nó.
-Nếu ngôn ngữ lập trình của bạn không hỗ trợ phương thức overloading, bạn phải định nghĩa phương thức đặc biệt cho sao chép đối tượng dữ liệu. Hàm khởi tạo là một nơi tiện lợi để làm điều này vì nó cung cấp kết quả đối tượng ngay sau khi bạn gọi toán tử mới.
-3. Phương thức sao chép thường chỉ bao gồm một dòng: chạy một toán tử mới với phiên bản prototype của hàm khởi tạo. Lưu ý rằng mọi lớp phải ghi đè(override) rõ ràng phương thức sao chép và sử dụng tên lớp của chính nó cùng với toán tử `new`. Nếu không, phương thức sao chép có thể tạo ra một đối tượng của lớp cha.
+
+    Nếu ngôn ngữ lập trình của bạn không hỗ trợ phương thức overloading, bạn phải định nghĩa phương thức đặc biệt cho sao chép đối tượng dữ liệu. Hàm khởi tạo là một nơi tiện lợi để làm điều này vì nó cung cấp kết quả đối tượng ngay sau khi bạn gọi toán tử `new`.
+
+3. Phương thức sao chép thường chỉ bao gồm một dòng: chạy một toán tử `new` với phiên bản prototype của hàm khởi tạo. Lưu ý rằng mọi lớp phải ghi đè(override) rõ ràng phương thức sao chép và sử dụng tên lớp của chính nó cùng với toán tử `new`. Nếu không, phương thức sao chép có thể tạo ra một đối tượng của lớp cha.
+
 4. Tuỳ chọn, tạo một prototype registry để lưu trữ một danh mục các prototype thường được sử dụng. 
-Bạn có thể triển khai registry như một lớp factory hoặc đặt nó vào một lớp prototype cơ sở với phương thức tĩnh cho tìm nạp prototype. Phương thức này tìm kiếm prototype dựa trên các tiêu chí tìm kiếm mà code client truyền đến phương thức. Tiêu chí có thể là một chuỗi đơn giản hoặc cũng có thể là một tập hợp các tham số tìm kiếm phức tạp. Sau khi tìm thấy prototype thích hợp, registry sẽ sao chép nó và trả lại bản sao cho client.
+
+    Bạn có thể triển khai registry như một lớp factory hoặc đặt nó vào một lớp prototype cơ sở với phương thức tĩnh cho tìm nạp prototype. Phương thức này tìm kiếm prototype dựa trên các tiêu chí tìm kiếm mà code client truyền đến phương thức. Tiêu chí có thể là một chuỗi đơn giản hoặc cũng có thể là một tập hợp các tham số tìm kiếm phức tạp. Sau khi tìm thấy prototype thích hợp, registry sẽ sao chép nó và trả lại bản sao cho client.
+    
 Cuối cùng, thay thế các lệnh gọi trực tiếp đến các hàm khởi tạo của lớp con bằng các lệnh gọi đến phương thức factory của prototype registry.
 
 ## ⚖️ Ưu nhược điểm

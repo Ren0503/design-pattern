@@ -8,20 +8,21 @@
 
 ## 😟 Vấn đề
 
-Hãy tưởng tượng một đối tượng phức tạp đòi hỏi nhiều công sức, phải tạo từng bước một với rất nhiều trường và các đối tượng lồng nhau. Các đoạn code khởi tạo như vậy sẽ nằm rất sâu trong hàm khởi tạo (constructor) khổng lồ với rất nhiều tham số. Hoặc tệ hơn là nó nằm rải rác trên các code client.
+Hãy tưởng tượng một đối tượng phức tạp đòi hỏi nhiều công sức, phải tạo từng bước một với rất nhiều trường và các đối tượng lồng nhau. Các đoạn code khởi tạo như vậy sẽ nằm rất sâu trong hàm khởi tạo (constructor) khổng lồ với rất nhiều tham số. Hoặc tệ hơn là nó nằm rải rác trên các đoạn code client.
 
 ![problem1](./assets/problem1.png)
 
-Ví dụ như làm thể nào để tạo một đối tượng `House`. Để xây dựng một ngôi nhà đơn giản, bạn cần tạo bốn bức tường, nền móng, cửa lớn, các cửa sổ phù hợp và mái nhà. Nhưng nếu sau này, bạn cần mở rộng nhà to hơn, sáng sủa hơn, với sân sau và những hệ thống tiên tiến như (hệ thống ống nước, hệ thống sưởi ấm, hệ thống dây điện)?
+Ví dụ như làm thế nào để tạo một đối tượng `House`. Để xây dựng một ngôi nhà đơn giản, bạn cần tạo bốn bức tường, nền móng, cửa lớn, các cửa sổ phù hợp và mái nhà. Nhưng nếu sau này, bạn cần mở rộng nhà to hơn, sáng sủa hơn, với sân sau và những hệ thống tiên tiến như (hệ thống ống nước, hệ thống sưởi ấm, hệ thống dây điện)?
 
 Giải pháp đơn giản nhất là mở rộng lớp cơ sở `House`, và tạo ra tập hợp lớp con để kết hợp tất cả các tham số. Nhưng điều này sẽ khiến bạn tạo ra một số lượng đáng kể lớp con, đồng thời với bất kỳ tham số mới nào, ví dụ như kiểu hiên nhà sẽ yêu cầu phát triển hệ phân cấp lớp nhiều hơn nữa.
 
 Lúc này cách tiếp cận khác tránh việc tạo nhiều lớp con. Là bạn có thể tạo một hàm khởi tạo (constructor) lớn trong lớp cơ sở `House` với tất cả tham số cần thiết để điều khiển đối tượng `House`. Cách này tuy có thể giải quyết vấn đề lớp con nhưng lại rơi vào vấn đề khác.
 
 ![problem2](./assets/problem2.png)
+
 *Nhược điểm của constructor nhiều tham số là không phải lúc nào cũng cần đến các tham số*
 
-Trong phần lớn trường hợp, các tham số của bạn sẽ không được dùng đến (unused), điều này làm cho *hàm khởi tạo của bạn rất tệ*. Ví dụ chỉ một phần trong nhà bạn có hồ bơi, thì những tham số liên quan đến hồ bơi sẽ vô dụng khoảng 90%.
+Trong phần lớn trường hợp, các tham số của bạn sẽ không được dùng đến, điều này làm cho *hàm khởi tạo của bạn rất tệ*. Ví dụ chỉ một phần trong nhà bạn có hồ bơi, thì những tham số liên quan đến hồ bơi sẽ vô dụng khoảng 90%.
 
 ## 😊 Giải pháp
 
@@ -34,7 +35,7 @@ Trong phần lớn trường hợp, các tham số của bạn sẽ không đư�
 Pattern khởi tạo đối tượng theo trật tự từng bước một (vd như `buildWalls`, `buildDoor`,...).
 Để tạo đối tượng, bạn thực thi một loạt các bước này trên đối tượng builder. Nhưng bạn không cần phải gọi đến tất các bước, mà chỉ cần gọi đến bước cần thiết để tạo cấu hình cụ thể của đối tượng.
 
-Một vài bước khởi tạo yêu cầu triển khai khác nhau, khi bạn cần biểu diễn các biến thể của sản phầm. Ví dụ: tường của một cabin sẽ được xây bằng gỗ, còn tường của một lâu đài sẽ được xây bằng đá.
+Một vài bước khởi tạo yêu cầu triển khai khác nhau, khi bạn cần biểu diễn các biến thể của sản phẩm. Ví dụ: tường của một cabin sẽ được xây bằng gỗ, còn tường của một lâu đài sẽ được xây bằng đá.
 
 Trong trường hợp đấy, ta cần tạo ra nhiều lớp builder khác nhau, để triển khai các bước xây dựng giống nhau nhưng khác về cách thức. Sau đó bạn sử dụng builder trong quá trình khởi tạo để tạo ta các kiểu đối tượng khác nhau.
 
@@ -48,7 +49,7 @@ Song điều này chỉ hoạt động khi code client gọi các lệnh khởi 
 
 Bạn có thể trích xuất một loạt lệnh gọi đến các bước của hàm khởi tạo, mà bạn sử dụng để xây dựng sản phẩm thành một lớp riêng biệt có tên là *director*.
 
-Lớp director xác định thứ tự thực thi của các bước xây dưng, trong khi builder cung cấp việc triển khai cho các bước đó.
+Lớp director xác định thứ tự thực thi của các bước xây dựng, trong khi builder cung cấp việc triển khai cho các bước đó.
 
 ![directory](./assets/directory.png)
 
@@ -60,7 +61,7 @@ Ngoài ra, lớp director sẽ ẩn hoàn toàn chi tiết khởi tạo của s�
 
 ![structure](./assets/structure.png)
 
-1. **Builder** interface khai báo các bước tạo sản phẩm chung cho tất cả loại builder.
+1. **Builder** là interface khai báo các bước tạo sản phẩm chung cho tất cả loại builder.
 2. **Concrete Builder** cung cấp các triển khai khác nhau cho các bước khởi tạo. Concrete Builder có thể tạo sản phẩm mà không cần theo interface chung.
 3. **Product** là đối tượng kết quả. Product được tạo bởi nhiều builder khác nhau không nhất thiết phải thuộc cùng một lớp phân cấp hay interface chung.
 4. **Director** lớp định nghĩa thứ tự gọi các bước khởi tạo. Vì vậy bạn có thể tạo và sử dụng cho cấu hình cụ thể của sản phẩm.
@@ -68,7 +69,7 @@ Ngoài ra, lớp director sẽ ẩn hoàn toàn chi tiết khởi tạo của s�
 
 ## 👨‍💻 Mã giả
 
-Đây là ví dụ minh hoạ cách pattern **Builder** sử dụng lại code tạo đối tượng khi xây các kiểu sản phẩm khác nhau, ví dụ như xe hơi và tạo các hướng dẫn sử dụng tương ứng.
+Đây là ví dụ minh hoạ cách pattern **Builder** sử dụng lại code tạo đối tượng khi xây dựng các kiểu sản phẩm khác nhau, ví dụ như xe hơi và tạo các hướng dẫn sử dụng tương ứng.
 
 ![pseudocode](./assets/pseudocode.png)
 
@@ -78,7 +79,7 @@ Nếu code client cần lắp ráp xe theo một mô hình đặc biệt, đư�
 
 Bạn có thể bị sốc nếu biết mọi chiếc xe đều có hướng dẫn sử dụng (hầu hết mọi người không đọc chúng :v). Hướng dẫn sử dụng là thứ mô tả mọi tính năng của chiếc xe đấy, vì vậy với các mẫu xe khác nhau sẽ có hướng dẫn sử dụng khác nhau. Đó là lý do bạn nên sử dụng cùng quy trình tạo cho chiếc xe và hướng dẫn sử dụng của nó. Dĩ nhiên, tạo hướng dẫn sử dụng không giống tạo một chiếc xe, đó là lý do ta cung cấp cho nó một lớp builder khác chuyên biệt cho việc tạo hướng dẫn sử dụng. Lớp này thực hiện các phương thức xây dựng tương tự như `CarBuilder`, nhưng thay vì chế tạo các bộ phận, nó chỉ mô tả chúng. Bằng cách truyền các builder vào cùng một đối tượng director, ta có thể tạo ra chiếc xe hay hướng dẫn sử dụng của nó.
 
-Cuối cùng là tìm nạp đối tượng kết quả. Một chiếc xe bằng kim loại và hướng dẫn sử dụng bằng giấy dù có quan hệ những vẫn rất khác nhau. Nên ta không thể đặt phương thức nạp kết quả trong director, vì nó không kết hợp với lớp concrete product. Do đó ta sẽ nhận về kết quả tạo từ builder.
+Cuối cùng là tìm nạp đối tượng kết quả. Một chiếc xe bằng kim loại và hướng dẫn sử dụng bằng giấy dù có quan hệ những vẫn rất khác nhau. Nên ta không thể đặt phương thức nạp kết quả trong director, vì nó không kết hợp với lớp product cụ thể. Do đó ta sẽ nhận về kết quả tạo từ builder.
 
 ```c
 // Sử dụng pattern Builder có ý nghĩa khi sản phẩm
@@ -138,7 +139,7 @@ class CarBuilder implements Builder is
     // truy xuất kết quả. Các kiểu builder khác nhau sẽ tạo 
     // ra sản phẩm hoàn chỉnh khác nhau mà không cần theo một
     // interface chung. Do đó, phương thức này không thể khai 
-    // báo ở interface Build (chí ít là với các ngôn ngữ lập
+    // báo ở interface builder (chí ít là với các ngôn ngữ lập
     // trình tĩnh.)
     //
     // Thông thường, sau khi nhận kết quả cuối cùng từ client,
@@ -207,7 +208,7 @@ class Director is
 
 
 // Code client tạo đối tượng builder, truyền nó vào director 
-// sau đó bắt đầu quá trình khởi tạo. Kêys quả cuối cùng được
+// sau đó bắt đầu quá trình khởi tạo. Kết quả cuối cùng được
 // truy xuất từ đối tượng builder.
 class Application is
 
@@ -224,7 +225,7 @@ class Application is
 
         // Sản phẩm cuối cùng thường được truy xuất từ đối
         // tượng builder vì director không nhận biết được
-        // concreate builders và sản phẩm.
+        // concreate builder và sản phẩm.
         Manual manual = builder.getProduct()
 ```
 
@@ -232,7 +233,7 @@ class Application is
 
 **🐞 Sử dụng Builder để loại bỏ các "hàm khởi tạo khổng lồ"** 
 
-⚡  Giả sử bạn có một phương thức khởi tạo với 10 tham số. Gọi một con "quái vật" như vậy là  rất bất tiện, nên bạn đã overload constructor để tạo ra nhiều phiên bản ít tham số hơn. Các constructor này vẫn tham chiếu đến cái chính, và truyền một số giá trị mặc định vào bất kỳ tham số nào bị bỏ qua.
+⚡  Giả sử bạn có một phương thức khởi tạo với 10 tham số. Gọi một con "quái vật" như vậy là rất bất tiện, nên bạn đã overload constructor để tạo ra nhiều phiên bản ít tham số hơn. Các constructor này vẫn tham chiếu đến cái chính, và truyền một số giá trị mặc định vào bất kỳ tham số nào bị bỏ qua.
 
 ```
 class Pizza {
@@ -242,7 +243,7 @@ class Pizza {
     // ...
 ```
 
-Builder cho phép bạn xây dựng đối tượng từng bước, chỉ dùng những bước bạn thực sự cần. Sau khi triển khai pattern bạn không cần nhồi nhét hàng ta tham số vào constructor.
+Builder cho phép bạn xây dựng đối tượng từng bước, chỉ dùng những bước bạn thực sự cần. Sau khi triển khai pattern bạn không cần nhồi nhét hàng tá tham số vào constructor.
 
 **🐞 Sử dụng Builder khi bạn muốn code của bạn tạo ra các sản phẩm có biểu diễn khác nhau (như nhà tường và nhà gỗ)**
 
@@ -255,10 +256,15 @@ Builder cho phép bạn xây dựng đối tượng từng bước, chỉ dùng 
 ## 📋 Triển khai
 
 1. Đảm bảo bạn đã xác định rõ ràng các bước khởi tạo để xây dựng tất cả sản phẩm khả dụng. Nếu không bạn không thể triển khai pattern này.
+
 2. Khai báo các bước trong interface cơ sở Builder.
+
 3. Tạo lớp concrete builder cho từng biểu diễn sản phẩm và triển khai các bước khởi tạo của chúng. Đừng quên rằng việc triển khai phương thức để tìm nạp kết quả cho khởi tạo. Đó là lý do phương thức này không thể đặt trong interface Builder, vì các builder khác nhau có thể tạo ra các sản phẩm không cùng interface. Do đó bạn không biết kiểu trả về của phương thức. Tuy nhiên, nếu bạn đang xử lý các sản phẩm từ một hệ thống phân cấp, thì phương pháp tìm nạp có thể được thêm vào interface cơ sở một cách an toàn.
+
 4. Tạo lớp director. Nó bao gồm nhiều cách khác nhau để tạo sản phẩm trên cùng một đối tượng builder.
+
 5. Code client tạo ra cả đối tượng builder và director. Trước khi bắt đầu khởi tạo, client truyền đối tượng builder vào director, thông thường client chỉ làm một lần thông qua tham số của hàm khởi tạo director. Director sử dụng builder cho tất cả khởi tạo trong tương lai. Có một cách tiếp cận khác là builder chuyển trực tiếp đến phương thức constructor của director.
+
 6. Chỉ có thể nhận kết quả trực tiếp từ director nếu tất cả sản phẩm cùng theo một interface chung. Ngược lại thì phải nhận từ builder.
 
 ## ⚖️ Ưu nhược điểm

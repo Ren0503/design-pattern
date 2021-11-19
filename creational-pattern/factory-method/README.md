@@ -16,7 +16,7 @@ Sau đó ứng dụng của bạn ngày càng phổ biến và bạn nhận đư
 
 *Việc thêm một lớp mới vào ứng dụng không hề đơn giản nếu phần lớn code đã được kết nối với các lớp hiện có.*
 
-Hiện tại hầu hết code của bạn đã được ghép với class `Truck`. Việc thêm `Ship` vào ứng dụng sẽ yêu cầu các thay đổi với toàn bộ codebase. Và nếu bạn thêm một phương tiện vận tải nào nữa vào ứng dụng, thì bạn sẽ thay đổi code lần nữa.
+Hiện tại hầu hết code của bạn đã được ghép với lớp `Truck`. Việc thêm `Ship` vào ứng dụng sẽ yêu cầu các thay đổi với toàn bộ codebase. Và nếu bạn thêm một phương tiện vận tải nào nữa vào ứng dụng, thì bạn sẽ thay đổi code lần nữa.
 
 Kết quả là bạn có một đống code tạp nham với rất nhiều điều kiện thay đổi của ứng dụng tùy thuộc vào loại đối tượng vận chuyển.
 
@@ -38,7 +38,7 @@ Ví dụ, cả hai lớp `Truck` và `Ship` đều được triển khai từ in
 
 ![solution3](./assets/solution3.png)
 
-Đoạn code sử dụng phương thức factory (thường được gọi là *code client*), không nhìn thấy sự khác biệt giữa những `product` trả về bởi các lớp con khác nhau. Client coi tất cả `product` là lớp trừu tượng **Transport**, đồng thời nó cũng biết các đối tượng transport phải có phương thức deliver. Nhưng chi tiết cách hoạt động thì nó không cần quan tâm.
+Đoạn code sử dụng phương thức factory (thường được gọi là *code client*), không nhìn thấy sự khác biệt giữa những `product` trả về bởi các lớp con khác nhau. Client coi tất cả `product` là lớp trừu tượng **Transport**, đồng thời nó cũng biết các đối tượng transport phải có phương thức `deliver`. Nhưng chi tiết cách hoạt động thì nó không cần quan tâm.
 
 ## 🏢 Cấu trúc
 
@@ -58,9 +58,9 @@ Ví dụ này minh hoạ cách phương thức Factory có thể sử dụng đ�
 
 Lớp dialog cơ sở dùng hiển thị các phần tử UI khác nhau cho hiển thị cửa sổ. Dưới các hệ điều hành khác nhau, các phần tử này có thể có vài khác biệt nhỏ, song nó vẫn phải đồng nhất. Button trên Window vẫn là button trên Linux.
 
-Khi sử dụng phương thức factory, bạn không cần viết lại các logic cho dialog vớI từng hệ điều hành. Nếu ta khai báo phương thức factory để tạo button trong lớp dialog, sau này ta có thể tạo các lớp con trả về button kiểu Windows từ phương thức factory. Lớp con sau đó sẽ kế thừa phần lớn code dialog từ lớp cơ sở, nhờ vào phương thức factory ta có thể hiện thị các button trông giống như window trên màn hình.
+Khi sử dụng phương thức factory, bạn không cần viết lại các logic cho dialog vớI từng hệ điều hành. Nếu ta khai báo phương thức factory để tạo button trong lớp dialog, sau này ta có thể tạo các lớp con trả về button kiểu Windows từ phương thức factory. Lớp con sau đó sẽ kế thừa phần lớn code của dialog từ lớp cơ sở, nhờ vào phương thức factory ta có thể hiển thị các button kiểu window trên màn hình.
 
-Với pattern này khi làm việc, các lớp cơ sở dialog phải làm việc với button trừu tượng: lớp trừu tượng hoặc interface cho tất cả concrete button. Theo cách này, đoạn code còn lại của dialog vẫn hoạt động, dù phải làm việc với bất kỳ kiểu button nào.
+Với pattern này khi làm việc, các lớp dialog cơ sở phải làm việc với button trừu tượng: lớp cơ sở hoặc interface cho tất cả concrete button. Theo cách này, đoạn code còn lại của dialog vẫn hoạt động, dù phải làm việc với bất kỳ kiểu button nào.
 
 Tất nhiên, bạn có thể dùng cách này cho các phần tử UI khác. Tuy nhiên, với mỗi phương thức factory mà bạn thêm vào diago, ta sẽ dần tiến đến Abstract Factory pattern. Ta sẽ nói về pattern này ở các bài viết sau.
 
@@ -79,7 +79,7 @@ class Dialog is
     // của nó là tạo product. Nó được dùng để chứa nhưng logic 
     // nghiệp vụ cốt lõi dựa trên đối tượng product trả về từ phương
     // thức factory. Các lớp con có thể gián tiếp thay đổi logic
-    // bằng cách override lên phương thức factory và trả về kiểu 
+    // bằng cách ghi đè lên phương thức factory và trả về kiểu 
     // product khác từ nó.
     method render() is
         // Gọi phương thức factory để tạo đối tượng product.
@@ -116,7 +116,7 @@ class HTMLButton implements Button is
     method render(a, b) is
         // Trả về biểu diễn HTML của button.
     method onClick(f) is
-        // Đánh dấu sự kiến click trên trình duyệt.
+        // Đánh dấu sự kiện click trên trình duyệt.
 
 
 class Application is
@@ -135,9 +135,9 @@ class Application is
             throw new Exception("Error! Unknown operating system.")
 
     // Code client làm việc với thực thể của concrete creator,
-    // dù thông qua interface cơ sở. Miễn là client vẫn làm việc
+    // thông qua interface cơ sở. Miễn là client vẫn làm việc với
     // creator thông qua interface, bạn có thể chuyển nó vào bất
-    // kyf lớp con nào của creator.
+    // kỳ lớp con nào của creator.
     method main() is
         this.initialize()
         dialog.render()
@@ -145,7 +145,7 @@ class Application is
 
 ## 💡 Ứng dụng
 
-🐞 **Sử dụng phương thức Factory khi bạn không biết chính xác kiểu và dependencies của đối tượng mà code bạn sẽ làm việc**
+🐞 **Sử dụng phương thức Factory khi bạn không biết chính xác kiểu và phụ thuộc của đối tượng mà code bạn sẽ làm việc**
 
 ⚡ Phương pháp Factory phân tách code khởi tạo product với code sử dụng lại product. Do đó việc mở rộng code khởi tạo product với phần code còn lại sẽ dễ dàng hơn.
 
@@ -166,18 +166,19 @@ Bây giờ hãy nghĩ về những việc phải làm với đối tượng hi�
 3. ...và trả về cho code client.
 4. Nếu không có đối tượng, chương trình sẽ tạo ra một đối tượng mới (và thêm nó vào pool).
 
-Có khá nhiều code, và ta phải đặt chúng vào một nơi duy nhất để không rối chương trình do các đoạn code bị trùng.Có lẽ nơi rõ ràng và thuận tiện nhất mà code này có thể được đặt là tại hàm khởi tạo của lớp có các đối tượng mà ta đang cố gắng sử dụng lại. Tuy nhiên, một hàm khởi tạo luôn phải trả về các đối tượng mới theo định nghĩa. Nó không thể trả lại các phiên bản hiện có.
+Có khá nhiều code, và ta phải đặt chúng vào một nơi duy nhất để không rối chương trình do các đoạn code có thể bị trùng. Có lẽ nơi rõ ràng và thuận tiện nhất mà code này có thể được đặt là tại hàm khởi tạo của lớp có các đối tượng mà ta đang cố gắng sử dụng lại. Tuy nhiên, một hàm khởi tạo luôn phải trả về các đối tượng mới theo định nghĩa. Nó không thể trả lại các phiên bản hiện có.
 
 Do đó, bạn cần phải có một phương thức có khả năng tạo các đối tượng mới cũng như sử dụng lại các đối tượng hiện có. Và đó chính là phương thức Factory.
 
 ## 📋 Triển khai
 
-1. Tạo tất cả product theo cùng một interface. Interface này nên khai bao phương thức có ý nghĩa với tất cả product.
+1. Tạo tất cả product theo cùng một interface. Interface này nên khai báo phương thức có ý nghĩa với tất cả product.
 
 2. Thêm phương thức factory trống vào lớp creator. Kiểu trả về của phương thức nên tương ứng với interface product chung.
 
-3. Trong code creator tìm tất cả tham chiểu đến hàm khởi tạo product. Từng cái một, thay thế nó với lệnh gọi phương thức factory, trong khi trích xuất code tạo product vào phương thức factory. Bạn cần thêm tham số mẫu vào phương thức factory để điều khiển kiểu trả về của product.
-4. Bây giờ, tạo tập hợp lớp con của creator cho từng kiểu product trong phương thức factory. Ghi đề lên phương thức factory ở lớp con và trích xuất các bit phù hợp từ hàm khởi tạo với phương thức cơ sở.
+3. Trong code creator tìm tất cả tham chiếu đến hàm khởi tạo product. Từng cái một, thay thế nó với lệnh gọi phương thức factory, trong khi trích xuất code tạo product vào phương thức factory. Bạn cần thêm tham số mẫu vào phương thức factory để điều khiển kiểu trả về của product.
+
+4. Bây giờ, tạo tập hợp lớp con của creator cho từng kiểu product trong phương thức factory. Ghi đè lên phương thức factory ở lớp con và trích xuất các bit phù hợp từ hàm khởi tạo với phương thức cơ sở.
 
 5. Nếu có quá nhiều kiểu product và nó không phù hợp tạo lớp con cho chúng, ta có thể tái sử dụng tham số điều khiển từ lớp cở sở ở lớp con. Ví dụ, bạn có một hệ thống phân cấp các lớp như sau: lớp cơ sở `Mail` với hai lớp con: `AirMail` và `GroundMail`; lớp `Transport` có `Plane`, `Truck` và `Train`. Trong khi lớp `AirMail` chỉ dùng đối tượng `Plane`, thì `GroundMail` làm việc với cả hai đối tượng `Truck` và `Train`. Bạn có thể tạo lớp con (tạm gọi `TrainMail`) để xử lý cả hai trường hợp, nhưng cũng có lựa chọn khác. Code client có thể gửi tham số vào phương thức factory của `GroundMail` để điều khiển kiểu product mà nó muốn nhận.
 
