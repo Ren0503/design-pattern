@@ -30,7 +30,7 @@ Mặt khác của vấn đề: bạn không muốn code giải quyết vấn đ�
 
 Tất cả triển khai của Singelton đều có hai bước chung là:
 - Mặc định các hàm khởi tạo là riêng tư, để tránh các đối tượng khác sử dụng toán từ `new` với lớp Singleton.
-- Tạo mội phương thức tĩnh hoạt động như một hàm khởi tạo. Bên dưới phương thức này, sẽ gọi đến hàm khởi tạo riêng tư để tạo một đối tượng và lưu nó vào một trường tĩnh. Tất cả lệnh gọi theo sao phương thức này trả về một đối tượng cache.
+- Tạo một phương thức tĩnh hoạt động như một hàm khởi tạo. Bên dưới phương thức này, sẽ gọi đến hàm khởi tạo riêng tư để tạo một đối tượng và lưu nó vào một trường tĩnh. Tất cả lệnh gọi theo sau phương thức này trả về một đối tượng cache.
 
 Nếu code của bạn có quyền truy cập vào lớp Singleton thì nó có thể gọi phương thức tĩnh của Singleton. Vì vậy, bất cứ khi nào phương thức đó được gọi, sẽ có cùng một đối tượng được trả về.
 
@@ -60,10 +60,10 @@ class Database is
     private static field instance: Database
 
     // Hàm khởi tạo singleton luôn luôn là riêng tư
-    // để trách khởi tạo trực tiếp với toán từ `new`.
+    // để trách khởi tạo trực tiếp với toán tử `new`.
     private constructor Database() is
         // Một vài code khởi tạo ở đây, như là
-        // kết nối đến server cơ sở dữ liệu.
+        // kết nối đến server của cơ sở dữ liệu.
 
     // Phương thức tĩnh điều khiển truy cập đến thực thể
     // singleton.
@@ -117,7 +117,7 @@ class Application is
 
 4. Thiết lập hàm khởi tạo riêng tư cho lớp. Phương thức tĩnh của lớp vẫn có thể gọi hàm khởi tạo nhưng không thể gọi đối tượng khác.
 
-5. Đi đến code client và thay thế tất cả lệnh gọi trực tiếp đến hàm khởi tạo singleton bằng cách lệnh gọi đến phương thức tĩnh.
+5. Đi đến code client và thay thế tất cả lệnh gọi trực tiếp đến hàm khởi tạo singleton bằng cách gọi đến phương thức khởi tạo tĩnh.
 
 ## ⚖️ Ưu nhược điểm
 
@@ -137,7 +137,7 @@ class Application is
 
 ❌ Pattern yêu cầu được xử lý đặc biệt trong môi trường đa luồng, để nhiều luồng sẽ không tạo ra một đối tượng Singleton nhiều lần.
 
-❌ Gặp khó khăn khi thực hiện unit test cho code client của Singleton, vì các framework test dựa trên kế thừa khi tạo ra các đối tượng giả. Vì hàm khởi tạo của lớp Singleton là private và việc ghi đè các phương thức tĩnh là không thể trong hầu hết các ngôn ngữ, nên bạn sẽ cần phải nghĩ ra một cách sáng tạo để mô phỏng lớp singleton. Hoặc chỉ không thực hiện test. Hoặc không sử dụng Singleton. 
+❌ Gặp khó khăn khi thực hiện unit test cho code client của Singleton, vì các framework test dựa trên kế thừa khi tạo ra các đối tượng giả. Và hàm khởi tạo của lớp Singleton là private cùng với việc ghi đè các phương thức tĩnh là không thể trong hầu hết các ngôn ngữ, nên bạn sẽ cần phải nghĩ ra một cách sáng tạo để mô phỏng lớp singleton. Hoặc chỉ không thực hiện test. Hoặc không sử dụng Singleton. 
 
 ## 🔁 Quan hệ với các pattern khác
 
