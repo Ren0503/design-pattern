@@ -41,7 +41,7 @@ Khi adapter nhận được một lệnh gọi, nó sẽ dịch dữ liệu XML 
 
 ![analogy](./assets/analogy.png)
 
-Khi bạn đi du lịch từ Mỹ đến châu Âu lần đầu tiên, bạn có thể sẽ sốc khi sạc laptop của mình. Vì chuẩn ổ cắm và nguồn điện của các quốc gia khác nhau sẽ khác nhau. Đó là lý do tại sao phích cắm Hoa Kỳ sẽ không phù hợp với ổ cắm ở Đức. Vấn đề có thể được giải quyết bằng cách sử dụng bộ chuyển đổi có ổ cắm kiểu Mỹ và phích cắm kiểu châu Âu.
+Khi bạn đi du lịch từ Mỹ đến châu Âu lần đầu tiên, bạn có thể sẽ sốc khi sạc laptop của mình. Vì chuẩn ổ cắm và nguồn điện của các quốc gia khác nhau sẽ khác nhau. Đó là lý do tại sao phích cắm Hoa Kỳ sẽ không phù hợp với ổ cắm ở Đức. Vấn đề có thể được giải quyết bằng cách sử dụng bộ chuyển đổi có ổ cắm kiểu Hoa Kỳ và phích cắm kiểu châu Âu.
 
 ## 🏢 Cấu trúc
 
@@ -55,7 +55,7 @@ Việc triển khai này sử dụng nguyên tắc cấu thành đối tượng:
 2. **Client Interface** mô tả giao thức mà các lớp khác phải theo để có thể cộng tác với code client.
 3. **Service** là một vài lớp hữu ích (thường là bên thứ 3 hoặc kế thừa). Client không thể sử dụng trực tiếp vì không tương thích interface.
 4. **Adapter** là lớp có thể làm việc với cả client và service. Nó triển khai client interface trong khi bọc đối tượng service. Adapter nhận cuộc gọi từ client thông qua adapter interface và dịch nó, sau đó nó gọi lại đối tượng service được bọc dưới định dạnh service có thể hiểu được.
-5. Code client không cần phải ghép với lớp adapter cụ thể miễn là nó làm việc với adapter thông qua client interface. Nhờ điều đó, bạn có thể giới thiệu kiểu adapter mới vào chương trình mà không ảnh hưởng đến code client. Điều này có thể hữu ích khi interface của lớp service có thay đổi: bạn có thể tạo lớp adapter mới mà không cần thay đổi code client.
+5. Code client không cần phải ghép với lớp adapter cụ thể miễn là nó làm việc với adapter thông qua client interface. Nhờ điều đó, bạn có thể thêm kiểu adapter mới vào chương trình mà không ảnh hưởng đến code client. Điều này có thể hữu ích khi interface của lớp service có thay đổi: bạn có thể tạo lớp adapter mới mà không cần thay đổi code client.
 
 ### Lớp adapter
 
@@ -139,7 +139,7 @@ hole.fits(large_sqpeg_adapter) // false
 
 ⚡ Adapter cho phép bạn tạo một lớp trung gian đóng vai trò như một trình dịch giữa code của bạn và lớp kế thừa, lớp của bên thứ 3 hoặc bất kỳ lớp nào khác có interface không tương thích.
 
-**🐞 Sử dụng Adapter khi bạn muốn sử dụng lại các lớp con hiện con nhưng thiếu một số hàm chung không thể thêm vào lớp cha**
+**🐞 Sử dụng Adapter khi bạn muốn sử dụng lại các lớp con hiện có nhưng thiếu một số hàm chung không thể thêm vào lớp cha**
 
 ⚡ Bạn có thể mở rộng từng lớp con và đưa hàm còn thiếu vào các lớp con mới. Tuy nhiên, bạn sẽ cần phải sao chép code trên tất cả các lớp mới này, điều này khá tệ.
 
@@ -150,10 +150,15 @@ Giải pháp tốt hơn là đưa các hàm bị thiếu vào lớp adapter. Sau
 1. Chắc chắn rằng bạn có ít nhất hai lớp với interface không tương thích:
     - Lớp service, bạn không thể thay đổi (như bên thứ 3 hay kế thừa)
     - Một hoặc nhiều lớp client sẽ có ích khi sử dụng lớp service.
+
 2. Khai báo client interface và mô tả cách client giao tiếp với service.
-3. Tạo lớp adapter và theo client interface. Để trống tất cả phương thức ngay bây giờ.
+
+3. Tạo lớp adapter theo client interface. Để trống tất cả phương thức ngay bây giờ.
+
 4. Thêm trường vào lớp adapter để lưu trữ tham chiếu đến đối tượng service. Cách phổ biến là tạo trường này thông qua hàm khởi tạo, nhưng đôi khi truyền nó cho adapter khi gọi các phương thức của nó sẽ thuận tiện hơn.
+
 5. Từng cái một, triển khai tất cả phương thức của client interface trong lớp adapter. Adapter nên uỷ thác phần lớp phần lớn công việc thực cho đối tượng service, chỉ xử lý interface hoặc chuyển đổi định dạng dữ liệu. 
+
 6. Client nên sử dụng adapter thông qua client interface. Điều này giúp bạn thay đổi hoặc mở rộng adapter không ảnh hưởng đến code client.
 
 ## ⚖️ Ưu nhược điểm

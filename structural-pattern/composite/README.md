@@ -12,7 +12,7 @@ Sử dụng pattern Composite chỉ hợp lý khi mô hình cốt lõi của ứ
 
 Ví dụ, tưởng tượng bạn có hai loại đối tượng: `Product` và `Box`. `Box` có thể bao gồm nhiều `Product` và một số lượng `Box` nhỏ hơn.Các hộp nhỏ hơn đó có thể bao gồm `Product` hoặc `Box` nhỏ hơn khác nữa.
 
-Khi bạn định tạo một hệ thống đặt hàng sử dụng các lớp đấy. Đơn hàng (`Order`) có thể bao gồm một sản phẩm đơn giản không bị bọc, cũng có thể là một cái hộp dựng sản phẩm và các hộp khác.
+Khi bạn định tạo một hệ thống đặt hàng sử dụng các lớp đấy. Đơn hàng (`Order`) có thể bao gồm một sản phẩm đơn giản không bị bọc, cũng có thể là một cái hộp đựng sản phẩm và các hộp khác.
 Vậy làm thế nào để bạn tính tổng giá trị của đơn hàng?
 
 ![problem](./assets/problem.png)
@@ -23,7 +23,7 @@ Bạn có thể giải quyết trực tiếp: mở tất cả các hộp và c�
 
 Pattern Composite cho bạn ý tưởng là làm việc với `Product` và `Box` qua một interface chung, interface này đã khai báo phương thức tính tổng giá tiền.
 
-Vậy phương thức này vận hành thế nào ? Với sản phẩm, rất đơn giản để trả về giá tiền của sản phẩm đó. Với hộp, nó sẽ đi qua tất cả thành phần trong hộp, lấy giá tiền và trả về tổng giá cho hộp. Nếu một thành phần là hộp nhỏ hơn, hộp đấy sẽ bất đầu đi qua các thành phần trong đó, cho đến tính xong giá của tất cả thành phẩn bên trong nó. Một hộp thậm chí có thể thêm một số chi phí bổ sung vào giá cuối cùng, chẳng hạn như chi phí đóng gói. 
+Vậy phương thức này vận hành thế nào ? Với sản phẩm, rất đơn giản để trả về giá tiền của sản phẩm đó. Với hộp, nó sẽ đi qua tất cả thành phần trong hộp, lấy giá tiền và trả về tổng giá cho hộp. Nếu một thành phần là hộp nhỏ hơn, hộp đấy sẽ bất đầu đi qua các thành phần trong đó, cho đến tính xong giá của tất cả thành phần bên trong nó. Một hộp thậm chí có thể thêm một số chi phí bổ sung vào giá cuối cùng, chẳng hạn như chi phí đóng gói. 
 
 ![solution](./assets/solution.png)
 
@@ -41,7 +41,7 @@ Quân đội của hầu hết quốc gia đều có cấu trúc như cây phân
 
 ![structure](./assets/structure.png)
 
-1. **Component** interface khai báo hoạt động chung cho cả phần tử phức tạp và đơn giản của cây.
+1. **Component** là interface khai báo hoạt động chung cho cả phần tử phức tạp và đơn giản của cây.
 2. **Leaf** là phần tử cơ bản của cây, không bao gồm bất kỳ phần tử con nào. Thông thường, các thành phần leaf thực hiện hầu hết các công việc thực, vì chúng không có bất kỳ ai để ủy thác.
 3. **Container** (hoặc composite-phức hợp) là một phần tử có các phần tử con là leaf hoặc các container khác. Một container không biết các lớp cụ thể của các lớp con của nó. Nó chỉ hoạt động với tất cả các phần tử con thông qua interface component.
 4. **Client** làm việc với tất cả các phần tử thông qua interface component. Do đó, client có thể làm việc theo cùng một cách với cả các phần tử đơn giản hoặc phức tạp của cây.
@@ -156,10 +156,14 @@ class ImageEditor is
 ## 📋 Triển khai
 
 1. Đảm bảo rằng mô hình cốt lõi của ứng dụng có thể biểu diễn cấu trúc cây. Cố gắng chia nhỏ thành các phần tử đơn giản và container. Nhớ là container có thể bao gồm cả phần tử đơn giản và container khác.
+
 2. Khai báo interface component với danh sách phương thức hợp lý cho cả component đơn giản và phức tạp.
+
 3. Tạo lớp leaf để biểu diễn phần tử đơn giản. Chương trình có thể có nhiều lớp leaf khác nhau.
-4. Tại lớp container biểu diễn phần tử phức tạp. Trong lớp này, cung cấp mảng để lưu trữ tham chiếu đến phần tử. Mảng có thể lưu cả leaf và container khác, chắc chắn rằng nó được khai bao với kiểu interface component.
+
+4. Tại lớp container biểu diễn phần tử phức tạp. Trong lớp này, cung cấp mảng để lưu trữ tham chiếu đến phần tử. Mảng có thể lưu cả leaf và container khác, chắc chắn rằng nó được khai báo với kiểu interface component.
 Trong khi triển khai phương thức của interface component, hãy nhớ container thường uỷ thác phần lớn công việc cho phần tử con.
+
 5. Cuối cùng định nghĩa phương thức thêm và xoá phần tử con ở container. Hãy ghi nhớ rằng các hoạt động có thể khai báo ở interface component. Điều này sẽ vi phạm *Nguyên tắc Phân tách Interface* vì phương thức sẽ trống trong lớp leaf. Tuy nhiên, client sẽ xử lý tất cả phần tử như nhau, khi cấu thành cây.
 
 ## ⚖️ Ưu nhược điểm
