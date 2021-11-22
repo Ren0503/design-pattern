@@ -108,8 +108,8 @@ abstract class Component implements ComponentWithContextualHelp is
 
 
 // Container có thể bao gồm thành phần đơn giản hoặc container khác.
-// Chuỗi quan hệ được thiết lập ở đây. Lớp `showHelp` kế thừa hành
-// vì từ cha của nó.
+// Chuỗi quan hệ được thiết lập ở đây. Lớp kế thừa hành vi `showHelp`
+// từ cha của nó.
 abstract class Container extends Component is
     protected field children: array of Component
 
