@@ -133,7 +133,7 @@ hole.fits(small_sqpeg_adapter) // true
 hole.fits(large_sqpeg_adapter) // false
 ```
 
-### 💡 Ứng dụng
+## 💡 Ứng dụng
 
 **🐞 Sử dụng lớp Adapter khi bạn muốn dùng một số lớp hiện có, nhưng interface của nó không tương thích với code của bạn**
 
