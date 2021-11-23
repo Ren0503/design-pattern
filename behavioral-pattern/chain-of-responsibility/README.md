@@ -2,9 +2,9 @@
 
 ## 📜 Mục đích
 
-![intent](./assets/intent.png)
-
 **Chain of Responsibility** là một design pattern trong nhóm behavioral cho phép bạn truyền các yêu cầu dọc theo một chuỗi xử lý. Khi nhận được yêu cầu, mỗi trình xử lý sẽ quyết định xử lý yêu cầu hoặc truyền nó cho trình xử lý tiếp theo trong chuỗi.
+
+![intent](./assets/intent.png)
 
 ## 😟 Vấn đề
 

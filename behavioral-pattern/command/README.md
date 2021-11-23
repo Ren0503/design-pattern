@@ -217,3 +217,84 @@ class Application is
             command.undo()
 ```
 
+## 💡 Ứng dụng
+
+**🐞 Sử dụng Command khi bạn muốn tham số hoá đối tượng với thao tác**
+
+⚡ Command có thể chuyển hoá một phương thức cụ thể thành một đối tượng độc lập. Thay đổi này mở ra nhiều công dụng hấp dẫn: bạn có thể truyền command như một tham số của phương thức, lưu trữ chúng trong các đối tượng khác, thay đổi command đã liên kết ngay khi đang chạy,...
+
+Ví dụ: bạn đang phát triển một thành phần GUI như một menu ngữ cảnh, và bạn muốn người dùng của bản có thể cấu hình các phần của menu để kích hoạt thao tác khi người dùng click vào một mục.
+
+**🐞 Sử dụng Command khi bạn muốn tạo hàng đợi các thao tác, lên lịch các thực thi của chúng hoặc thực thi chúng từ xa**
+
+⚡ Như bất kỳ đối tượng nào khác, command có thể được serialized(chuyển hoá), có nghĩa là chuyển đổi từ một đối tượng thành một chuỗi có thể ghi vào file hay cơ sở dữ liệu. Sau đó, chuỗi có thể được phục hồi lại thành đối tượng command ban đầu. Do đó bạn có thể trì hoãn và lên lịch thực thi command. Với cùng cách đấy bạn có thể xếp hàng(queue), ghi nhật ký(log) hay gửi command qua mạng.
+
+**🐞 Sử dụng Comment khi bạn muốn triển khai các thao tác nghịch đảo**.
+
+⚡ Mặc dù có nhiều cách để thực hiện hoàn tác / làm lại, nhưng Command có lẽ là phổ biến nhất.
+
+Để có thể hoàn tác các thao tác, bạn cần triển khai lịch sử của các hành động đã thực hiện. Lịch sử command là một ngăn xếp chứa tất cả các đối tượng command đã thực thi cùng với các bản sao lưu liên quan về trạng thái của ứng dụng.
+
+Phương pháp này có hai nhược điểm. Đầu tiên, không dễ dàng để lưu trạng thái của ứng dụng vì một số trong số đó có thể là riêng tư. Vấn đề này có thể được giảm thiểu với pattern **Memento**.
+
+Thứ hai, các bản sao lưu trạng thái có thể tiêu tốn khá nhiều RAM. Do đó, đôi khi bạn có thể sử dụng một cách triển khai thay thế: thay vì khôi phục trạng thái trong quá khứ, lệnh thực hiện thao tác nghịch đảo. Hoạt động ngược lại cũng có một cái giá: nó có thể khó hoặc thậm chí không thể thực hiện được.
+
+## 📋 Triển khai
+
+1. Khai báo interface command với phương thức thực thi đơn nhất.
+
+2. Bắt đầu trích xuất yêu cầu vào lớp concrete command, triển khai từ interface command. Mỗi lớp phải có một tập hợp trường cho lưu trữ tham số yêu cầu cùng với tham chiếu đến đối tượng receiver. Tất cả giá trị này được khởi tạo thông qua hàm khởi tạo của command.
+
+3. Xác định các lớp sẽ hành động như sender. Thêm trường lưu trữ command vào các lớp này. Sender sẽ giao tiếp với command của nó chỉ thông qua interface command. Sender thường không tạo đối tượng command cho nó, mà sẽ lấy chúng từ code client.
+
+4. Thay đổi sender để chúng thực thi command thay vì gửi yêu cầu trực tiếp đến receiver.
+
+5. Client nên khởi tạo đối tượng theo trật tự sau:
+    - Tạo receiver.
+    - Tạo command và liên kết với receiver nếu cần.
+    - Tạo sender và liên kết với command cụ thể.
+
+## ⚖️ Ưu nhược điểm
+
+### Ưu điểm
+
+✔️ *Single Responsibility Principle*. Bạn có thể tách các lớp gọi các thao tác từ các lớp thực hiện các thao tác này.
+
+✔️ *Open/Closed Principle*. Bạn có thể thêm command mới vào ứng dụng mà không ảnh hưởng đến code client hiện có.
+
+✔️ Bạn có thể triển khai hoàn tác/làm lại(undo/redo).
+
+✔️ Bạn có thể triển khai thực hiện trì hoãn các thao tác.
+
+✔️ Bạn có thể lắp ghép một tập hợp các command đơn giản thành một tập hợp các command phức tạp
+
+### Nhược điểm
+
+❌ Code có thể trở nên phức tạp hơn vì bạn đang thêm một lớp hoàn toàn mới giữa sender và receiver.
+
+## 🔁 Quan hệ với các pattern khác
+
+**Chain of Responsibility**, **Command**, **Mediator** và **Observer** giải quyết các cách khác nhau để kết nối người gửi và người nhận yêu cầu:
+
+- **CoR** chuyển một yêu cầu tuần tự dọc theo một chuỗi động gồm những người nhận tiềm năng cho đến khi một trong số họ xử lý nó.
+- **Command** thiết lập các kết nối một chiều giữa người gửi và người nhận.
+- **Mediator** loại bỏ các kết nối trực tiếp giữa người gửi và người nhận, buộc họ phải giao tiếp gián tiếp thông qua một đối tượng trung gian.
+- **Observer** cho phép người nhận đăng ký động và hủy đăng ký nhận yêu cầu. 
+
+Handler trong **Chain of Responsibility** có thể triển khai như **Command**. Trong trường hợp này bạn có thể thực thi các hành động khác nhau trên cùng một đối tượng ngữ cảnh, được biểu diễn bởi yêu cầu.
+
+Bạn có thể sử dụng **Command** và **Memento** cùng nhau khi thực hiện "hoàn tác". Trong trường hợp này, các command chịu trách nhiệm thực hiện các hoạt động khác nhau trên một đối tượng đích, trong khi các mementos lưu trạng thái của đối tượng đó ngay trước khi command được thực thi.
+
+**Command** và **Strategy** có thể trông giống nhau vì bạn có thể sử dụng cả hai để tham số hóa một đối tượng bằng một số hành động. Tuy nhiên, chúng có mục đích rất khác nhau.
+
+Bạn có thể sử dụng **Command** để chuyển đổi bất kỳ thao tác nào thành một đối tượng. Các tham số của thao tác trở thành các trường của đối tượng đó. Việc chuyển đổi cho phép bạn trì hoãn việc thực hiện thao tác, xếp hàng đợi, lưu trữ lịch sử lệnh, gửi lệnh đến các dịch vụ từ xa, v.v.
+
+Mặt khác, **Strategy** thường mô tả các cách khác nhau để thực hiện cùng một việc, cho phép bạn hoán đổi các thuật toán này trong một lớp ngữ cảnh duy nhất.
+
+**Prototype** có thể hữu ích khi bạn cần lưu các bản sao của **Command** vào lịch sử.
+
+Bạn có thể coi **Visitor** như một phiên bản mạnh mẽ của **Command**. Các đối tượng của nó có thể thực thi các hoạt động trên các đối tượng khác nhau của các lớp khác nhau.
+
+# Nguồn
+
+[refactoring](https://refactoring.guru/design-patterns/command)
