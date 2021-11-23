@@ -69,7 +69,7 @@ Như vậy bạn không cần chỉnh sửa code client mỗi lần thêm biến
 ```c
 // Interface Abstract Factory khai bao tập hợp phương thức
 // trả về kiểu abstract product khác nhau. Các sản phẩm chung
-// nhóm có quan hệ với nhau về theme hoặc một khái niệm cấp cao.
+// nhóm có quan hệ với nhau về chủ đề hoặc một khái niệm cấp cao.
 // Sản phẩm từ một nhóm thường có thể cộng tác với nhau. Nhóm 
 // sản phẩm thường có một hay nhiều biến thể, nhưng sản phẩm của
 // một biến thể này sẽ không tương thích với biến thể khác.

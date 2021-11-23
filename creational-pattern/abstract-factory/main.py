@@ -4,12 +4,11 @@ from abc import ABC, abstractmethod
 
 class AbstractFactory(ABC):
     """
-    The Abstract Factory interface declares a set of methods that return
-    different abstract products. These products are called a family and are
-    related by a high-level theme or concept. Products of one family are usually
-    able to collaborate among themselves. A family of products may have several
-    variants, but the products of one variant are incompatible with products of
-    another.
+    Abstract Factory, interface khai báo một tập hợp phương thức trả về các sản
+    phẩm trừu tượng khác nhau. Các sản phẩm này được gọi là một nhóm và có quan
+    hệ cấp cao về chủ đề hay khái niệm. Sản phẩm của một nhóm thường có thể cộng
+    tác lại với nhau. Một nhóm sản phẩm thường có nhiều biến thể, nhưng các sản 
+    phẩm của một biến thể không tương thích với sản phẩm của những biến thể khác.
     """
     @abstractmethod
     def create_product_a(self) -> AbstractProductA:
@@ -22,10 +21,10 @@ class AbstractFactory(ABC):
 
 class ConcreteFactory1(AbstractFactory):
     """
-    Concrete Factories produce a family of products that belong to a single
-    variant. The factory guarantees that resulting products are compatible. Note
-    that signatures of the Concrete Factory's methods return an abstract
-    product, while inside the method a concrete product is instantiated.
+    Concrete Factories tạo một nhóm sản phẩm thuộc về một biến thể. Factory
+    đảm bảo kết quả sản phẩm luôn tương thích. Lưu ý, chữ ký số của phương
+    thức Concrete Factory trả về một sản phẩm trừu tượng, trong khi bên trong
+    phương thức một sản phẩm cụ thể được tạo.
     """
 
     def create_product_a(self) -> AbstractProductA:
@@ -37,7 +36,7 @@ class ConcreteFactory1(AbstractFactory):
 
 class ConcreteFactory2(AbstractFactory):
     """
-    Each Concrete Factory has a corresponding product variant.
+    Mỗi Concrete Factory có một biến thể sản phẩm phù hợp.
     """
 
     def create_product_a(self) -> AbstractProductA:
@@ -49,8 +48,8 @@ class ConcreteFactory2(AbstractFactory):
 
 class AbstractProductA(ABC):
     """
-    Each distinct product of a product family should have a base interface. All
-    variants of the product must implement this interface.
+    Mỗi sản phẩm riêng biệt của nhóm sản phẩm có một interface cơ sở. Tất cả
+    biến thể của sản phẩm phải triển khai interface này.
     """
 
     @abstractmethod
@@ -59,7 +58,7 @@ class AbstractProductA(ABC):
 
 
 """
-Concrete Products are created by corresponding Concrete Factories.
+Concrete Products được tạo bởi Concrete Factories phù hợp.
 """
 
 
@@ -78,6 +77,8 @@ class AbstractProductB(ABC):
     Here's the the base interface of another product. All products can interact
     with each other, but proper interaction is possible only between products of
     the same concrete variant.
+    Đây là interface cơ sở của các sản phẩm khác. Tất cả sản phẩm có thể tương
+    tác với mỗi 
     """
     @abstractmethod
     def useful_function_b(self) -> None:
