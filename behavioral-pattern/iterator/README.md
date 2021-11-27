@@ -4,7 +4,7 @@
 
 Iterator là một design pattern thuộc nhóm behavioral giúp bạn duyệt phần tử của một tập hợp mà không để lộ dạng cơ bản của nó (danh sách, ngăn xếp, cây, ...)
 
-![intent](,/assets/intent.png)
+![intent](./assets/intent.png)
 
 ## 😟 Vấn đề
 
@@ -12,11 +12,13 @@ Collection(tập hợp) là một trong những kiểu dữ liệu được sử
 
 ![problem1](./assets/problem1.png)
 
-Phần lớn tập hợp lưu trữ phần tử của nó bằng danh sách đơn giản. Tuy nhiên một số lại sử dụng ngăn xếp, cây, đồ thị hoặc một cấu trúc dữ liệu phức tạp nào khác.
+Phần lớn tập hợp lưu trữ phần tử của nó bằng các danh sách đơn giản. Tuy nhiên một số lại sử dụng ngăn xếp, cây, đồ thị hoặc một cấu trúc dữ liệu phức tạp nào khác.
 
-Nhưng việc tập hợp được tạo như thế nào không quan trọng, nó chỉ cần cung cấp một số cách để truy cập phần tử của nó cho các đoạn code khác có thể dùng cho phần tử đấy. Nên có một cách để duyệt qua từng phần tử của tập hợp mà không truy cập trùng lại phần tử nào đấy.
+Nhưng việc tập hợp được tạo như thế nào không quan trọng, nó chỉ cần cung cấp một số cách để truy cập phần tử của nó cho các đoạn code khác có thể sử dụng phần tử đấy. Thế nên cần có một cách để duyệt qua từng phần tử của tập hợp để truy cập không trùng lặp phần tử nào.
 
-Điều này nghe có vẻ dễ dàng nếu bạn có một tập hợp dựa trên danh sách. Bạn chỉ cần lặp lại tất cả phần tử, nhưng nếu nó là một cấu trúc dữ liệu phức tạp khác như cây thì sao? Ví dụ, hôm nay bạn chỉ thực hiện duyệt cây theo chiều sâu(depth-first traversal), nhưng ngày hôm sau bạn lại nhận yêu cầu là cần thêm tìm kiếm theo chiều rộng(breadth-first traversal), và các ngày kế tiếp bạn phải thực hiện các công việc khác như truy cập ngẫu nhiên ba phần tử,...
+Điều này nghe có vẻ dễ dàng nếu tập hợp của bạn chỉ dựa trên danh sách. Bạn chỉ việc lặp lại tất cả phần tử.
+
+Nhưng nếu nó là một cấu trúc dữ liệu phức tạp khác như cây thì sao? Ví dụ, hôm nay bạn phải thực hiện duyệt cây theo chiều sâu(depth-first traversal), nhưng ngày hôm sau bạn lại nhận yêu cầu là cần thêm duyệt cây theo chiều rộng(breadth-first traversal), và các ngày kế tiếp bạn phải thực hiện các công việc khác như truy cập ngẫu nhiên ba phần tử,...
 
 ![problem2](./assets/problem2.png)
 
@@ -24,13 +26,13 @@ Nhưng việc tập hợp được tạo như thế nào không quan trọng, n�
 
 Việc thêm nhiều thuật toán duyệt vào tập hợp có thể làm mờ đi nhiệm vụ chính của nó, là lưu trữ dữ liệu hiệu quả. Thêm vào đó, một vài thuật toán chỉ phù hợp với vài ứng dụng cơ bản, thể nên thêm nó vào lớp tập hợp chung có thể sẽ không phù hợp.
 
-Mặt khác, code cliend làm việc với nhiều tập hợp khác nhau sẽ không quan tâm đến chúng lưu trữ phần tử như thế nào. Tuy nhiên, vì tập hợp cung cấp các cách khác nhau để truy cập phần tử, nên bạn không có lựa chọn nào khác ngoài kết hợp code của bạn với lớp tập hợp cụ thể.
+Mặt khác, code client làm việc với nhiều tập hợp khác nhau sẽ không quan tâm đến chúng lưu trữ phần tử như thế nào. Tuy nhiên, vì tập hợp cung cấp các cách khác nhau để truy cập phần tử, nên bạn không có lựa chọn nào khác ngoài kết hợp code của bạn với lớp tập hợp cụ thể.
 
 ## 😊 Giải pháp
 
 Ý tượng ở đây là mở rộng hành vi duyệt của một tập hợp thành một đối tượng riêng biệt gọi là *iterator*.
 
-![solution](./assets/solution.png)
+![solution](./assets/solution1.png)
 
 Ngoài việc triển khai thuật toán chính, một đối tượng iterator còn đóng gói tất cả các chi tiết duyệt, chẳng hạn như vị trí hiện tại và số phần tử còn lại cho đến cuối. Do đó, một số iterator có thể đi qua cùng một tập hợp cùng một lúc, độc lập với nhau.
 
