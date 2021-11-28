@@ -60,6 +60,7 @@ Hệ thống các design pattern được chia thành 3 nhóm: nhóm Creational,
 - **Behavioral Pattern** quan tâm đến việc giao tiếp hiệu quả và phân công nhiệm vụ giữa các đối tượng.
     + [**Chain Of Responsibility**](./behavioral-pattern/chain-of-responsibility)
     + [**Command**](./behavioral-pattern/command)
+    + [**Iterator**](./behavioral-pattern/iterator)
 # Nguồn
 
 [**refactoring**](https://refactoring.guru/design-patterns)
