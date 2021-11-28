@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**Command** là một design pattern thuộc nhóm behavioral, nó biến một yêu cầu thành một đối tượng độc lập bao gồm tất cả thông tin của yêu cầu. Chuyển đổi này giúp bạn truyền các yêu cầu dưới dạng đối số của phương thức, trì hoãn hoặc chờ đợi việc thực thi một yêu cầu và hỗ trợ các hoạt động hoàn tác. 
+**Command** là một design pattern thuộc nhóm behavioral, nó biến một yêu cầu thành một đối tượng độc lập bao gồm tất cả thông tin của yêu cầu đó. Chuyển đổi này giúp bạn truyền các yêu cầu dưới dạng tham số của phương thức, trì hoãn hoặc chờ đợi việc thực thi một yêu cầu hay hỗ trợ các hoạt động hoàn tác. 
 
 ![intent](./assets/intent.png)
 
@@ -18,7 +18,7 @@ Vậy bạn sẽ đặt code cho các xử lý thao tác click khác nhau của 
 
 ![problem2](./assets/problem2.png)
 
-Rất nhanh chóng, bạn nhận ra cách tiếp cận này có rất nhiều thiếu sót. Đầu tiên, bạn sẽ có một số lượng rất lớn lớp con, và nó sẽ không ổn khi bạn sửa đổi lớp `Button` cơ sở vì bạn phải thay đổi tất cả các lớp con của nó. Nói một cách đơn giản, code GUI của bạn đã trở nên phụ thuộc một cách khó hiểu vào những đoạn code dễ thay đổi của logic nghiệp vụ. 
+Rất nhanh chóng, bạn nhận ra cách tiếp cận này tồn đọng rất nhiều thiếu sót. Đầu tiên, bạn sẽ có một số lượng rất lớn lớp con, và nó sẽ không ổn khi bạn sửa đổi lớp `Button` cơ sở vì bạn phải thay đổi tất cả các lớp con của nó. Nói một cách đơn giản, code GUI của bạn đã trở nên phụ thuộc một cách khó hiểu vào những đoạn code dễ thay đổi của logic nghiệp vụ. 
 
 ![problem3](./assets/problem3.png)
 
@@ -30,7 +30,7 @@ Ban đầu, khi ứng dụng của bạn chỉ có một thanh công cụ, có t
 
 Một thiết kế phần mềm tốt thường dựa trên *nguyên tắc tách biệt các mối quan tâm*, điều này thường dẫn đến việc chia ứng dụng thành nhiều lớp. Ví dụ phổ biến nhất: một lớp cho giao diện người dùng đồ họa và một lớp khác cho logic nghiệp vụ. Lớp GUI chịu trách nhiệm hiển thị hình ảnh đẹp mắt trên màn hình, thu nhận bất kỳ đầu vào nào và hiển thị kết quả về những gì người dùng và ứng dụng đang làm. Tuy nhiên, khi cần làm điều gì đó quan trọng, như tính toán quỹ đạo của mặt trăng hoặc soạn báo cáo hàng năm, lớp GUI sẽ ủy quyền công việc cho lớp logic nghiệp vụ cơ bản.
 
-Trong đoạn code, nó có thể trông như thế này: một đối tượng GUI gọi một phương thức của đối tượng logic nghiệp vụ, truyền cho nó một số đối số. Quá trình này thường được mô tả là một đối tượng gửi một yêu cầu khác.
+Trong đoạn code, nó có thể trông như thế này: một đối tượng GUI gọi một phương thức của đối tượng logic nghiệp vụ, truyền cho nó một số tham số. Quá trình này thường được mô tả như một đối tượng gửi một yêu cầu khác.
 
 ![solution1](./assets/solution1.png)
 
@@ -69,7 +69,8 @@ Trật tự trên giấy dùng như một command. Nó vẫn còn trong hàng đ
 1. **Sender** (hay còn gọi là invoker) là lớp chịu trách nhiệm khởi tạo các yêu cầu. Lớp này phải có một trường để lưu trữ một tham chiếu đến một đối tượng command. Sender(người gửi) kích hoạt command đó thay vì gửi yêu cầu trực tiếp đến receiver(người nhận). Lưu ý rằng sender không chịu trách nhiệm tạo đối tượng command. Thông thường, nó nhận một command được tạo trước từ client thông qua phương thức khởi tạo.
 2. **Command** là interface, thường khai báo một phương thức đơn nhất để thực hiện lệnh.
 3. **Concrete Command** thực hiện nhiều loại yêu cầu khác nhau. Một command cụ thể không được phép tự thực hiện công việc, mà chỉ chuyển lệnh gọi đến một trong các đối tượng logic nghiệp vụ. Tuy nhiên, để đơn giản hóa code, các lớp này có thể được hợp nhất.
-Các tham số cần thiết để thực thi một phương thức trên một đối tượng nhận có thể được khai báo dưới dạng các trường trong command cụ thể. Bạn có thể làm cho các đối tượng command trở nên bất biến bằng cách chỉ cho phép khởi tạo các trường này thông qua phương thức khởi tạo.
+
+    Các tham số cần thiết để thực thi một phương thức trên một đối tượng nhận có thể được khai báo dưới dạng các trường trong concrete command. Bạn có thể làm cho các đối tượng command trở nên bất biến bằng cách chỉ cho phép khởi tạo các trường này thông qua phương thức khởi tạo.
 4. **Receiver** là lớp chứa một số logic nghiệp vụ. Hầu như bất kỳ đối tượng nào cũng có thể hoạt động như một receiver. Hầu hết các command chỉ xử lý các chi tiết về cách một yêu cầu được chuyển đến receiver, trong khi receiver phải tự thực hiện công việc thực tế.
 5. **Client** tạo và cấu hình các đối tượng command cụ thể. Client phải chuyển tất cả các tham số yêu cầu, bao gồm cả sender, vào phương thức khởi tạo của command. Sau đó, command kết quả có thể được liên kết với một hoặc nhiều receiver.
 
@@ -79,9 +80,9 @@ Trong ví dụ này, Command giúp bạn theo dõi lịch sử các thao tác th
 
 ![pseudocode](./assets/pseudocode.png)
 
-Command dẫn đến các thay đổi trạng thái của editor (sao chép, cắt, dán) và sao lưu bản dự phòng trạng thái của editor trước khi thực thi một thao tác liên kết với command. Sau khi command thực thi, nó lưu vào lịch sử command(một ngăn xếp các đối tượng command) cùng với bản sao lưu trạng thái của editor tại thời điểm đó. Sau đó, nếu người dùng cần hoàn tác một hành động, ứng dụng có thể lấy command gần nhất từ lịch sử, đọc bản sao liên kết với trạng thái của editor và phục hồi nó.
+Command dẫn đến các thay đổi trạng thái của editor (sao chép, cắt, dán) sẽ tạo bản sao lưu trạng thái của editor trước khi thực thi một thao tác liên kết với command. Sau khi command thực thi, nó lưu vào lịch sử command(một ngăn xếp các đối tượng command) cùng với bản sao lưu trạng thái của editor tại thời điểm đó. Sau đó, nếu người dùng cần hoàn tác một hành động, ứng dụng có thể lấy command gần nhất từ lịch sử, đọc bản sao liên kết với trạng thái của editor và phục hồi nó.
 
-Code client (phần tử GUI, lịch sử command) không phải ghép với lớp command cụ thể bởi vì nó hoạt động với command thông qua interface command. Cách tiếp cận này giúp bạn thêm command mới vào ứng dụng mà không ảnh hưởng đến code hiện có.
+Code client (phần tử GUI, lịch sử command) không phải ghép với lớp command cụ thể bởi vì nó hoạt động với command thông qua interface command. Cách tiếp cận này giúp bạn thêm command mới vào ứng dụng mà không ảnh hưởng gì đến code hiện có.
 
 ```c
 // Lớp command cơ sở xác định interface chung cho tất cả
@@ -104,7 +105,7 @@ abstract class Command is
         editor.text = backup
 
     // Phương thức thực thi khai báo trừu tượng cho tất cả
-    // concrete command cung cấp các triển khai của riêng nó.
+    // concrete command tạo các triển khai của riêng nó.
     // Phương thức trả về true hoặc false tuỳ thuộc vào command
     // có thay đổi trạng thái editor hay không.
     abstract method execute()
