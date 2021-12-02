@@ -17,7 +17,7 @@ Vào một lúc nào đó, bạn quyết định thêm chức năng giúp ngư�
 
 Bây giờ ta xem xét kỹ snapshot của các trạng thái này. Câu hỏi đặt ra là làm thế nào để bạn tạo chính xác chúng? Có lẽ bạn sẽ đi qua tất cả trường trong đối tượng và sao chép giá trị của chúng rồi lưu vào bộ nhớ. Tuy nhiên nó sẽ chỉ hoạt động nếu đối tượng của bạn không hạn chế truy cập đến nội dung của nó. Không may, phần lớn đối tượng thực sẽ không để những thứ bên ngoài nhìn vào bên trong của nó dễ dàng, nó sẽ ẩn tất cả dữ liệu có ích vào các trường riêng tư.
 
-Tạm thời ta bỏ qua vấn đề này và mặc định rằng tất cả đối tượng của chúng ta đều như những con hà mã: thích cái quan hệ mở và công khai trạng thái của chúng. Lúc này, ngay cả khi cách tiếp cận trên giải quyết được vấn đề và giúp bạn tạo snapshot của trạng thái đối tượng tuỳ ý, thì nó vẫn tồn đọng nhiều vấn đề nghiêm trọng khác. Trong tương lai, khi bạn quyết định tái cấu trúc  một vài lớp chỉnh sửa, tức là thêm hoặc xoá một vài trường. Điều này sẽ không dễ dàng vì bạn phải thay đổi tất cả các lớp chịu trách nhiệm cho sao chép trạng thái của đối tượng bị ảnh hưởng.
+Tạm thời ta bỏ qua vấn đề này và mặc định rằng tất cả đối tượng của chúng ta đều như những con hà mã: thích các quan hệ mở và công khai trạng thái của chúng. Lúc này, ngay cả khi cách tiếp cận trên giải quyết được vấn đề và giúp bạn tạo snapshot của trạng thái đối tượng tuỳ ý, thì nó vẫn tồn đọng nhiều vấn đề nghiêm trọng khác. Trong tương lai, khi bạn quyết định tái cấu trúc  một vài lớp chỉnh sửa, tức là thêm hoặc xoá một vài trường. Điều này sẽ không dễ dàng vì bạn phải thay đổi tất cả các lớp chịu trách nhiệm cho sao chép trạng thái của đối tượng bị ảnh hưởng.
 
 ![problem2](./assets/problem2.png)
 
@@ -27,7 +27,7 @@ Có thể, bạn sẽ lưu một lượng đối tượng vùng chứa này tron
 
 Có vẻ như chúng ta đã đi đến ngõ cụt: bạn để lộ tất cả các chi tiết bên trong của các lớp, khiến chúng quá mỏng manh(dễ bị thay đổi), còn nếu hạn chế quyền truy cập vào trạng thái của chúng, thì bạn không thể tạo snapshot. Có cách nào khác để thực hiện "hoàn tác" không?
 
-## Giải pháp
+## 😊 Giải pháp
 
 Tất cả vấn đề trên mà ta gặp phải đều được gây ra bởi hành vi phá vỡ tính đóng gói. Một vài đối tượng cố làm nhiều hơn những gì chúng phải làm. Để thu thập dữ liệu cần thiết cho thực hiện một vài hành động, chúng xâm lấn sang các không gian riêng tư của các đối tượng khác thay vì thay vì để các đối tượng đó thực hiện hành động thực.
 
@@ -45,7 +45,7 @@ Trong ví dụ trình soạn thảo của chúng ta, ta có thể tạo một l�
 
 Khi người dùng thực hiện hoàn tác, lịch sử sẽ lấy memento gần nhất khỏi ngăn xếp và truyền nó trở lại vào trình soạn thảo, yêu cầu phục hồi. Vì trình soạn thảo có đầy đủ truy cập đến memento, nó sẽ thay đổi trạng thái của nó với giá trị nhận được từ memento.
 
-## Cấu trúc
+## 🏢 Cấu trúc
 
 ### Triển khai dạng lớp lồng nhau
 
@@ -80,7 +80,7 @@ Có một cách triển khai khác rất hữu ích khi bạn không muốn đ�
 2. Caretaker bây giờ bị giới hạn rõ ràng trong việc thay đổi trạng thái được lưu trong memento. Hơn thế nữa, lớp caretaker sẽ độc lập với originator vì phương thức phục hồi giờ được định nghĩa trong lớp memento.
 3. Mỗi memento trở thành một liên kết với originator đã tạo nó. Originator truyền vào nó hàm khởi tạo của memento, cùng với giá trị trạng thái của nó. Vì quan hệ chặt chẽ giữa các lớp, nên một memento có thể phục hồi trạng thái của originator,  với điều kiện là phần sau đã xác định các bộ thiết lập thích hợp. 
 
-## Mã giả
+## 👨‍💻 Mã giả
 
 Ví dụ này sử dụng Memento cùng với Commend để lưu trữ snapshot về trạng thái của trình soạn thảo văn bản phức tạp và khôi phục trạng thái trước đó từ các snapshot này khi cần.
 
@@ -150,17 +150,17 @@ class Command is
     // ...
 ```
 
-## Ứng dụng
+## 💡 Ứng dụng
 
-**Sử dụng Memento khi bạn muốn tạo snapshot của trạng thái đối tương để phục hồi trạng trước đó của đối tượng**
+**🐞 Sử dụng Memento khi bạn muốn tạo snapshot của trạng thái đối tương để phục hồi trạng trước đó của đối tượng**
 
-Memento giúp bạn tạo bản sao chép đầu đủ trạng thái của một đối tượng, kể cả trường riêng tư, và lưu chúng riêng biệt với đối tượng. Trong khi phần lớn mọi người sử dụng pattern này cho hoàn tác thì nó cũng được dùng cho xử lý giao dịch(nếu bạn cần khôi phục thao tác lỗi).
+⚡ Memento giúp bạn tạo bản sao chép đầu đủ trạng thái của một đối tượng, kể cả trường riêng tư, và lưu chúng riêng biệt với đối tượng. Trong khi phần lớn mọi người sử dụng pattern này cho hoàn tác thì nó cũng được dùng cho xử lý giao dịch(nếu bạn cần khôi phục thao tác lỗi).
 
-**Sử dụng Memento khi truy cập trực tiếp tới trường/getter/setter của đối tượng vi phạm tính đóng gói**
+**🐞 Sử dụng Memento khi truy cập trực tiếp tới trường/getter/setter của đối tượng vi phạm tính đóng gói**
 
-Memento giúp đối tượng tự chịu trách nhiệm tạo snapshot trạng thái của nó. Không đối tượng nào khác có thể đọc snapshot, giúp dữ liệu trạng thái của đối tượng ban đầu trở nên an toàn và bảo mật.
+⚡ Memento giúp đối tượng tự chịu trách nhiệm tạo snapshot trạng thái của nó. Không đối tượng nào khác có thể đọc snapshot, giúp dữ liệu trạng thái của đối tượng ban đầu trở nên an toàn và bảo mật.
 
-## Triển khai
+## 📋 Triển khai
 
 1. Xác định lớp nào đóng vai trò originator. Nó sẽ quan trọng để biết chương trình sử dụng một đối tượng trung tâm của loại này hay nhiều loại nhỏ hơn.
 2. Tạo lớp memento, Từng cái một, khai báo tập hợp trường phản chiếu các trường được khai báo ở lớp originator.
@@ -176,3 +176,30 @@ Memento giúp đối tượng tự chịu trách nhiệm tạo snapshot trạng 
 7. Caretaker, cho dù nó biểu diễn một đối tượng command, một lịch sử hoặc một cái gì đó hoàn toàn khác, nên biết khi nào yêu cầu memento mới từ originator, cách lưu trữ chúng và khi nào thì khôi phục originator bằng một memento cụ thể.
 
 8. Mối liên hệ giữa caretaker và originator có thể được chuyển vào lớp memento. Trong trường hợp này, mỗi memento phải được kết nối với originator đã tạo ra nó. Phương thức khôi phục cũng sẽ chuyển sang lớp memento. Tuy nhiên, tất cả điều này sẽ chỉ có ý nghĩa nếu lớp memento được lồng vào originator hoặc lớp originator cung cấp đủ setter để ghi đè trạng thái của nó.
+
+## ⚖️ Ưu nhược điểm
+
+### Ưu điểm
+
+✔️ Bạn có thể tạo snapshot cho trạng thái đối tượng mà không vi phạm tính đóng gói.
+
+✔️ Bạn có thể đơn giản hoá của của originator bằng cách cho phép caretaker duy trì lịch sử trạng thái của originator.
+### Nhược điểm
+
+❌ Ứng dụng có thể tốn nhiều RAM nếu client thường xuyên tạo memento.
+
+❌ Caretaker nên theo dõi vòng đời của originator để có thể huỷ memento hết hạn.
+
+❌ Nhiều ngôn ngữ lập trình động như PHP, Python và JavaScript không bảo đảm trạng thái trong memento sẽ an toàn.
+
+## 🔁 Quan hệ với các pattern khác
+
+Bạn có thể sử dụng **Memento** cùng với **Iterator** để nắm bắt trạng thái lặp lại hiện tại và khôi phục nó nếu cần.
+
+Bạn có thể sử dụng **Command** và **Memento** cùng nhau khi thực hiện "hoàn tác". Trong trường hợp này, các command chịu trách nhiệm thực hiện các hoạt động khác nhau trên một đối tượng đích, trong khi các mementos lưu trạng thái của đối tượng đó ngay trước khi command được thực thi.
+
+Đôi khi **Prototype** có thể là một giải pháp thay thế đơn giản hơn cho **Memento**. Điều này hoạt động nếu đối tượng, trạng thái mà bạn muốn lưu trữ trong lịch sử, khá đơn giản và không có liên kết đến tài nguyên bên ngoài hoặc các liên kết dễ thiết lập lại.
+
+# Nguồn
+
+[**refactoring**](https://refactoring.guru/design-patterns/memento)
