@@ -57,7 +57,7 @@ Cách triển khai cổ điển dựa trên các lớp lồng nhau, khả dụng
 2. **Memento** là đối tượng giá trị hành động như một snapshot của trạng thái của originator. Thường thì memento sẽ bất biến và truyền dữ liệu cho nó chỉ một lần thông qua hàm khởi tạo.
 3. **Caretaker** không chỉ biết "khi nào" và "tại sao" phải lưu trạng thái của originator, mà còn biết trạng thái sẽ được phục hồi khi nào.
     
-    Một caretaker có thể theo dõi lịch sử của originator bằng cách lưu trữ một ngăn xếp memento. Khi originator đi ngược về lịch sử, caretaker tmf nạp memento trên cùng từ ngăn xếp và truyềnnos vào phương thức phục hồi của originator.
+    Một caretaker có thể theo dõi lịch sử của originator bằng cách lưu trữ một ngăn xếp memento. Khi originator đi ngược về lịch sử, caretaker tìm nạp memento trên cùng từ ngăn xếp và truyền nó vào phương thức phục hồi của originator.
 
 4. Trong triển khai này, lớp memento được lồng trong originator. Cách này giúp originator truy cập đến tất cả trường và phương thức của memento, kể cả khi chúng là riêng tư. Mặt khác, caretaker bị giới hạn truy cập đến trường và phương thức của memento, nó chỉ lưu trữ memento trong một ngăn xếp chứ không thể can thiếp vào trạng thái của chúng.
 
@@ -68,7 +68,7 @@ Có một cách triển khai thay thế, phù hợp với các ngôn ngữ lập
 ![structure](./assets/structure2.png)
 
 1. Nếu không dùng lớp lồng nhau, bạn có thể hạn chế truy cập đến trường của memento bằng cách thiết lập một quy ước rằng caretaker có thể làm việc với memento chỉ qua một interface trung gian khai báo rõ ràng, nó chỉ khai báo phương thức cho liên kết đến siêu dữ liệu của memento.
-2. Mặt khác, originator có thể làm việc với một đối tượng memento trực tiếp, truy cầu trường và phương thức được khai báo trong lớp memento. Nhược điểm của các tiếp cận này là bạn cần khai báo tất cả thành phần của memento công khai.
+2. Mặt khác, originator có thể làm việc với một đối tượng memento trực tiếp, truy cập trường và phương thức được khai báo trong lớp memento. Nhược điểm của các tiếp cận này là bạn cần khai báo tất cả thành phần của memento công khai.
 
 ### Triển khai với tính đóng gói chặt chẽ hơn
 
@@ -88,7 +88,7 @@ Ví dụ này sử dụng Memento cùng với Commend để lưu trữ snapshot 
 
 Đối tượng command hành động như một caretaker. Chúng tìm nạp memento của trình soạn thảo trước khi thực thi thao tác liên quan đến command. Khi người dùng thực hiện hoàn tác câu lệnh gần nhất, trình soạn thảo có thể sử dụng memento được lưu trong command để hoàn tác trạng thái trước đó của nó.
 
-Lớp memento không khai báo bất kỳ trường công khai nào dù là getter hay setter. Do đó không có đối tượng nào có thể thay đổi nội dung của nó. Memento được liên kết với đối tượng soạn thảo đã tạo nó. Điều này giúp một memento phục hồi trạng thái của trình soạn thảo được liên kết bằng cách truyền dữ liệu thông qua setter trên đối tượng soạn thảo. Vì memento được liên kết với đối tượng editor cụ thể, bạn có thể làm cho ứng dụng hỗ trợ nhiều trình soạn thảo độc lập với ngăn xếp hoàn tác trung tâm.
+Lớp memento không khai báo bất kỳ trường công khai nào dù là getter hay setter. Do đó không có đối tượng nào có thể thay đổi nội dung của nó. Memento được liên kết với đối tượng soạn thảo đã tạo nó. Điều này giúp một memento phục hồi trạng thái của trình soạn thảo được liên kết bằng cách truyền dữ liệu thông qua setter trên đối tượng soạn thảo. Vì memento được liên kết với đối tượng soạn thảo cụ thể, bạn có thể làm cho ứng dụng hỗ trợ nhiều trình soạn thảo độc lập với ngăn xếp hoàn tác trung tâm.
 
 ```c
 // Originator tổ chức một vài dữ liệu quan trọng có thể thay đổi 
@@ -154,7 +154,7 @@ class Command is
 
 **🐞 Sử dụng Memento khi bạn muốn tạo snapshot của trạng thái đối tương để phục hồi trạng trước đó của đối tượng**
 
-⚡ Memento giúp bạn tạo bản sao chép đầu đủ trạng thái của một đối tượng, kể cả trường riêng tư, và lưu chúng riêng biệt với đối tượng. Trong khi phần lớn mọi người sử dụng pattern này cho hoàn tác thì nó cũng được dùng cho xử lý giao dịch(nếu bạn cần khôi phục thao tác lỗi).
+⚡ Memento giúp bạn tạo bản sao chép đầy đủ trạng thái của một đối tượng, kể cả trường riêng tư, và lưu chúng riêng biệt với đối tượng. Trong khi phần lớn mọi người sử dụng pattern này cho hoàn tác thì nó cũng được dùng cho xử lý giao dịch(nếu bạn cần khôi phục thao tác lỗi).
 
 **🐞 Sử dụng Memento khi truy cập trực tiếp tới trường/getter/setter của đối tượng vi phạm tính đóng gói**
 
@@ -165,15 +165,15 @@ class Command is
 1. Xác định lớp nào đóng vai trò originator. Nó sẽ quan trọng để biết chương trình sử dụng một đối tượng trung tâm của loại này hay nhiều loại nhỏ hơn.
 2. Tạo lớp memento, Từng cái một, khai báo tập hợp trường phản chiếu các trường được khai báo ở lớp originator.
 3. Làm memento bất biến. Memento chỉ nhận dữ liệu một lần thông qua hàm khởi tạo. Lớp này không có setter.
-4. Nếu ngôn ngữ lập trình hỗ trợ lồng lớp, lồng memento vào originator. Nếu không, trích xuất interface trống từ lớp memento và làm tất cả đối tượng khác sử dụng nó tham chiếu đến memento. Bạn có thể thêm thao tác siêu dữ liệu đến interface những không để lộ thứ gì của trạng thái originator.
+4. Nếu ngôn ngữ lập trình hỗ trợ lồng lớp, lồng memento vào originator. Nếu không, trích xuất interface trống từ lớp memento và làm tất cả đối tượng khác sử dụng nó tham chiếu đến memento. Bạn có thể thêm thao tác siêu dữ liệu đến interface nhưng không để lộ thứ gì của trạng thái originator.
 
 5. Thêm một phương thức cho tạo memento ở lớp originator. Originator chỉ truyền trạng thái của nó đến memento thông qua một hoặc nhiều tham số của hàm khởi tạo memento.
     
-    Kiểu trả về của phương thức nên là interface bạn trích xuất ở bước trước đó (giả sử bạn trích xuất nó ở mọi nơi). Bên trong nó, phương thức tạo mement nên làm việc trực tiếp với lớp memento
+    Kiểu trả về của phương thức nên là interface bạn trích xuất ở bước trước đó (giả sử bạn trích xuất nó ở mọi nơi). Bên trong nó, phương thức tạo memento nên làm việc trực tiếp với lớp memento.
 
 6. Thêm một phương thức cho phục hồi trạng thái của lớp originator. Nó chấp nhận một đối tượng memento như một tham số. Nếu bạn trích xuất một interface ở bước trước, làm nó có kiểu của tham số. Trong trường hợp này, bạn cần ép kiểu đối tượng vào lớp memento, vì originator cần đầy đủ truy cập đến đối tượng này.
 
-7. Caretaker, cho dù nó biểu diễn một đối tượng command, một lịch sử hoặc một cái gì đó hoàn toàn khác, nên biết khi nào yêu cầu memento mới từ originator, cách lưu trữ chúng và khi nào thì khôi phục originator bằng một memento cụ thể.
+7. Caretaker, cho dù nó biểu diễn một đối tượng command, một lịch sử hoặc một cái gì đó hoàn toàn khác, thì cũng cần biết khi nào yêu cầu memento mới từ originator, cách lưu trữ chúng và khi nào thì khôi phục originator bằng một memento cụ thể.
 
 8. Mối liên hệ giữa caretaker và originator có thể được chuyển vào lớp memento. Trong trường hợp này, mỗi memento phải được kết nối với originator đã tạo ra nó. Phương thức khôi phục cũng sẽ chuyển sang lớp memento. Tuy nhiên, tất cả điều này sẽ chỉ có ý nghĩa nếu lớp memento được lồng vào originator hoặc lớp originator cung cấp đủ setter để ghi đè trạng thái của nó.
 

@@ -114,7 +114,7 @@ class WindowsButton implements Button is
 
 class HTMLButton implements Button is
     method render(a, b) is
-        // Trả về biểu diễn HTML của button.
+        // Hiển thị button dưới dạng HTML
     method onClick(f) is
         // Đánh dấu sự kiện click trên trình duyệt.
 
