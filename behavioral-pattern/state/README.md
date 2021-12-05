@@ -222,15 +222,15 @@ class PlayingState extends State is
 
 **🐞 Sử dụng State khi bạn có một đối tượng có các hành vi khác nhau phụ thuộc vào trạng thái hiện tại, số lượng trạng thái là rất lớn và code của trạng thái cụ thể thường xuyên thay đổi**.
  
- Pattern đề nghị việc trích xuất tất cả code trạng thái cụ thể vào một tập hợp lớp riêng biệt. Kết quả là bạn có thể thêm trạng thái mới hoặc thay đổi cái đã có độc lập với nhau, giảm thiểu chi phí bảo trì.
+⚡ Pattern đề nghị việc trích xuất tất cả code trạng thái cụ thể vào một tập hợp lớp riêng biệt. Kết quả là bạn có thể thêm trạng thái mới hoặc thay đổi cái đã có độc lập với nhau, giảm thiểu chi phí bảo trì.
 
 **🐞 Sử dụng State khi bạn có một lớp với số lượng điều kiện không lồ để thay đổi hành vi lớp đó theo giá trị hiện tại của các trường trong lớp đó.**
 
-State giúp bạn trích xuất các nhánh của các điều kiện này thành các phương thức của các lớp trạng thái tương ứng. Đồng thời bạn còn có thể làm sạch các trường tạm thời và các phương thức trợ giúp liên quan đến code trạng thái cụ thể khỏi lớp chính của bạn.
+⚡ State giúp bạn trích xuất các nhánh của các điều kiện này thành các phương thức của các lớp trạng thái tương ứng. Đồng thời bạn còn có thể làm sạch các trường tạm thời và các phương thức trợ giúp liên quan đến code trạng thái cụ thể khỏi lớp chính của bạn.
 
 **🐞 Sử dụng State khi bạn có một lượng lớn code trùng lặp các trạng thái và chuyển đổi tương tự của máy trạng thái dựa trên điều kiện.**
 
-State giúp bạn soạn các hệ thống phân cấp của các lớp trạng thái và làm giảm sự trùng lặp bằng cách trích xuất code chung vào lớp cơ sở trừu tượng.
+⚡ State giúp bạn soạn các hệ thống phân cấp của các lớp trạng thái và làm giảm sự trùng lặp bằng cách trích xuất code chung vào lớp cơ sở trừu tượng.
 
 ## 📋 Triển khai
 
@@ -262,7 +262,7 @@ State giúp bạn soạn các hệ thống phân cấp của các lớp trạng 
 
 **Bridge**, **State**, **Strategy** (và ở một mức độ nào đó là **Adapter**) có cấu trúc rất giống nhau. Thật vậy, tất cả các pattern này đều dựa trên bố cục là ủy thác công việc cho các đối tượng khác. Tuy nhiên, chúng giải quyết các vấn đề khác nhau. Một pattern không chỉ là một công thức để cấu trúc code của bạn theo một cách cụ thể. Nó còn có thể giao tiếp với các nhà phát triển khác về vấn đề mà pattern giải quyết.
 
-State có thể được coi là một phần mở rộng của Strategy. Cả hai pattern đều dựa trên kết hợp: chúng thay đổi hành vi của ngữ cảnh bằng cách ủy quyền một số công việc cho các đối tượng trợ giúp. Strategy làm cho các đối tượng này hoàn toàn độc lập và không biết về nhau. Tuy nhiên, State không hạn chế sự phụ thuộc giữa các trạng thái cụ thể, cho phép chúng thay đổi trạng thái của ngữ cảnh theo ý muốn.
+**State** có thể được coi là một phần mở rộng của **Strategy**. Cả hai pattern đều dựa trên kết hợp: chúng thay đổi hành vi của ngữ cảnh bằng cách ủy quyền một số công việc cho các đối tượng trợ giúp. **Strategy** làm cho các đối tượng này hoàn toàn độc lập và không biết về nhau. Tuy nhiên, **State** không hạn chế sự phụ thuộc giữa các trạng thái cụ thể, cho phép chúng thay đổi trạng thái của ngữ cảnh theo ý muốn.
 
 # Nguồn
 

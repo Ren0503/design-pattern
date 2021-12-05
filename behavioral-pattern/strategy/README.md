@@ -128,3 +128,66 @@ class ExampleApplication is
 
         Print result.
 ```
+
+## Ứng dụng
+
+ **Sử dụng Strategy khi bạn muốn dùng các biến thể thuật toán khác nhau trong một đối tượng cho phép chuyển đổi từ thuật toán này sang thuật toán khác khi đang chạy**.
+ 
+ Strategy giúp bạn chỉnh sửa hành vi đối tượng gián tiếp khi đang chạy bằng liên kết với các đối tượng con khác để thực hiện hành vi cụ thể theo các cách khác nhau.
+
+**Sử dụng Strategy khi bạn có nhiều lớp giuống nhau chỉ khác nhau các chúng thực hiện một vài hành vi**
+
+Strategy giúp bạn trích xuất các hành vi khác nhau vào một hệ thống phân cấp lớp và kết hợp với lớp gốc thành một, bằng cách này sẽ làm giảm code trùng lặp.
+
+
+**Sử dụng Strategy để cô lập logic nghiệp vụ của một lớp khỏi triển khai chi tiết của thuật toán, thứ không mấy quan trọng trong ngữ cảnh của logic đó**.
+
+Strategy giúp bạn cô lập code, dữ liệu bên trong và các phụ thuộc vào thuật toán với phần code còn lại. Client khác nhau nhận về một interface đơn giản để thực thi thuật toán và chuyển đổi chúng khi đang chạy.
+
+**Sử dụng Strategy khi lớp của bạn có một lượng điều kiện khổng lồ để chuyển đổi các biến thể khác nhau với cùng thuật toán**.
+
+Strategy giúp bạn bỏ đi các điều kiện bằng cách trích xuất tất cả thuật toán vào các lớp riêng biệt. Toàn bộ triển khai cùng interface. Đối tượng gốc uỷ thác thực thi cho một trong các đối tượng trên thay vì triển khai tất cả biến thể của thuật toán.
+
+## Triển khai
+
+1. Trong lớp context, xác định thuật toán dễ thay đổi. Nó còn có thể có một lượng điều kiện to lớn để chọn và thực thi biến thể của cùng thuật toán khi đang chạy
+2. Khai báo interface strategy chung cho tất cả biến thể của thuật toán.
+3. Từng cái một, trích xuất tất cả thuật toán vào các lớp của nó. Chúng nên triển khai tất cả trên interface strategy.
+4. Trong lớp context, thêm một trường cho lưu trữ tham chiếu đến đối tượng strategy. Cung cấp một setter cho thay thế giá trị của trường này. Context nên làm việc với đối tượng strategy thôgn qua interface strategy. Context có thể định nghĩa một interface để cho phép strategy truy cập dữ liệu của nó.
+5. Client của context phải liên kết nó với strategy phù hợp để ứng với cách chúng mong đợi context thực hiện hành vi chính.
+
+## Ưu nhược điểm
+
+### Ưu điểm
+
+Bạn có thể chuyển đổi thuật toán bên trogn đối tượng khi đang chạy.
+
+Bạn có thể cô lập triển khai chi tiết của thuật toán khỏi code sử dụng nó.
+
+Bạn có thể thay thế kế thừa với hỗn hợp.
+
+*Open/Closed Principle*. Bạn có thể thêm strategy mới mà không ảnh hưởng đến context.
+
+### Nhược điểm
+
+Nếu bạn chỉ có một vài thuật toán và chúng hiếm khi thay đổi, thì không có lý do thực sự nào để làm phức tạp chương trình quá mức với các lớp và interface mới đi kèm với pattern.
+
+Client phải nhận thức được các strategy khác nhau để có thể chọn cái phù hợp.
+
+Rất nhiều ngôn ngữ lập trình hiện đại có hỗ trợ kiểu hàm cho phép bạn triển khai các phiên bản khác nhau của thuật toán bên trong một tập hợp các hàm ẩn danh. Sau đó, bạn có thể sử dụng các chức năng này chính xác như khi bạn đã sử dụng các đối tượng strategy, nhưng không làm tăng code của bạn với các lớp và giao diện bổ sung.
+
+## 🔁 Quan hệ với các pattern khác
+
+**Bridge**, **State**, **Strategy** (và ở một mức độ nào đó là **Adapter**) có cấu trúc rất giống nhau. Thật vậy, tất cả các pattern này đều dựa trên bố cục là ủy thác công việc cho các đối tượng khác. Tuy nhiên, chúng giải quyết các vấn đề khác nhau. Một pattern không chỉ là một công thức để cấu trúc code của bạn theo một cách cụ thể. Nó còn có thể giao tiếp với các nhà phát triển khác về vấn đề mà pattern giải quyết.
+
+**Command** và **Strategy** có thể trông giống nhau vì bạn có thể sử dụng cả hai để tham số hóa một đối tượng bằng một số hành động. Tuy nhiên, chúng có mục đích rất khác nhau.
+
+Bạn có thể sử dụng **Command** để chuyển đổi bất kỳ thao tác nào thành một đối tượng. Các tham số của thao tác trở thành các trường của đối tượng đó. Việc chuyển đổi cho phép bạn trì hoãn việc thực hiện thao tác, xếp hàng đợi, lưu trữ lịch sử lệnh, gửi lệnh đến các dịch vụ từ xa, v.v.
+
+Mặt khác, **Strategy** thường mô tả các cách khác nhau để thực hiện cùng một việc, cho phép bạn hoán đổi các thuật toán này trong một lớp ngữ cảnh duy nhất.
+
+**Decorator** cho phép bạn thay đổi vẻ ngoài của một đối tượng, trong khi **Strategy** cho phép bạn thay đổi ruột.
+
+**Template Method** dựa trên sự kế thừa: nó cho phép bạn thay đổi các phần của một thuật toán bằng cách mở rộng các phần đó trong các lớp con. **Strategy** dựa trên cấu tạo: bạn có thể thay đổi các phần trong hành vi của đối tượng bằng cách cung cấp cho đối tượng các strategy khác nhau tương ứng với hành vi đó. **Template Method** hoạt động ở cấp độ lớp, vì vậy nó là tĩnh. **Strategy** hoạt động ở cấp độ đối tượng, cho phép bạn chuyển đổi hành vi trong thời gian chạy.
+
+**State** có thể được coi là một phần mở rộng của **Strategy**. Cả hai pattern đều dựa trên kết hợp: chúng thay đổi hành vi của ngữ cảnh bằng cách ủy quyền một số công việc cho các đối tượng trợ giúp. **Strategy** làm cho các đối tượng này hoàn toàn độc lập và không biết về nhau. Tuy nhiên, **State** không hạn chế sự phụ thuộc giữa các trạng thái cụ thể, cho phép chúng thay đổi trạng thái của ngữ cảnh theo ý muốn.
