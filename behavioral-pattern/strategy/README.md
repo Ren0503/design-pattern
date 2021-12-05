@@ -129,26 +129,25 @@ class ExampleApplication is
         Print result.
 ```
 
-## Ứng dụng
+## 💡 Ứng dụng
 
- **Sử dụng Strategy khi bạn muốn dùng các biến thể thuật toán khác nhau trong một đối tượng cho phép chuyển đổi từ thuật toán này sang thuật toán khác khi đang chạy**.
+**🐞 Sử dụng Strategy khi bạn muốn dùng các biến thể thuật toán khác nhau trong một đối tượng cho phép chuyển đổi từ thuật toán này sang thuật toán khác khi đang chạy**.
  
- Strategy giúp bạn chỉnh sửa hành vi đối tượng gián tiếp khi đang chạy bằng liên kết với các đối tượng con khác để thực hiện hành vi cụ thể theo các cách khác nhau.
+⚡ Strategy giúp bạn chỉnh sửa hành vi đối tượng gián tiếp khi đang chạy bằng liên kết với các đối tượng con khác để thực hiện hành vi cụ thể theo các cách khác nhau.
 
-**Sử dụng Strategy khi bạn có nhiều lớp giuống nhau chỉ khác nhau các chúng thực hiện một vài hành vi**
+**🐞 Sử dụng Strategy khi bạn có nhiều lớp giuống nhau chỉ khác nhau các chúng thực hiện một vài hành vi**
 
-Strategy giúp bạn trích xuất các hành vi khác nhau vào một hệ thống phân cấp lớp và kết hợp với lớp gốc thành một, bằng cách này sẽ làm giảm code trùng lặp.
+⚡ Strategy giúp bạn trích xuất các hành vi khác nhau vào một hệ thống phân cấp lớp và kết hợp với lớp gốc thành một, bằng cách này sẽ làm giảm code trùng lặp.
 
+**🐞 Sử dụng Strategy để cô lập logic nghiệp vụ của một lớp khỏi triển khai chi tiết của thuật toán, thứ không mấy quan trọng trong ngữ cảnh của logic đó**.
 
-**Sử dụng Strategy để cô lập logic nghiệp vụ của một lớp khỏi triển khai chi tiết của thuật toán, thứ không mấy quan trọng trong ngữ cảnh của logic đó**.
+⚡ Strategy giúp bạn cô lập code, dữ liệu bên trong và các phụ thuộc vào thuật toán với phần code còn lại. Client khác nhau nhận về một interface đơn giản để thực thi thuật toán và chuyển đổi chúng khi đang chạy.
 
-Strategy giúp bạn cô lập code, dữ liệu bên trong và các phụ thuộc vào thuật toán với phần code còn lại. Client khác nhau nhận về một interface đơn giản để thực thi thuật toán và chuyển đổi chúng khi đang chạy.
+**🐞 Sử dụng Strategy khi lớp của bạn có một lượng điều kiện khổng lồ để chuyển đổi các biến thể khác nhau với cùng thuật toán**.
 
-**Sử dụng Strategy khi lớp của bạn có một lượng điều kiện khổng lồ để chuyển đổi các biến thể khác nhau với cùng thuật toán**.
+⚡ Strategy giúp bạn bỏ đi các điều kiện bằng cách trích xuất tất cả thuật toán vào các lớp riêng biệt. Toàn bộ triển khai cùng interface. Đối tượng gốc uỷ thác thực thi cho một trong các đối tượng trên thay vì triển khai tất cả biến thể của thuật toán.
 
-Strategy giúp bạn bỏ đi các điều kiện bằng cách trích xuất tất cả thuật toán vào các lớp riêng biệt. Toàn bộ triển khai cùng interface. Đối tượng gốc uỷ thác thực thi cho một trong các đối tượng trên thay vì triển khai tất cả biến thể của thuật toán.
-
-## Triển khai
+## 📋 Triển khai
 
 1. Trong lớp context, xác định thuật toán dễ thay đổi. Nó còn có thể có một lượng điều kiện to lớn để chọn và thực thi biến thể của cùng thuật toán khi đang chạy
 2. Khai báo interface strategy chung cho tất cả biến thể của thuật toán.
@@ -156,25 +155,25 @@ Strategy giúp bạn bỏ đi các điều kiện bằng cách trích xuất t�
 4. Trong lớp context, thêm một trường cho lưu trữ tham chiếu đến đối tượng strategy. Cung cấp một setter cho thay thế giá trị của trường này. Context nên làm việc với đối tượng strategy thôgn qua interface strategy. Context có thể định nghĩa một interface để cho phép strategy truy cập dữ liệu của nó.
 5. Client của context phải liên kết nó với strategy phù hợp để ứng với cách chúng mong đợi context thực hiện hành vi chính.
 
-## Ưu nhược điểm
+## ⚖️ Ưu nhược điểm
 
 ### Ưu điểm
 
-Bạn có thể chuyển đổi thuật toán bên trogn đối tượng khi đang chạy.
+✔️ Bạn có thể chuyển đổi thuật toán bên trogn đối tượng khi đang chạy.
 
-Bạn có thể cô lập triển khai chi tiết của thuật toán khỏi code sử dụng nó.
+✔️ Bạn có thể cô lập triển khai chi tiết của thuật toán khỏi code sử dụng nó.
 
-Bạn có thể thay thế kế thừa với hỗn hợp.
+✔️ Bạn có thể thay thế kế thừa với hỗn hợp.
 
-*Open/Closed Principle*. Bạn có thể thêm strategy mới mà không ảnh hưởng đến context.
+✔️ *Open/Closed Principle*. Bạn có thể thêm strategy mới mà không ảnh hưởng đến context.
 
 ### Nhược điểm
 
-Nếu bạn chỉ có một vài thuật toán và chúng hiếm khi thay đổi, thì không có lý do thực sự nào để làm phức tạp chương trình quá mức với các lớp và interface mới đi kèm với pattern.
+❌ Nếu bạn chỉ có một vài thuật toán và chúng hiếm khi thay đổi, thì không có lý do thực sự nào để làm phức tạp chương trình quá mức với các lớp và interface mới đi kèm với pattern.
 
-Client phải nhận thức được các strategy khác nhau để có thể chọn cái phù hợp.
+❌ Client phải nhận thức được các strategy khác nhau để có thể chọn cái phù hợp.
 
-Rất nhiều ngôn ngữ lập trình hiện đại có hỗ trợ kiểu hàm cho phép bạn triển khai các phiên bản khác nhau của thuật toán bên trong một tập hợp các hàm ẩn danh. Sau đó, bạn có thể sử dụng các chức năng này chính xác như khi bạn đã sử dụng các đối tượng strategy, nhưng không làm tăng code của bạn với các lớp và giao diện bổ sung.
+❌ Rất nhiều ngôn ngữ lập trình hiện đại có hỗ trợ kiểu hàm cho phép bạn triển khai các phiên bản khác nhau của thuật toán bên trong một tập hợp các hàm ẩn danh. Sau đó, bạn có thể sử dụng các chức năng này chính xác như khi bạn đã sử dụng các đối tượng strategy, nhưng không làm tăng code của bạn với các lớp và giao diện bổ sung.
 
 ## 🔁 Quan hệ với các pattern khác
 
