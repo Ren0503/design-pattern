@@ -57,12 +57,18 @@ Hệ thống các design pattern được chia thành 3 nhóm: nhóm Creational,
     + [**Facade**](./structural-pattern/facade)
     + [**Flyweight**](./structural-pattern/flyweight)
     + [**Proxy**](./structural-pattern/proxy)
-- **Behavioral Pattern** quan tâm đến việc giao tiếp hiệu quả và phân công nhiệm vụ giữa các đối tượng.
+- [**Behavioral Pattern**](./behavvioral-pattern) quan tâm đến việc giao tiếp hiệu quả và phân công nhiệm vụ giữa các đối tượng.
     + [**Chain Of Responsibility**](./behavioral-pattern/chain-of-responsibility)
     + [**Command**](./behavioral-pattern/command)
     + [**Iterator**](./behavioral-pattern/iterator)
     + [**Mediator**](./behavioral-pattern/mediator)
     + [**Memento**](./behavioral-pattern/memento)
+    + [**Observer**](./behavioral-pattern/observer)
+    + [**State**](./behavioral-pattern/state)
+    + [**Strategy**](./behavioral-pattern/strategy)
+    + [**Template Method**](./behavioral-pattern/template-method)
+    + [**Visitor**](./behavioral-pattern/visitor)
+
 # Nguồn
 
 [**refactoring**](https://refactoring.guru/design-patterns)

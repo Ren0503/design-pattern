@@ -8,25 +8,25 @@
 
 ## 😟 Vấn đề
 
-Tưởng tượng team bạn đang phát triển một ứng dụng làm việc với thông tin địa lý được cấu trúc dưới dạng một biểu đồ khổng lồ. Mỗi nút trong đồ thị có thể biểu diễn một thực thể phức tạp như một thành phố, nhưng chi tiết hơn như các nhà máy, khu tham quan, .... Các nút được kết nối với nhau nếu có một con đường giữa các đối tượng thực mà nó biểu diễn. Hiểu sâu hơn, mỗi loại nút được biểu diễn bởi lớp riêng của nó, trong khi mỗi nút cụ thể là một đối tượng.
+Tưởng tượng team bạn đang phát triển một ứng dụng làm việc với thông tin địa lý được cấu trúc dưới dạng một biểu đồ khổng lồ. Mỗi nút trong đồ thị có thể biểu diễn một thực thể phức tạp như một thành phố, nhưng chi tiết hơn như các nhà máy, khu tham quan,... Các nút được kết nối với nhau nếu có một con đường giữa các đối tượng thực mà nó biểu diễn. Hiểu sâu hơn, mỗi loại nút được biểu diễn bởi lớp riêng của nó, trong khi mỗi nút cụ thể là một đối tượng.
 
 ![problem](./assets/problem1.png)
 
-Tại một thời điểm nào đó, bạn có nhiệm vụ triển khai xuất biểu đồ sang định dạng XML. Lúc đầu, công việc có vẻ khá đơn giản. Bạn đã lên kế hoạch thêm một phương thức xuất vào từng lớp nút và sau đó tận dụng đệ quy để đi qua từng nút của biểu đồ, thực hiện phương thức xuất. Giải pháp rất đơn giản và thanh lịch: nhờ tính đa hình, bạn không phải ghép đoạn code được gọi là phương thức xuất với các lớp nút cụ thể.
+Tại một thời điểm nào đó, bạn có nhiệm vụ xuất biểu đồ sang định dạng XML. Lúc đầu, công việc có vẻ khá đơn giản. Bạn đã lên kế hoạch thêm một phương thức xuất vào từng lớp nút và sau đó tận dụng đệ quy để đi qua từng nút của biểu đồ, thực hiện phương thức xuất. Giải pháp rất đơn giản và gọn gàng: nhờ tính đa hình, bạn không phải ghép đoạn code được gọi là phương thức xuất với các lớp nút cụ thể.
 
-Thật không may, kỹ sư hệ thống đã từ chối cho phép bạn thay đổi các lớp nút hiện có. Anh ấy nói rằng code đã được tạot và anh ấy không muốn mạo hiểm phá vỡ nó vì một lỗi tiềm ẩn trong các thay đổi của bạn.
+Thật không may, kỹ sư hệ thống đã từ chối cho phép bạn thay đổi các lớp nút hiện có. Anh ấy nói rằng code đã được tạo và anh ấy không muốn mạo hiểm phá vỡ nó vì một lỗi tiềm ẩn trong các thay đổi của bạn.
 
 ![problem](./assets/problem2.png)
 
-Bên cạnh đó, anh ấy đặt câu hỏi liệu có hợp lý khi có code xuất XML trong các lớp nút hay không. Công việc chính của các lớp này là làm việc với dữ liệu địa lý. Hành vi xuất XML sẽ có vẻ khác lạ ở đó.
+Bên cạnh đó, anh ấy đặt câu hỏi liệu có hợp lý khi có code xuất XML trong các lớp nút hay không. Công việc chính của các lớp này là làm việc với dữ liệu địa lý. Hành vi xuất XML sẽ có vẻ không phù hợp ở đó.
 
-Có một lý do khác cho việc từ chối. Rất có thể sau khi tính năng này được triển khai, một người nào đó từ bộ phận tiếp thị sẽ yêu cầu bạn cung cấp khả năng xuất sang một định dạng khác hoặc yêu cầu một số thứ kỳ lạ khác. Điều này sẽ buộc bạn phải thay đổi những lớp quý giá và mỏng manh đó một lần nữa.
+Có một lý do khác cho việc từ chối. Rất có thể sau khi tính năng này được triển khai, một người nào đó từ bộ phận tiếp thị sẽ yêu cầu bạn cung cấp khả năng xuất sang một định dạng khác hoặc yêu cầu một số thứ kỳ lạ khác. Điều này sẽ buộc bạn phải thay đổi những lớp này một lần nữa.
 
 ## 😊 Giải pháp
 
-Visitor gợi ý rằng bạn nên đặt hành vi mới vào một lớp riêng biệt được gọi là visitor, thay vì cố gắng tích hợp nó vào các lớp hiện có. Đối tượng ban đầu phải thực hiện hành vi hiện được chuyển cho một trong các phương thức của visitor truy cập dưới dạng tham số, cung cấp cho phương thức này quyền truy cập vào tất cả dữ liệu cần thiết có trong đối tượng.
+Pattern Visitor gợi ý rằng bạn nên đặt hành vi mới vào một lớp riêng biệt được gọi là visitor, thay vì cố gắng tích hợp nó vào các lớp hiện có. Đối tượng gốc phải thực hiện hành vi bây giờ được chuyển cho một trong các phương thức của visitor dưới dạng tham số, cung cấp cho phương thức này quyền truy cập vào tất cả dữ liệu cần thiết có trong đối tượng.
 
-Bây giờ, điều gì sẽ xảy ra nếu hành vi đó có thể được thực thi trên các đối tượng của các lớp khác nhau? Ví dụ, trong trường hợp này với xuất XML, việc triển khai thực tế có thể sẽ khác một chút trên các lớp nút khác nhau. Do đó, lớp visitor có thể xác định không phải một, mà là một tập hợp các phương thức, mỗi phương thức có thể nhận các đối số thuộc các kiểu khác nhau, như thế này:
+Bây giờ, điều gì sẽ xảy ra nếu hành vi đó có thể được thực thi trên các đối tượng của các lớp khác nhau? Ví dụ, trong trường hợp này là xuất XML, việc triển khai thực tế có thể sẽ khác một chút trên các lớp nút khác nhau. Do đó, lớp visitor có thể xác định không phải một, mà là một tập hợp các phương thức, mỗi phương thức có thể nhận các tham số thuộc các kiểu khác nhau, như thế này:
 
 ```c
 class ExportVisitor implements Visitor is
@@ -36,7 +36,7 @@ class ExportVisitor implements Visitor is
     // ...
 ```
 
-Nhưng chính xác thì chúng ta sẽ gọi những phương pháp này như thế nào, đặc biệt là khi xử lý toàn bộ đồ thị? Các phương pháp này có các chữ ký khác nhau, vì vậy chúng tôi không thể sử dụng tính đa hình. Để chọn một phương thức visitor truy cập thích hợp có thể xử lý một đối tượng nhất định, chúng tôi cần kiểm tra lớp của nó. Nghe có vẻ như một cơn ác mộng?
+Nhưng chính xác thì chúng ta sẽ gọi những phương pháp này như thế nào, đặc biệt là khi xử lý toàn bộ đồ thị? Các phương pháp này có các chữ ký khác nhau, vì vậy ta không thể sử dụng tính đa hình. Để chọn một phương thức visitor thích hợp có thể xử lý một đối tượng nhất định, ta cần kiểm tra lớp của nó.
 
 ```c
 foreach (Node node in graph)
@@ -48,9 +48,10 @@ foreach (Node node in graph)
 }
 ```
 
-Bạn có thể hỏi, tại sao chúng ta không sử dụng phương thức nạp chồng? Đó là khi bạn đặt cùng một tên cho tất cả các phương thức, ngay cả khi chúng hỗ trợ các bộ tham số khác nhau. Thật không may, ngay cả khi giả sử rằng ngôn ngữ lập trình của chúng tôi hỗ trợ nó (như Java và C #), nó sẽ không giúp ích gì cho chúng tôi. Vì lớp chính xác của đối tượng nút không được biết trước, cơ chế nạp chồng sẽ không thể xác định phương thức chính xác để thực thi. Nó sẽ mặc định là phương thức nhận một đối tượng của lớp `Node` cơ sở.
+Bạn có thể hỏi, tại sao chúng ta không sử dụng phương thức overloading - nạp chồng? Overloading là khi bạn đặt cùng một tên cho tất cả các phương thức, ngay cả khi chúng hỗ trợ các bộ tham số khác nhau. Thật không may, ngay cả trong trường hợp ngôn ngữ lập trình của ta hỗ trợ nó (như Java và C #), thì nó sẽ không giúp ích được gì cả. Vì lớp chính xác của đối tượng nút không được biết trước, cơ chế overloading sẽ không thể xác định phương thức chính xác để thực thi. Nó sẽ mặc định là phương thức nhận một đối tượng của lớp `Node` cơ sở.
 
-Tuy nhiên, kiểu visitor giải quyết vấn đề này. Nó sử dụng một kỹ thuật gọi là **Double Dispatch**, giúp thực thi phương thức thích hợp trên một đối tượng mà không cần các điều kiện rườm rà. Thay vì cho phép client chọn một phiên bản thích hợp của phương thức để gọi, chúng ta ủy thác lựa chọn này cho các đối tượng mà chúng ta đang chuyển cho visitor làm đối số thì sao? Vì các đối tượng biết các lớp riêng của chúng, họ sẽ có thể chọn một phương pháp thích hợp cho visitor một cách ít lúng túng hơn. Họ “chấp nhận” một visitor và cho người đó biết phương thức truy cập nào nên được thực thi.
+Tuy nhiên, pattern visitor giải quyết vấn đề này. Nó sử dụng một kỹ thuật gọi là **Double Dispatch**, giúp thực thi phương thức thích hợp trên một đối tượng mà không cần các điều kiện rườm rà. Thay vì cho phép client chọn một phiên bản thích hợp của phương thức để gọi, tại sao ta không ủy thác lựa chọn này cho các đối tượng mà chúng ta đang chuyển cho visitor làm tham số ? 
+Vì các đối tượng biết các lớp riêng của chúng, chúng có thể chọn một phương pháp thích hợp cho visitor một cách ít lúng túng hơn. Chúng "accept" một visitor và cho visitor đó biết phương thức truy cập nào nên được thực thi.
 
 ```c
 // Client code
@@ -70,9 +71,9 @@ class Industry is
     // ...
 ```
 
-Tôi thú nhận. Rốt cuộc, chúng tôi đã phải thay đổi các lớp nút. Nhưng ít nhất sự thay đổi là nhỏ và nó cho phép chúng tôi thêm các hành vi khác mà không phải thay đổi code một lần nữa.
+Rốt cuộc thì ta cũng phải thay đổi các lớp nút. Nhưng ít nhất sự thay đổi là nhỏ và nó cho phép ta thêm các hành vi khác mà không phải thay đổi code một lần nữa.
 
-Bây giờ, nếu chúng tôi trích xuất một interface chung cho tất cả visitor, thì tất cả các nút hiện có có thể hoạt động với bất kỳ visitor nào mà bạn thêm vào ứng dụng. Nếu bạn thấy mình đang giới thiệu một hành vi mới liên quan đến các nút, tất cả những gì bạn phải làm là triển khai một lớp visitor mới.
+Bây giờ, nếu ta trích xuất một interface chung cho tất cả visitor, thì tất cả các nút hiện có có thể hoạt động với bất kỳ visitor nào mà bạn thêm vào ứng dụng. Nếu bạn thấy mình đang thêm một hành vi mới liên quan đến các nút, tất cả những gì bạn phải làm là triển khai một lớp visitor mới.
 
 ## 🚗 Thế Giới Thực
 
@@ -103,22 +104,24 @@ Trong ví dụ này, Visitor thêm hỗ trợ xuất XML vào hệ thống phân
 *Xuất nhiều loại đối tượng khác nhau sang định dạng XML thông qua đối tượng visitor.*
 
 ```c
-// The element interface declares an `accept` method that takes
-// the base visitor interface as an argument.
+// Interface element khai báo phương thức `accept` để
+// nhận interface visitor cơ sở như là tham số.
 interface Shape is
     method move(x, y)
     method draw()
     method accept(v: Visitor)
 
-// Each concrete element class must implement the `accept`
-// method in such a way that it calls the visitor's method that
-// corresponds to the element's class.
+
+// Mỗi lớp concrete element phải triển khai phương
+// thức `accept` theo một cách như gọi phương thức
+// của visitor phù hợp với lớp của element.
 class Dot implements Shape is
     // ...
 
-    // Note that we're calling `visitDot`, which matches the
-    // current class name. This way we let the visitor know the
-    // class of the element it works with.
+
+    // Lưu ý ta gọi `visitDot`, tương ứng với tên lớp hiện 
+    // tại. Cách này giúp visitor biết lớp của element
+    // đang làm việc với nó.
     method accept(v: Visitor) is
         v.visitDot(this)
 
@@ -138,45 +141,44 @@ class CompoundShape implements Shape is
         v.visitCompoundShape(this)
 
 
-// The Visitor interface declares a set of visiting methods that
-// correspond to element classes. The signature of a visiting
-// method lets the visitor identify the exact class of the
-// element that it's dealing with.
+// Interface visitor khai báo một tập hợp phương thức đi qua
+// tương ứng với các lớp element. Ký hiệu của phương thức
+// đi qua giúp visitior xác định chính xác lớp của element
+// đang xử lý nó.
 interface Visitor is
     method visitDot(d: Dot)
     method visitCircle(c: Circle)
     method visitRectangle(r: Rectangle)
     method visitCompoundShape(cs: CompoundShape)
 
-// Concrete visitors implement several versions of the same
-// algorithm, which can work with all concrete element classes.
+// Concrete visitor triển khai nhiều phiên bản thuật toán
+// giống nhau, thứ làm việc với tất cả lớp concrete element.
 //
-// You can experience the biggest benefit of the Visitor pattern
-// when using it with a complex object structure such as a
-// Composite tree. In this case, it might be helpful to store
-// some intermediate state of the algorithm while executing the
-// visitor's methods over various objects of the structure.
+// Bạn có thể có nhiều lợi ích từ làm việc với pattern Visitor
+// khi sử dụng nó với đối tượng có cấu trúc phức tạp như cây
+// Composite. Trong trường hợp này, nó sẽ hữu ích để lưu trữ
+// một vài trạng thái trung gian của thuật toán trong khi thực
+// thi phương thức của visitor qua các đối tượng khác nhau của
+// cấu trúc.
 class XMLExportVisitor implements Visitor is
     method visitDot(d: Dot) is
-        // Export the dot's ID and center coordinates.
+        // Xuất ID của dấu chấm và hệ toạ độ trung tâm.
 
     method visitCircle(c: Circle) is
-        // Export the circle's ID, center coordinates and
-        // radius.
+        // Xuất ID của vòng tròn, toạ độ trung tâm và bán kính.
 
     method visitRectangle(r: Rectangle) is
-        // Export the rectangle's ID, left-top coordinates,
-        // width and height.
+        // Xuất ID của hình chữ nhật, toạ độ trên-trái,
+        // chiều dài và chiều rộng.
 
     method visitCompoundShape(cs: CompoundShape) is
-        // Export the shape's ID as well as the list of its
-        // children's IDs.
+        // Xuất ID của hình dạng cũng như danh sách con của ID.
 
 
-// The client code can run visitor operations over any set of
-// elements without figuring out their concrete classes. The
-// accept operation directs a call to the appropriate operation
-// in the visitor object.
+
+// Code client chạy thao tác visitor qua bất kỳ tập hợp element
+// mà không cần biết lớp cụ thể của nó. Thao tá accept trực tiếp
+// gọi đến thao tác thích hợp ở đối tượng visitor.
 class Application is
     field allShapes: array of Shapes
 
@@ -189,17 +191,17 @@ class Application is
 
 ## 💡 Ứng dụng
 
-**Sử dụng Visitor khi bạn cần thực hiện thao tác trên tất cả các phần tử của cấu trúc đối tượng phức tạp (ví dụ: cây đối tượng).**
+**🐞 Sử dụng Visitor khi bạn cần thực hiện thao tác trên tất cả các phần tử của cấu trúc đối tượng phức tạp (ví dụ: cây đối tượng).**
 
-Pattern Visitor cho phép bạn thực hiện một thao tác trên một tập hợp các đối tượng có các lớp khác nhau bằng cách để một đối tượng visitor triển khai một số biến thể của cùng một thao tác, tương ứng với tất cả các lớp mục tiêu.
+⚡ Pattern Visitor cho phép bạn thực hiện một thao tác trên một tập hợp các đối tượng có các lớp khác nhau bằng cách để một đối tượng visitor triển khai một số biến thể của cùng một thao tác, tương ứng với tất cả các lớp mục tiêu.
 
-**Sử dụng Visitor để làm sạch logic nghiệp vụ của các hành vi phụ trợ.**
+**🐞 Sử dụng Visitor để làm sạch logic nghiệp vụ của các hành vi phụ trợ.**
 
-Visitor cho phép bạn làm cho các lớp chính của ứng dụng tập trung hơn vào công việc chính của chúng bằng cách trích xuất tất cả các hành vi khác vào một tập hợp các lớp visitor.
+⚡ Visitor cho phép bạn làm cho các lớp chính của ứng dụng tập trung hơn vào công việc chính của chúng bằng cách trích xuất tất cả các hành vi khác vào một tập hợp các lớp visitor.
 
-**Sử dụng Visitor khi một hành vi chỉ có ý nghĩa trong một số lớp của hệ thống phân cấp lớp, nhưng không có ý nghĩa trong các lớp khác.**
+**🐞 Sử dụng Visitor khi một hành vi chỉ có ý nghĩa trong một số lớp của hệ thống phân cấp lớp, nhưng không có ý nghĩa trong các lớp khác.**
 
-Bạn có thể trích xuất hành vi này thành một lớp visitor riêng biệt và chỉ triển khai những phương thức truy cập chấp nhận các đối tượng của các lớp có liên quan, để trống phần còn lại.
+⚡ Bạn có thể trích xuất hành vi này thành một lớp visitor riêng biệt và chỉ triển khai những phương thức truy cập chấp nhận các đối tượng của các lớp có liên quan, để trống phần còn lại.
 
 ## 📋 Triển khai
 
@@ -221,17 +223,17 @@ Bạn có thể trích xuất hành vi này thành một lớp visitor riêng bi
 
 ### Ưu điểm
 
-*Open/Closed Principle*. Bạn có thể thêm một hành vi mới có thể hoạt động với các đối tượng của các lớp khác nhau mà không cần thay đổi các lớp này.
+✔️ *Open/Closed Principle*. Bạn có thể thêm một hành vi mới có thể hoạt động với các đối tượng của các lớp khác nhau mà không cần thay đổi các lớp này.
 
-*Single Responsibility Principle*. Bạn có thể chuyển nhiều phiên bản của cùng một hành vi vào cùng một lớp.
+✔️ *Single Responsibility Principle*. Bạn có thể chuyển nhiều phiên bản của cùng một hành vi vào cùng một lớp.
 
- Một đối tượng visitor có thể tích lũy một số thông tin hữu ích khi làm việc với nhiều đối tượng khác nhau. Điều này có thể hữu ích khi bạn muốn duyệt qua một số cấu trúc đối tượng phức tạp, chẳng hạn như cây đối tượng và áp dụng visitor vào từng đối tượng của cấu trúc này.
+✔️ Một đối tượng visitor có thể tích lũy một số thông tin hữu ích khi làm việc với nhiều đối tượng khác nhau. Điều này có thể hữu ích khi bạn muốn duyệt qua một số cấu trúc đối tượng phức tạp, chẳng hạn như cây đối tượng và áp dụng visitor vào từng đối tượng của cấu trúc này.
 
 ### Nhược điểm
 
-Bạn cần cập nhật tất cả visitor mỗi khi một lớp được thêm vào hoặc xóa khỏi hệ thống phân cấp phần tử.
+❌ Bạn cần cập nhật tất cả visitor mỗi khi một lớp được thêm vào hoặc xóa khỏi hệ thống phân cấp phần tử.
 
-Visitor có thể thiếu quyền truy cập cần thiết vào các trường riêng tư và phương pháp của các phần tử mà họ phải làm việc với.
+❌ Visitor có thể thiếu quyền truy cập cần thiết vào các trường riêng tư và phương pháp của các phần tử mà họ phải làm việc với.
 
 ## 🔁 Quan hệ với các pattern khác
 

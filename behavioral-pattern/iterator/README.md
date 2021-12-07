@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-Iterator là một design pattern thuộc nhóm behavioral giúp bạn duyệt phần tử của một tập hợp mà không để lộ dạng cơ bản của nó (danh sách, ngăn xếp, cây, ...)
+**Iterator** là một design pattern thuộc nhóm behavioral giúp bạn duyệt phần tử của một tập hợp mà không để lộ dạng cơ bản của nó (danh sách, ngăn xếp, cây, ...)
 
 ![intent](./assets/intent.png)
 

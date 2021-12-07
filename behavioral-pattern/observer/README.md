@@ -215,7 +215,7 @@ Sự khác biệt giữa **Mediator** và **Observer** thường khó nắm bắ
 - Nếu thấy bối rối, hãy nhớ rằng bạn có thể triển khai **Mediator** theo những cách khác. Ví dụ: bạn có thể liên kết vĩnh viễn tất cả các thành phần với cùng một đối tượng mediator. Việc triển khai này sẽ không giống với **Observer** nhưng vẫn sẽ là một bản sao của **Mediator**.
 
 - Bây giờ hãy tưởng tượng một chương trình mà tất cả các thành phần đã trở thành publisher, cho phép các kết nối động với nhau. Sẽ không có đối tượng mediator tập trung, chỉ có một nhóm observer phân tán.
-- 
+
 # Nguồn 
 
 [refactoring](https://refactoring.guru/design-patterns/observer)

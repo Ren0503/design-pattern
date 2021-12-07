@@ -30,4 +30,4 @@ Giúp bạn sao chép một đối tượng mà code của bạn sẽ không ph�
 
 [![singleton-mini](./assets/singleton-mini.png)](./singleton)
 
- Đảm bảo ràng một lớp chỉ với một thực thể duy nhất, trong khi cung cấp điểm truy cập toàn cục cho thực thể đấy.
+Đảm bảo ràng một lớp chỉ với một thực thể duy nhất, trong khi cung cấp điểm truy cập toàn cục cho thực thể đấy.
