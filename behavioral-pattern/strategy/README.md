@@ -190,3 +190,7 @@ Mặt khác, **Strategy** thường mô tả các cách khác nhau để thực 
 **Template Method** dựa trên sự kế thừa: nó cho phép bạn thay đổi các phần của một thuật toán bằng cách mở rộng các phần đó trong các lớp con. **Strategy** dựa trên cấu tạo: bạn có thể thay đổi các phần trong hành vi của đối tượng bằng cách cung cấp cho đối tượng các strategy khác nhau tương ứng với hành vi đó. **Template Method** hoạt động ở cấp độ lớp, vì vậy nó là tĩnh. **Strategy** hoạt động ở cấp độ đối tượng, cho phép bạn chuyển đổi hành vi trong thời gian chạy.
 
 **State** có thể được coi là một phần mở rộng của **Strategy**. Cả hai pattern đều dựa trên kết hợp: chúng thay đổi hành vi của ngữ cảnh bằng cách ủy quyền một số công việc cho các đối tượng trợ giúp. **Strategy** làm cho các đối tượng này hoàn toàn độc lập và không biết về nhau. Tuy nhiên, **State** không hạn chế sự phụ thuộc giữa các trạng thái cụ thể, cho phép chúng thay đổi trạng thái của ngữ cảnh theo ý muốn.
+
+# Nguồn
+
+[**refactoring**](https://refactoring.guru/design-patterns/strategy)
