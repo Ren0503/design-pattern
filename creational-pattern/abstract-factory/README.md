@@ -9,12 +9,12 @@
 ## 😟 Vấn đề
 
 Giả sử bạn đang tạo một trang bán đồ nội thất. Code của bạn bao gồm các lớp sau:
-1. Các sản phẩm có quan hệ gần gũi như: `Sofa`, `Chair` và `CoffeTable`.
+1. Các sản phẩm có quan hệ với nhau như: `Sofa`, `Chair` và `CoffeTable`.
 2. Các biến thể của nhóm sản phẩm đó. Ví dụ như nhóm `Sofa` + `Chair` + `CoffeTable` có các biến thể như `Modern`, `Victorian` và `ArtDeco`.
 
 ![problem](./assets/problem.png)
 
-Bạn cần có cách để khi tạo một đồ vật nội thất đơn lẻ, nó phải phù hợp với các đồ vật khác trong nhóm của nó. Khách hàng sẽ khó chịu khi họ nhận về những đồ vật trong nhóm có biến thể khác nhau.
+Bạn cần có cách để khi tạo một đồ nội thất đơn lẻ, nó phải phù hợp với các đồ vật khác trong nhóm của nó. Khách hàng sẽ khó chịu khi họ nhận về những đồ vật trong nhóm có biến thể khác nhau.
 
 ![problem1](./assets/problem1.png)
 
@@ -26,7 +26,7 @@ Việc đầu tiên cần làm theo Abstract Factory là khai báo inteface rõ 
 
 ![solution1](./assets/solution1.png)
 
-Bước tiếp theo là khai báo *Abstract Factory* - là interface chứa tất cả phương thức tạo cho tất cả sản phẩm trong nhóm sản phẩm (vd: `createChair`, `createSofa` và `createCoffeTable`).Các phương thức này trả về một kiểu sản phẩm **trừu tượng (abstract)** được biểu diễn bởi interface mà chúng ta trích xuất trước đó: `Chair`, `Sofa`, `CoffeTable`,...
+Bước tiếp theo là khai báo *Abstract Factory* - là interface chứa tất cả phương thức tạo cho tất cả sản phẩm trong nhóm sản phẩm (vd: `createChair`, `createSofa` và `createCoffeTable`). Các phương thức này trả về một kiểu sản phẩm **trừu tượng (abstract)** được biểu diễn bởi interface mà chúng ta trích xuất trước đó: `Chair`, `Sofa`, `CoffeTable`,...
 
 ![solution2](./assets/solution2.png)
 
@@ -36,7 +36,7 @@ Code client làm việc với factory hay sản phẩm thông qua interface tr�
 
 ![solution3](./assets/solution3.png)
 
-Giả sử client muốn một factory để tạo ghế (chair). Nó sẽ không cần quan tâm loại của lớp factory đó, cũng như kiểu ghế nhận về. Dù là Modern hay Victorian, nó cũng sẽ xử lý theo cùng một cách là thông qua interface trừu tượng `Chair`. Với cách tiếp cận này client chỉ cần quan tâm là ghế sẽ triển khai phương thức `sitOn` như thế nào. Bên cạnh đó, bất kỳ biến thể nào của `chair`, nó cũng sẽ phù hợp với `sofa` và `coffe table` được tạo cùng đối tượng factory.
+Giả sử client muốn một factory để tạo ghế (chair). Nó sẽ không cần quan tâm kiểu của lớp factory đó, cũng như kiểu ghế nhận về. Dù là Modern hay Victorian, nó cũng sẽ xử lý theo cùng một cách là thông qua interface trừu tượng `Chair`. Với cách tiếp cận này client chỉ cần quan tâm là ghế sẽ triển khai phương thức `sitOn` như thế nào. Bên cạnh đó, bất kỳ biến thể nào của `chair`, nó cũng sẽ phù hợp với `sofa` và `coffe-table` được tạo cùng đối tượng factory.
 
 Nếu bạn thắc mắc: client chỉ làm việc với interface trừu tượng, vậy thì cái gì sẽ tạo ra factory ?. Thông thường ứng dụng sẽ tạo đối tượng factory cụ thể ở giai đoạn khởi tạo, nhưng trước đó ứng dụng sẽ tạo factory dựa trên kiểu cấu hình hoặc thiết lập môi trường.
 
@@ -48,7 +48,7 @@ Nếu bạn thắc mắc: client chỉ làm việc với interface trừu tượ
 2. **Concrete Product** là các triển khai biến thể của abstract product, được gom nhóm theo biến thể. Mỗi abstract product (chair/sofa) sẽ được triển khai tất cả biến thể (modern, victorian).
 3. **Abstract Factory** là interface có tập hợp phương thức khởi tạo cho từng abstract product.
 4. **Concrete Factory** là triển khai phương thức khởi tạo của abstract factory. Mỗi concrete factory tương ứng với biến thể cụ thể của sản phẩm và chỉ tạo sản phẩm theo biến thể đó.
-5. Mặc dù concrete factory tạo ra các concrete product, nhưng chữ ký của phương thức khởi tạo trả về sẽ tương ứng với abstract product. Với cách này code client sử dụng factory sẽ không cần quan tâm tới biến thể cụ thể của sản phẩm từ factory. Nó có thể làm việc với bất kỳ biến thể nào miễn là giao tiếp với các đối tượng thông qua interface trừu tượng.
+5. Mặc dù concrete factory tạo ra các concrete product, nhưng signature của phương thức khởi tạo trả về sẽ tương ứng với abstract product. Với cách này code client sử dụng factory sẽ không cần quan tâm tới biến thể cụ thể của sản phẩm từ factory. Nó có thể làm việc với bất kỳ biến thể nào miễn là giao tiếp với các đối tượng thông qua interface trừu tượng.
 
 ## 👨‍💻 Mã giả
 
@@ -80,7 +80,7 @@ interface GUIFactory is
 
 // Concrete factory tạo ra nhóm sản phẩm thuộc về một biến thể.
 // Factory đảm bảo rằng sản phẩm tạo ra luôn tương thích.
-// Chữ ký số của phương thức concrete factory trả về 
+// Signature của phương thức concrete factory trả về 
 // abstract product, trong khi bên trong phương thức,
 // concrete product được tạo ra.
 class WinFactory implements GUIFactory is
@@ -114,8 +114,8 @@ class MacButton implements Button is
         // Hiển thị button trong MacOS
 
 // Đây là interface cơ sở của một sản phẩm khác. Tất cả 
-// sản phẩm có thể tương tác với nhau, nhưng chỉ có thể
-// tương tác thích hợp giữa hai sản phẩm cùng một biến thể.
+// sản phẩm có thể tương tác với nhau, nhưng tương tác
+// chỉ khả dụng giữa hai sản phẩm cùng một biến thể.
 interface Checkbox is
     method paint()
 
@@ -166,8 +166,8 @@ class ApplicationConfigurator is
 
 ⚡  Abstract Factory cung cấp cho bạn interface để tạo các đối tượng từ mỗi lớp trong nhóm sản phẩm miễn là code của bạn tạo đối tượng thông qua interface, bạn sẽ không phải lo lắng các vấn đề tạo sai biến thể của sản phẩm hay không phù hợp với sản phẩm đã tạo trong ứng dụng.
 
-- Khi triển khai Abstract Factory cần lưu ý nếu lớp của bạn có chứa phương thức Factory, nó sẽ làm mờ nhiệm vụ chính của Abstract.
-- Một thiết kế chương trình tốt là khi *mỗi lớp sẽ chỉ làm một nhiệm vụ*. Khi một lớp xử lý nhiều loại sản phẩm, nó có thể đáng giá khi trích xuất các phương thức factory của nó thành một lớp factory độc lập hoặc triển khai Abstract Factory toàn diện. 
+- Khi triển khai Abstract Factory cần lưu ý nếu lớp của bạn có chứa phương thức Factory, nó sẽ làm mờ nhiệm vụ chính của Abstract.(*)
+- Một thiết kế chương trình tốt là khi *mỗi lớp sẽ chỉ làm một nhiệm vụ*. Khi một lớp xử lý nhiều loại sản phẩm, nó có thể đáng giá khi trích xuất các phương thức factory của nó thành một lớp factory độc lập hoặc triển khai Abstract Factory toàn diện.(*)
 
 ## 📋 Triển khai
 

@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**Adapter** là một design pattern dạng structural cho phép các đối tượng có interface không tương thích cộng tác với nhau.
+**Adapter** là một design pattern thuộc nhóm structural cho phép các đối tượng có interface không tương thích cộng tác với nhau.
 
 ![intent](./assets/intent.png)
 
@@ -54,7 +54,7 @@ Việc triển khai này sử dụng nguyên tắc cấu thành đối tượng:
 1. **Client** là lớp bao gồm các code logic hiện có của chương trình.
 2. **Client Interface** mô tả giao thức mà các lớp khác phải theo để có thể cộng tác với code client.
 3. **Service** là một vài lớp hữu ích (thường là bên thứ 3 hoặc kế thừa). Client không thể sử dụng trực tiếp vì không tương thích interface.
-4. **Adapter** là lớp có thể làm việc với cả client và service. Nó triển khai client interface trong khi bọc đối tượng service. Adapter nhận cuộc gọi từ client thông qua adapter interface và dịch nó, sau đó nó gọi lại đối tượng service được bọc dưới định dạnh service có thể hiểu được.
+4. **Adapter** là lớp có thể làm việc với cả client và service. Nó triển khai client interface trong khi bọc đối tượng service. Adapter nhận lệnh gọi từ client thông qua adapter interface và dịch nó, sau đó nó gọi lại đối tượng service được bọc dưới định dạnh service có thể hiểu được.
 5. Code client không cần phải ghép với lớp adapter cụ thể miễn là nó làm việc với adapter thông qua client interface. Nhờ điều đó, bạn có thể thêm kiểu adapter mới vào chương trình mà không ảnh hưởng đến code client. Điều này có thể hữu ích khi interface của lớp service có thay đổi: bạn có thể tạo lớp adapter mới mà không cần thay đổi code client.
 
 ### Lớp adapter
@@ -157,7 +157,7 @@ Giải pháp tốt hơn là đưa các hàm bị thiếu vào lớp adapter. Sau
 
 4. Thêm trường vào lớp adapter để lưu trữ tham chiếu đến đối tượng service. Cách phổ biến là tạo trường này thông qua hàm khởi tạo, nhưng đôi khi truyền nó cho adapter khi gọi các phương thức của nó sẽ thuận tiện hơn.
 
-5. Từng cái một, triển khai tất cả phương thức của client interface trong lớp adapter. Adapter nên uỷ thác phần lớp phần lớn công việc thực cho đối tượng service, chỉ xử lý interface hoặc chuyển đổi định dạng dữ liệu. 
+5. Từng cái một, triển khai tất cả phương thức của client interface trong lớp adapter. Adapter nên uỷ thác phần lớp phần lớn công việc thực cho đối tượng service, chỉ xử lý interface hoặc chuyển đổi định dạng dữ liệu.(*)
 
 6. Client nên sử dụng adapter thông qua client interface. Điều này giúp bạn thay đổi hoặc mở rộng adapter không ảnh hưởng đến code client.
 

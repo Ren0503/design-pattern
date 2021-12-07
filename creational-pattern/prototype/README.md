@@ -54,7 +54,7 @@ Một ví dụ thực nữa của pattern này quá trình nguyên phân trong s
 
 ![structure2](./assets/structure2.png)
 
-1. **Prototype Registry** cung cấp cách để truy cập dễ dàng các prototype được sử dụng thường xuyên. Nó lưu trữ một tập hợp đối tượng đã tạo sẵn cho việc sao chép. Prototype registry đơn giản nhất là bản đồ băm `name → prototype`. Tuy nhiên, nếu bạn cần các tiêu chí tìm kiếm tốt hơn, bạn có thể tự xây dựng một phiên bản registry mạnh mẽ hơn.
+1. **Prototype Registry** cung cấp cách để truy cập dễ dàng các prototype được sử dụng thường xuyên. Nó lưu trữ một tập hợp đối tượng đã tạo sẵn cho việc sao chép. Prototype registry đơn giản nhất là bản đồ băm `name → prototype`. Tuy nhiên, nếu bạn cần các tiêu chí tìm kiếm tốt hơn, bạn có thể tự xây dựng một phiên bản registry mạnh mẽ hơn.(*)
 
 ## 👨‍💻 Mã giả
 
@@ -89,7 +89,7 @@ abstract class Shape is
 
 // Concrete prototype. Phương thức sao chép tạo đối tượng mới
 // và truyền vào hàm khởi tạo. Cho đến khi hàm khởi tạo kết thúc
-// nó sẽ tham chiếu đến bản sao. Do dó không có ai có thể truy cập 
+// nó sẽ tham chiếu đến bản sao. Do đó không có ai có thể truy cập 
 // đến bản sao chưa hoàn chỉnh. Nó giữ cho bản sao nhất quán.
 class Rectangle extends Shape is
     field width: int
@@ -141,21 +141,21 @@ class Application is
 
     method businessLogic() is
         // Prototype chắc chắn vì nó giúp bạn tạo ra bản sao của đối
-        // tượng mà không cần biết bất cứ điều gì về kiểu của nó.
+        // tượng mà không cần biết bất cứ điều gì về kiểu của nó.(*)
         Array shapesCopy = new Array of Shapes.
 
-        // Ví dụ, bạn không biết chính xác phần tử trong mảng hình
-        // dạng. Tất cả những gì ta biết chỉ là đấy là hình dạng.
+        // Ví dụ, bạn không biết chính xác phần tử trong mảng shape.
+        // Tất cả những gì ta biết chỉ là đấy là hình dạng.
         // Nhưng nhờ tính đa hình, khi ta gọi phương thức `clone`
         // trên một hình dạng, chương trình kiểm tra lớp có thực và
         // chạy phương thức clone phù hợp đã định nghĩa trong lớp.
         // Đó là lý do vì sao ta lấy bản sao phù hợp thay vì 
-        // một tập hợp đối tượng Shape đơn giản.
+        // một tập hợp đối tượng Shape đơn giản.(*)
         foreach (s in shapes) do
             shapesCopy.add(s.clone())
 
         // Mảng `shapeCopy` bao gồm các bản sao chính xác
-        // của mảng `shape` con.
+        // của mảng `shape`.
 ```
 
 ## 💡 Ứng dụng
@@ -176,7 +176,7 @@ Thay vì khởi tạo một lớp con phù hợp với một số cấu hình, c
 
 1. Tạo interface prototype và khai báo phương thức sao chép trong đó. Hoặc thêm phương thức vào tất cả các lớp của hệ phân cấp lớp, nếu bạn có.
 
-2. Lớp prototype phải định nghĩa hàm khởi tạo thay thế để chấp nhận đối tượng của lớp đó như một tham số. Hàm khởi tạo phải sao chép giá trị từ tất cả trường đã định nghĩa trong lớp từ đối tượng được truyền, vào đối tượng mới được tạo. Nếu bạn đang thay đổi một lớp con, bạn phải gọi hàm khởi tạo cha để cho phép lớp cha xử lý việc sao chép các trường riêng tư của nó.
+2. Lớp prototype phải định nghĩa hàm khởi tạo thay thế để chấp nhận đối tượng của lớp đó như một tham số. Hàm khởi tạo phải sao chép giá trị từ tất cả trường đã định nghĩa trong lớp từ đối tượng được truyền vào đối tượng mới được tạo. Nếu bạn đang thay đổi một lớp con, bạn phải gọi hàm khởi tạo cha để cho phép lớp cha xử lý việc sao chép các trường riêng tư của nó.
 
     Nếu ngôn ngữ lập trình của bạn không hỗ trợ phương thức overloading, bạn phải định nghĩa phương thức đặc biệt cho sao chép đối tượng dữ liệu. Hàm khởi tạo là một nơi tiện lợi để làm điều này vì nó cung cấp kết quả đối tượng ngay sau khi bạn gọi toán tử `new`.
 
@@ -186,7 +186,7 @@ Thay vì khởi tạo một lớp con phù hợp với một số cấu hình, c
 
     Bạn có thể triển khai registry như một lớp factory hoặc đặt nó vào một lớp prototype cơ sở với phương thức tĩnh cho tìm nạp prototype. Phương thức này tìm kiếm prototype dựa trên các tiêu chí tìm kiếm mà code client truyền đến phương thức. Tiêu chí có thể là một chuỗi đơn giản hoặc cũng có thể là một tập hợp các tham số tìm kiếm phức tạp. Sau khi tìm thấy prototype thích hợp, registry sẽ sao chép nó và trả lại bản sao cho client.
     
-Cuối cùng, thay thế các lệnh gọi trực tiếp đến các hàm khởi tạo của lớp con bằng các lệnh gọi đến phương thức factory của prototype registry.
+5. Cuối cùng, thay thế các lệnh gọi trực tiếp đến các hàm khởi tạo của lớp con bằng các lệnh gọi đến phương thức factory của prototype registry.
 
 ## ⚖️ Ưu nhược điểm
 
@@ -202,7 +202,7 @@ Cuối cùng, thay thế các lệnh gọi trực tiếp đến các hàm khởi
 
 ### Nhược điểm
 
-❌ Sao chép các đối tượng phức tạp có tham chiếu hình tròn có thể rất khó.
+❌ Sao chép các đối tượng phức tạp có tham chiếu vòng tròn có thể rất khó.
 
 ## 🔁 Quan hệ với các pattern khác
 

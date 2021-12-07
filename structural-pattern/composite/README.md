@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**Composite** là một design pattern dạng structural cho phép bạn sắp xếp các đối tượng thành cấu trúc cây và sau đó làm việc với các cấu trúc này như thể chúng là các đối tượng riêng lẻ.
+**Composite** là một design pattern thuộc nhóm structural cho phép bạn sắp xếp các đối tượng thành cấu trúc cây và sau đó làm việc với các cấu trúc này như thể chúng là các đối tượng riêng lẻ.
 
 ![intent](./assets/intent.png)
 
@@ -10,7 +10,7 @@
 
 Sử dụng pattern Composite chỉ hợp lý khi mô hình cốt lõi của ứng dụng bạn có thể biểu diễn dạng cây.
 
-Ví dụ, tưởng tượng bạn có hai loại đối tượng: `Product` và `Box`. `Box` có thể bao gồm nhiều `Product` và một số lượng `Box` nhỏ hơn.Các hộp nhỏ hơn đó có thể bao gồm `Product` hoặc `Box` nhỏ hơn khác nữa.
+Ví dụ, tưởng tượng bạn có hai loại đối tượng: `Product` và `Box`. `Box` có thể bao gồm nhiều `Product` và một số lượng `Box` nhỏ hơn.Các box nhỏ hơn đó có thể bao gồm `Product` hoặc `Box` nhỏ hơn khác nữa.
 
 Khi bạn định tạo một hệ thống đặt hàng sử dụng các lớp đấy. Đơn hàng (`Order`) có thể bao gồm một sản phẩm đơn giản không bị bọc, cũng có thể là một cái hộp đựng sản phẩm và các hộp khác.
 Vậy làm thế nào để bạn tính tổng giá trị của đơn hàng?
@@ -52,7 +52,7 @@ Quân đội của hầu hết quốc gia đều có cấu trúc như cây phân
 
 ![pseudocode](./assets/pseudocode.png)
 
-Lớp `CompoundGraphic` là một container có thể bao gồm bất kỳ số lượng hình dạng con nào, bao gồm cả các container khác. Một hình dạng container có cùng phương thức với hình dạng đơn giản. Tuy nhiên, thay vì thực hiện điều gì đó trên chính nó, thì nó chuyển yêu cầu xuống tất cả con của nó và tính tổng bằng đệ quy.
+Lớp `CompoundGraphic` là một container có thể bao gồm bất kỳ số lượng hình dạng con nào, bao gồm cả các container khác. Một hình dạng container có cùng phương thức với hình dạng đơn giản. Tuy nhiên, thay vì thực hiện điều gì đó trên chính nó, thì nó chuyển yêu cầu xuống tất cả con của nó và tính tổng bằng đệ quy.(*)
 
 Code client làm việc với tất cả hình dạng qua interface chung duy nhất cho tất cả lớp hình dạng. Do đó, client không biết nó đang làm việc với dạng đơn giản hay phức hợp. Nó có thể làm việc với các đối tượng có cấu trúc phức tạp mà không cần ghép với lớp cụ thể tạo nên cấu trúc đấy.
 

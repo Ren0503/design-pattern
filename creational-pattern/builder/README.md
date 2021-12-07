@@ -26,7 +26,7 @@ Trong phần lớn trường hợp, các tham số của bạn sẽ không đư�
 
 ## 😊 Giải pháp
 
-Ý tưởng của Builder pattern là bạn sẽ trích xuất các đoạn code khởi tạo đối tượng ra khởi lớp của nó và chuyển đến một đối tượng riêng biệt gọi là *builder*.
+Ý tưởng của Builder pattern là bạn sẽ trích xuất các đoạn code khởi tạo đối tượng ra khỏi lớp của nó và chuyển đến một đối tượng riêng biệt gọi là *builder*.
 
 ![solution1](./assets/solution1.png)
 
@@ -122,7 +122,7 @@ class CarBuilder implements Builder is
     method reset() is
         this.car = new Car()
 
-    // Tất cả  các bước tạo làm việc với cùng một sản phẩm.
+    // Tất cả  các bước tạo làm việc với cùng một sản phẩm.(*)
     method setSeats(...) is
         // Thiết lập số ghế ngồi trong xe.
 

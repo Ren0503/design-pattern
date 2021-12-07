@@ -8,9 +8,9 @@
 
 ## 😟 Vấn đề
 
-Singleton cùng lúc giải quyết hai vấn đề vi phạm đến *Nguyên tắc Trách nhiệm đơn lẻ ( Single Responsibility Principle)*:
+Singleton cùng lúc giải quyết hai vấn đề vi phạm đến *Nguyên tắc Trách nhiệm đơn lẻ ( Single Responsibility Principle)*:(*)
 
-1. **Đảm bảo mỗi lớp chỉ có một thực thể**: Tại sao bất kỳ ai cũng muốn kiểm soát số lượng thực thể(instance) mà một lớp có ? Lý do phổ biến nhất là để quản lý truy cập đến các tài nguyên chung, vd như cơ sở dữ liệu hay file. 
+1. **Đảm bảo mỗi lớp chỉ có một thực thể**: Tại sao bất kỳ ai cũng muốn kiểm soát số lượng thực thể (instance) mà một lớp có ? Lý do phổ biến nhất là để quản lý truy cập đến các tài nguyên chung, vd như cơ sở dữ liệu hay file. 
 
 Tưởng tượng, bạn đã tạo một đối tượng nhưng sau một thời gian bạn quyết định tạo một đối tượng mới. Bởi vì Singleton bảo đảm chỉ có duy nhất một thực thể được tạo ra, nên thay vì nhận một đối tượng mới hoàn toàn bạn sẽ nhận về đối tượng đã được tạo.
 
@@ -30,7 +30,7 @@ Mặt khác của vấn đề: bạn không muốn code giải quyết vấn đ�
 
 Tất cả triển khai của Singelton đều có hai bước chung là:
 - Mặc định các hàm khởi tạo là riêng tư, để tránh các đối tượng khác sử dụng toán từ `new` với lớp Singleton.
-- Tạo một phương thức tĩnh hoạt động như một hàm khởi tạo. Bên dưới phương thức này, sẽ gọi đến hàm khởi tạo riêng tư để tạo một đối tượng và lưu nó vào một trường tĩnh. Tất cả lệnh gọi theo sau phương thức này trả về một đối tượng cache.
+- Tạo một phương thức tĩnh hoạt động như một hàm khởi tạo. Bên trong phương thức này, sẽ gọi đến hàm khởi tạo riêng tư để tạo một đối tượng và lưu nó vào một trường tĩnh. Tất cả lệnh gọi theo sau phương thức này trả về một đối tượng cache.
 
 Nếu code của bạn có quyền truy cập vào lớp Singleton thì nó có thể gọi phương thức tĩnh của Singleton. Vì vậy, bất cứ khi nào phương thức đó được gọi, sẽ có cùng một đối tượng được trả về.
 
@@ -60,7 +60,7 @@ class Database is
     private static field instance: Database
 
     // Hàm khởi tạo singleton luôn luôn là riêng tư
-    // để trách khởi tạo trực tiếp với toán tử `new`.
+    // để tránh khởi tạo trực tiếp với toán tử `new`.
     private constructor Database() is
         // Một vài code khởi tạo ở đây, như là
         // kết nối đến server của cơ sở dữ liệu.
@@ -91,7 +91,7 @@ class Application is
         // ...
         Database bar = Database.getInstance()
         bar.query("SELECT ...")
-        // Biến `bar` sẽ bao gồm cùng đồi tượng với
+        // Biến `bar` sẽ bao gồm cùng đối tượng với
         // biến `foo`.
 ```
 
@@ -103,9 +103,9 @@ class Application is
 
 **🐞 Sử dụng Singleton khi bạn cần kiểm soát chặt chẽ hơn đối với các biến toàn cục**
 
-⚡ Không giống như các biến toàn cục, Singleton đảm bảo rằng chỉ có một thực thể của một lớp. Không có gì khác, ngoại trừ chính lớp Singleton, có thể thay thế thực thể được lưu trong bộ nhớ cache.
+⚡ Không giống như các biến toàn cục, Singleton đảm bảo rằng chỉ có một thực thể của một lớp. Không có gì khác, ngoại trừ chính lớp Singleton, có thể thay thế thực thể được lưu trong bộ nhớ cache.(*)
 
-*Lưu ý rằng bạn luôn có thể điều chỉnh giới hạn này và cho phép tạo bất kỳ số lượng thực thể Singleton nào. Đoạn code duy nhất cần thay đổi là phần thân của phương thức `getInstance`.*
+*Lưu ý rằng bạn luôn có thể điều chỉnh giới hạn này và cho phép tạo bất kỳ số lượng thực thể Singleton nào. Đoạn code duy nhất cần thay đổi là phần thân của phương thức `getInstance`.*(*)
 
 ## 📋 Triển khai
 
@@ -133,7 +133,7 @@ class Application is
 
 ❌ Như đã nói, cả hai vấn đề của Singleton đều vi phạm *Nguyên tắc trách nhiệm đơn lẻ*.
 
-❌ Singleton có thể giấu các thiết kế tệ. Ví dụ như khi các thành phần trong chương trình biết quá nhiều về nhau.
+❌ Singleton có thể giấu các thiết kế tệ. Ví dụ như khi các thành phần trong chương trình biết quá nhiều về nhau.(*)
 
 ❌ Pattern yêu cầu được xử lý đặc biệt trong môi trường đa luồng, để nhiều luồng sẽ không tạo ra một đối tượng Singleton nhiều lần.
 

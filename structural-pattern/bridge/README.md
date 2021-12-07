@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**Bridge** là design pattern dạng structural giúp bạn tách một lớp khổng lồ hoặc một tập hợp lớp có quan hệ gần gũi với nhau thành hai hệ thống phân cấp lớp riêng biệt là - abstraction(trừu tượng) và implementation(triển khai) - có thể phát triển độc lập với nhau.
+**Bridge** là design pattern  thuộc nhóm structural giúp bạn tách một lớp khổng lồ hoặc một tập hợp lớp có quan hệ gần gũi với nhau thành hai hệ thống phân cấp lớp riêng biệt là - abstraction(trừu tượng) và implementation(triển khai) - có thể phát triển độc lập với nhau.
 
 ![intent](./assets/intent.png)
 
@@ -160,11 +160,11 @@ Bridge giúp bạn tách khối lớp thành các hệ thống phân cấp lớp
 
 ⚡ Mặc dù là tùy chọn, nhưng Bridge cho phép bạn thay thế đối tượng implementation bên trong phần abstraction. Nó dễ dàng như việc gán một giá trị mới cho một trường.
 
-Nhân tiện, mục cuối cùng này là lý do chính khiến nhiều người nhầm lẫn giữa pattern Bridge với pattern Strategy. Hãy nhớ rằng một pattern không chỉ là một cách nhất định để cấu trúc các lớp của bạn. Nó cũng có thể truyền đạt ý định và một vấn đề đang được giải quyết.
+Nhân tiện, mục cuối cùng này là lý do chính khiến nhiều người nhầm lẫn giữa pattern Bridge với pattern Strategy. Hãy nhớ rằng một pattern không chỉ là một cách nhất định để cấu trúc các lớp của bạn. Nó cũng có thể truyền đạt ý định và một vấn đề đang được giải quyết.(*)
 
 ## 📋 Triển khai
 
-1. Định danh cách phần độc lập trong lớp của bạn. Các khái niệm độc lập có thể là: abstraction/platform, domain/infrastructure, front-end/back-end, or interface/implementation.
+1. Xác định các phần độc lập trong lớp của bạn. Các khái niệm độc lập có thể là: abstraction/platform, domain/infrastructure, front-end/back-end, or interface/implementation.
 
 2. Xem các hoạt động mà client cần và định nghĩa chúng ở lớp abstraction cơ sở.
 3. Xác định các hoạt động có sẵn trên tất cả nền tảng. Khai báo những cái mà abstraction cần trong interface implementation chung.
