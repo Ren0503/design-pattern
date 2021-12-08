@@ -37,7 +37,7 @@ Pattern gợi ý bạn liên kết các handler thành một chuỗi(chain). M�
 
 ![solution1](./assets/solution1.png)
 
-Tuy nhiên, có một cách tiếp cận khác nhẹ nhàng hơn (và chuẩn hơn), mỗi khi nhận được yêu cầu, một handler quyết định liệu nó có thể xử lý hay không. Nếu nó có thể, sẽ không phải truyền yêu cầu xa hơn. Thế nên, nó chỉ có một handler để xử lý tất cả yêu cầu hoặc không có handler nào cả. Cách tiếp cận này rất giống với xử lý sự kiện trong ngăn xếp phần tử ở giao diện đồ hoạ người dùng.(*)
+Tuy nhiên, có một cách tiếp cận khác nhẹ nhàng hơn (và chuẩn hơn), mỗi khi nhận được yêu cầu, một handler quyết định liệu nó có thể xử lý hay không. Nếu nó có thể, sẽ không phải truyền yêu cầu xa hơn. Thế nên, sẽ chỉ có một handler để xử lý yêu cầu hoặc không có cái nào cả. Cách tiếp cận này rất giống với xử lý sự kiện trong ngăn xếp phần tử ở giao diện đồ hoạ người dùng.
 
 Ví dụ, khi người dùng click một button, sự kiện sẽ truyền đến chuỗi phần tử GUI, bắt đầu với button, tiếp đến là container(có thể là form hoặc panel) và kết thúc ở của sổ chính của ứng dụng. Sự kiện sẽ được xử lý ở phần tử đầu tiên trong chuỗi có thể xử lý nó. Ví dụ này đáng lưu tâm vì nó cho thấy một chuỗi có thể mở rộng từ một đối tượng cây.
 
@@ -72,13 +72,13 @@ Handler thường là khép kín và bất biến, nhận mỗi dữ liệu cầ
 
 ## 👨‍💻 Mã giả
 
-Trong ví dụ này, Chain of Responsibility chịu trách nhiệm hiển thị thông tin trợ giúp theo ngữ cảnh cho các phần tử GUI đang hoạt động.
+Trong ví dụ này, Chain of Responsibility chịu trách nhiệm hiển thị thông tin trợ giúp cho người dùng theo ngữ cảnh ở các phần tử GUI đang hoạt động.
 
 ![pseudocode](./assets/pseudocode.png)
 
 Ứng dụng GUI thường có cấu trúc là một đối tượng cây. Ví dụ, lớp `Dialog`, thứ sẽ hiển thị cửa sổ chính của ứng dụng, sẽ là *root* của đối tượng cây. Dialog bao gồm `Panels`, sẽ chứa những panel khác hoặc phần tử đơn giản hơn như `Button` hay `TextFields`.
 
-Một thành phần đơn giản có thể hiển thị `tooltips` theo ngữ cảnh ngắn gọn, miễn là thành phần đó có một số văn bản trợ giúp được chỉ định. Nhưng các thành phần phức tạp hơn xác định cách riêng của chúng để hiển thị trợ giúp theo ngữ cảnh, chẳng hạn như hiển thị đoạn trích từ sách hướng dẫn hoặc mở trong trình duyệt.
+Một phần tử đơn giản có thể hiển thị `tooltips` theo ngữ cảnh dễ dàng, miễn là thành phần đó có một số văn bản trợ giúp được chỉ định. Nhưng các thành phần phức tạp hơn xác định cách riêng của chúng để hiển thị trợ giúp theo ngữ cảnh, chẳng hạn như hiển thị đoạn trích từ sách hướng dẫn hoặc mở trong trình duyệt.
 
 ![pseudocode2](./assets/pseudocode2.png)
 
@@ -121,20 +121,20 @@ abstract class Container extends Component is
 
 
 // Thành phần nguyên thuỷ có thể ổn với triển khai
-// trợ giúp mặc định...(*)
+// trợ giúp mặc định...
 class Button extends Component is
     // ...
 
 
-// Nhưng thành phần phức tạp có thể ghi đè triển khai mặc định
-// Nếu văn bản trợ giúp không thể được cung cấp theo cách mới, 
+// Nhưng với thành phần phức tạp, nó có thể ghi đè triển khai mặc
+// định. Nếu văn bản trợ giúp không thể được cung cấp theo cách mới, 
 // thành phần có thể gọi triển khai cơ sở (xem lớp Component).
 class Panel extends Container is
     field modalHelpText: string
 
     method showHelp() is
         if (modalHelpText != null)
-            // Hiển thị model với văn bản trợ giúp.
+            // Hiển thị cửa sổ modal với văn bản trợ giúp.
         else
             super.showHelp()
 
@@ -149,7 +149,7 @@ class Dialog extends Container is
             super.showHelp()
 
 
-// Client code.
+// Code ở client.
 class Application is
     // Mọi ứng dụng cấu hình chuỗi khác nhau.
     method createUI() is
@@ -189,7 +189,7 @@ class Application is
 1. Khai báo interface handler và mô tả signature của một phương thức để xử lý các yêu cầu.
     Quyết định cách client sẽ truyền dữ liệu yêu cầu vào phương thức. Cách linh hoạt nhất là chuyển yêu cầu thành một đối tượng và chuyển nó đến phương thức xử lý dưới dạng một tham số.
 
-2. Để loại bỏ code mẫu trùng lặp trong concrete handler, nó có thể đáng giá khi tạo một lớp handler cơ sở trừu tượng, bắt nguồn từ interface handler.(*)
+2. Để loại bỏ code mẫu trùng lặp trong concrete handler, cần tạo một lớp handler cơ sở trừu tượng, bắt nguồn từ interface handler.
 
     Lớp này phải có một trường để lưu trữ một tham chiếu đến handler tiếp theo trong chuỗi. Xem xét việc làm cho lớp trở nên bất biến. Tuy nhiên, nếu bạn định sửa đổi chuỗi trong thời gian chạy, bạn cần xác định một setter để thay đổi giá trị của trường tham chiếu.
 

@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**Strategy** là một design pattern dạng behavioral giúp bạn xác định một nhóm thuật toán, đặt chúng vào một lớp riêng biệt và làm cho các đối tượng của chúng có thể hoán đổi lẫn nhau.
+**Strategy** là một design pattern thuộc nhóm behavioral giúp bạn xác định một nhóm thuật toán, đặt chúng vào một lớp riêng biệt và làm cho các đối tượng của chúng có thể hoán đổi lẫn nhau.
 
 ![intent](./assets/intent.png)
 
@@ -18,7 +18,7 @@ Tuy nhiên, mọi thứ vẫn chưa dừng lại. Sau đó bạn định thêm l
 
 ![problem](./assets/problem.png)
 
-Từ quan điểm kinh doanh ứng dụng của bạn đã thành công, nhưng ở khía cạnh kỹ thuật bạn sẽ gặp nhiều vấn đề đau đầu. Mỗi lần bạn thêm một thuật toán chỉ đường mới, lớp chính của bộ chỉ đường sẽ gấp đôi kích thước. Và đến một thời điểm nào đó, nó sẽ như là một con quái vật, cực kỳ khó cho việc bảo trì.
+Từ quan điểm kinh doanh, ứng dụng của bạn đã thành công, nhưng ở khía cạnh kỹ thuật bạn sẽ gặp nhiều vấn đề đau đầu. Mỗi lần bạn thêm một thuật toán chỉ đường mới, lớp chính của bộ chỉ đường sẽ gấp đôi kích thước. Và đến một thời điểm nào đó, nó sẽ như là một con quái vật, cực kỳ khó cho việc bảo trì.
 
 Bất kỳ một thuật toán nào thay đổi, cho dù chỉ là fix lỗi đơn giản hay một chút điều chỉnh lên các con đường nó cũng ảnh hưởng đến toàn bộ lớp, làm tăng nguy cơ sinh lỗi ở các đoạn code đã hoạt động.
 
@@ -38,7 +38,7 @@ Với cách này, context trở nên độc lập với các strategy cụ thể
 
 Trở lại với ứng dụng chỉ đường, mội thuật toán định tuyến có thể được trích xuất vào lớp của chúng với phương thức `buildRoute` duy nhất. Phương thức nhận vào điểm đầu và đích đến, và trả về một tập hợp các trạm dừng của lộ trình.
 
-Mặc dùng cho cùng một tham số, mỗi lớp định tuyếnsẽ có tạo một lộ trình khác nhau, lớp chính của ứng dụng không thực sự quan tâm thuật toán được chọn vì công việc chính của nó chỉ là hiển thị các trạm dừng trên bản đồ. Lớp có phương thức chuyển đổi các lich trình đang hoạt động, thế nên người dùng với các button ở giao diện người dùng, có thể thay thế hành vi được chọn hiện tại với cái khác.
+Mặc dùng cho cùng một tham số, mỗi lớp định tuyến sẽ có tạo một lộ trình khác nhau, lớp chính của ứng dụng không thực sự quan tâm thuật toán được chọn vì công việc chính của nó chỉ là hiển thị các trạm dừng trên bản đồ. Lớp có phương thức chuyển đổi các lịch trình đang hoạt động, thế nên người dùng với các button ở giao diện người dùng, có thể thay thế hành vi được chọn hiện tại với cái khác.
 
 ## 🚗 Thế Giới Thực
 
@@ -106,7 +106,7 @@ class Context is
 
 // Code client chọn một concrete strategy và truyền nó vào 
 // context. Client nên nhận thức được sự khác nhau giữa 
-// các strategy theo thứ tự để chọn đúng.
+// các strategy theo trật tự để chọn đúng.
 class ExampleApplication is
     method main() is
         Create context object.
@@ -133,15 +133,15 @@ class ExampleApplication is
 
 **🐞 Sử dụng Strategy khi bạn muốn dùng các biến thể thuật toán khác nhau trong một đối tượng cho phép chuyển đổi từ thuật toán này sang thuật toán khác khi đang chạy**.
  
-⚡ Strategy giúp bạn chỉnh sửa hành vi đối tượng gián tiếp khi đang chạy bằng liên kết với các đối tượng con khác để thực hiện hành vi cụ thể theo các cách khác nhau.
+⚡ Strategy giúp bạn gián tiếp chỉnh sửa hành vi của đối tượng khi đang chạy bằng liên kết với các đối tượng con khác để thực hiện hành vi cụ thể theo các cách khác nhau.
 
-**🐞 Sử dụng Strategy khi bạn có nhiều lớp giuống nhau chỉ khác nhau các chúng thực hiện một vài hành vi**
+**🐞 Sử dụng Strategy khi bạn có nhiều lớp giống nhau chỉ khác nhau cách chúng thực hiện một vài hành vi**
 
 ⚡ Strategy giúp bạn trích xuất các hành vi khác nhau vào một hệ thống phân cấp lớp và kết hợp với lớp gốc thành một, bằng cách này sẽ làm giảm code trùng lặp.
 
 **🐞 Sử dụng Strategy để cô lập logic nghiệp vụ của một lớp khỏi triển khai chi tiết của thuật toán, thứ không mấy quan trọng trong ngữ cảnh của logic đó**.
 
-⚡ Strategy giúp bạn cô lập code, dữ liệu bên trong và các phụ thuộc vào thuật toán với phần code còn lại. Client khác nhau nhận về một interface đơn giản để thực thi thuật toán và chuyển đổi chúng khi đang chạy.
+⚡ Strategy giúp bạn cô lập code, dữ liệu bên trong và các phụ thuộc vào thuật toán với phần code còn lại. Các client khác nhau nhận về một interface đơn giản để thực thi thuật toán và chuyển đổi chúng khi đang chạy.
 
 **🐞 Sử dụng Strategy khi lớp của bạn có một lượng điều kiện khổng lồ để chuyển đổi các biến thể khác nhau với cùng thuật toán**.
 
@@ -149,17 +149,17 @@ class ExampleApplication is
 
 ## 📋 Triển khai
 
-1. Trong lớp context, xác định thuật toán dễ thay đổi. Nó còn có thể có một lượng điều kiện to lớn để chọn và thực thi biến thể của cùng thuật toán khi đang chạy
+1. Trong lớp context, xác định thuật toán dễ thay đổi. Nó còn có thể có một lượng lớn điều kiện để chọn và thực thi một biến thể của cùng một thuật toán khi đang chạy
 2. Khai báo interface strategy chung cho tất cả biến thể của thuật toán.
 3. Từng cái một, trích xuất tất cả thuật toán vào các lớp của nó. Chúng nên triển khai tất cả trên interface strategy.
-4. Trong lớp context, thêm một trường cho lưu trữ tham chiếu đến đối tượng strategy. Cung cấp một setter cho thay thế giá trị của trường này. Context nên làm việc với đối tượng strategy thôgn qua interface strategy. Context có thể định nghĩa một interface để cho phép strategy truy cập dữ liệu của nó.
+4. Trong lớp context, thêm một trường cho lưu trữ tham chiếu đến đối tượng strategy. Cung cấp một setter cho thay thế giá trị của trường này. Context nên làm việc với đối tượng strategy thông qua interface strategy. Context có thể định nghĩa một interface để cho phép strategy truy cập dữ liệu của nó.
 5. Client của context phải liên kết nó với strategy phù hợp để ứng với cách chúng mong đợi context thực hiện hành vi chính.
 
 ## ⚖️ Ưu nhược điểm
 
 ### Ưu điểm
 
-✔️ Bạn có thể chuyển đổi thuật toán bên trogn đối tượng khi đang chạy.
+✔️ Bạn có thể chuyển đổi thuật toán bên trong đối tượng khi đang chạy.
 
 ✔️ Bạn có thể cô lập triển khai chi tiết của thuật toán khỏi code sử dụng nó.
 

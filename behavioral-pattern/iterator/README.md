@@ -59,13 +59,13 @@ Tất cả các tùy chọn này — đi đường ngẫu nhiên sinh ra trong �
 1. **Iterator** là interface khai báo các thao tác bắt buộc cho duyệt một tập hợp: lấy phần tử kế tiếp, trả về vị trí hiện tại, chạy lại vòng lặp,...
 2. **Concrete Iterator** triển khai thuật toán cụ thể cho duyệt tập hợp. Đối tượng iterator nên theo dõi quá trình duyệt của nó. Điều này cho phép nhiều iterator duyệt cùng một tập hợp độc lập với nhau.
 3. **Collection** là interface khai báo một hoặc nhiều phương thức để lấy các iterator tương thích với tập hợp. Lưu ý rằng kiểu trả về của phương thức phải được khai báo như interface iterator để cho concrete collection  có thể trả về kiểu iterator khác.
-4. **Concrete Collections** trả về phiên bản mới của một lớp concrete iterator riêng biệt mỗi khi client yêu cầu nó. Bạn có thể hỏi rằng, phần còn lại của code collection ở đâu ? Không cần lo lắng, nó sẽ ở cùng một lớp. Chỉ là những chi tiết này không thực sự quan trọng đối với pattern, vì vậy chúng tôi sẽ bỏ qua chúng.(*)
+4. **Concrete Collections** trả về phiên bản mới của một lớp concrete iterator riêng biệt mỗi khi client yêu cầu nó. Bạn có thể hỏi rằng, phần code còn lại của tập hợp ở đâu ? Không cần lo lắng, nó sẽ ở cùng một lớp. Chỉ là những chi tiết này không thực sự quan trọng đối với pattern, vì vậy ta sẽ bỏ qua chúng.
 5. **Client** làm việc với cả tập hợp và iterator thông qua interface của chúng. Cách này giúp client không phải ghép với lớp cụ thể, cho phép bạn sử dụng các tập hợp và iterator khác trên cùng một code.
 Thông thường, client không tạo iterator của nó, thay vào đó nó lấy chúng từ tập hợp. Tuy nhiên, trong một số trường hợp nhất định, client có thể tạo trực tiếp một cái; ví dụ, khi client xác định iterator đặc biệt của riêng nó.
 
 ## 👨‍💻 Mã giả
 
-Trong ví dụ này, Iterator được dùng để duyệt qua một tập hợp đặc biệt, một tập kín cho truy cập đến mạng xã hội Facebook. Tập hợp cung cấp nhiều iterator để duyệt hồ sơ người dùng theo nhiều cách khác nhau.(*)
+Trong ví dụ này, Iterator được dùng để duyệt qua một tập hợp đặc biệt, một đồ thị mạng xã hội tương tự như Facebook. Tập hợp cung cấp nhiều iterator để duyệt hồ sơ người dùng theo nhiều cách khác nhau.
 
 ![pseudocode](./assets/pseudocode.png)
 

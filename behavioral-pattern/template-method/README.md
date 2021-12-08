@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**Template Method** là một design pattern dạng behavioral giúp định nghĩa bộ khung của thuật toán ở lớp cha (superclass) nhưng các lớp con (subsclasses) có thể ghi đè lên các bước cụ thể của thuật toán mà không làm thay đổi cấu trúc của nó.
+**Template Method** là một design pattern thuộc nhóm behavioral giúp định nghĩa bộ khung của thuật toán ở lớp cha (superclass) nhưng các lớp con (subsclasses) có thể ghi đè lên các bước cụ thể của thuật toán mà không làm thay đổi cấu trúc của nó.
 
 ![intent](./assets/intent.png)
 
@@ -14,7 +14,7 @@ Phiên bản đầu tiên của ứng dụng chỉ làm việc với file DOC. T
 
 ![problem](./assets/problem.png)
 
-Vào một lúc nào đó, bạn nhận thấy rằng cả code ở cả ba lớp có rất nhiều điểm tương đồng nhau. Mặc dù code để xử lý các định dạng dữ liệu khác nhau hoàn toàn khác nhau ở tất cả các lớp, nhưng code để xử lý và phân tích dữ liệu gần như giống hệt nhau. Sẽ rất tuyệt vời nếu ta có thể loại bỏ sự trùng lặp code nhưng vẫn giữ nguyên được cấu trúc của thuật toán.
+Vào một thời điểm nào đó, bạn nhận thấy rằng cả code ở cả ba lớp có rất nhiều điểm tương đồng nhau. Mặc dù code để xử lý các định dạng dữ liệu khác nhau hoàn toàn khác nhau ở tất cả các lớp, nhưng code để xử lý và phân tích dữ liệu gần như giống hệt nhau. Sẽ rất tuyệt vời nếu ta có thể loại bỏ sự trùng lặp code nhưng vẫn giữ nguyên được cấu trúc của thuật toán.
 
 Và một vấn đề khác nữa liên quan đến code client, nơi sử dụng các lớp này, là nó có rất nhiều điều kiện để chọn quá trình hành động thích hợp tùy thuộc vào lớp của đối tượng xử lý. Nếu cả ba lớp xử lý đều có một interface chung hoặc một lớp cơ sở, bạn có thể loại bỏ các điều kiện trong code client và sử dụng tính đa hình khi gọi các phương thức trên một đối tượng xử lý.
 
@@ -26,7 +26,7 @@ Hãy xem cách nó làm việc trong ứng dụng khai thác dữ liệu. Ta có
 
 ![solution](./assets/solution.png)
 
-Lúc đầu, ta có thể khai báo tất cả các bước là `abstract`, buộc các lớp con cung cấp các triển khai riêng của chúng cho các phương thức này. Trong trường hợp này, các lớp con đã có tất cả các triển khai cần thiết, vì vậy điều duy nhất ta cần làm là điều chỉnh chữ ký của các phương thức để phù hợp với các phương thức của lớp cha.
+Lúc đầu, ta có thể khai báo tất cả các bước là `abstract`, buộc các lớp con cung cấp các triển khai riêng của chúng cho các phương thức này. Trong trường hợp này, các lớp con đã có tất cả các triển khai cần thiết, vì vậy điều duy nhất ta cần làm là điều chỉnh signature của các phương thức để phù hợp với các phương thức của lớp cha.
 
 Bây giờ, hãy xem cách để có thể loại bỏ code trùng lặp. Có thể thấy code để mở/đóng file và trích xuất/phân tích dữ liệu là khác nhau đối với các định dạng dữ liệu khác nhau, vì vậy bạn không cần phải đụng đến các phương pháp đó. Tuy nhiên, việc thực hiện các bước khác, chẳng hạn như phân tích dữ liệu raw và soạn báo cáo, rất giống nhau, vì vậy nó có thể được kéo lên lớp cơ sở, nơi các lớp con có thể chia sẻ code đó.
 
@@ -50,7 +50,7 @@ Mỗi công đoạn xây dựng như đổ móng, đóng khung, xây tường, l
 ![structure](./assets/structure.png)
 
 1. **Abstract Class** là lớp trừu tượng khai báo các phương thức hoạt động như các bước của một thuật toán, cũng như phương thức template để gọi các phương thức này theo một thứ tự cụ thể. Các bước có thể được khai báo là trừu tượng hoặc có một số triển khai mặc định.
-2. **Concrete Classes** có thể ghi đè tất cả các bước, nhưng không thể ghi đè chính phương thức template.
+2. **Concrete Classes** có thể ghi đè tất cả các bước, nhưng không thể ghi đè lên phương thức template.
 
 ## 👨‍💻 Mã giả
 
@@ -96,7 +96,7 @@ class GameAI is
     abstract method sendWarriors(position)
 
 
-// Concrete class phải triển khai tất cả phép toán trừu tượng 
+// Concrete class phải triển khai tất cả thao tác trừu tượng 
 // của lớp cơ sở và không được ghi đè lên phương thức template.
 class OrcsAI extends GameAI is
     method buildStructures() is
@@ -138,7 +138,7 @@ class MonstersAI extends GameAI is
 
 **🐞 Sử dụng phương thức Template khi bạn muốn client chỉ mở rộng các bước cụ thể của thuật toán chứ không phải toàn bộ cấu trúc của nó**
 
-⚡ Phương thức Template giúp bạn chuyển một khối thuật toán thành hành loạt cac bước riêng rẽ để dễ mở rộng bởi lớp con trong khi vẫn giữ nguyên cấu trúc đã định nghĩa ở lớp cha.
+⚡ Phương thức Template giúp bạn chuyển một khối thuật toán thành một loạt các bước riêng rẽ để dễ mở rộng bởi lớp con trong khi vẫn giữ nguyên cấu trúc đã định nghĩa ở lớp cha.
 
 **🐞 Sử dụng template khi bạn có nhiều lớp bao gồm các thuật toán giống nhau chỉ có một ít là khác biệt. Và bạn phải chỉnh sửa tất cả lớp khi thuật toán thay đổi**.
 
@@ -147,7 +147,7 @@ class MonstersAI extends GameAI is
 ## 📋 Triển khai
 
 1. Phân tích thuật toán mục tiêu để xem liệu bạn có thể chia nó thành các bước hay không. Xem xét bước nào là chung cho tất cả các lớp con và bước nào là duy nhất.
-2. Tạo lớp trừu tường (`abstract`) và khai báo phương thức template và một tập hợp của phương thức trừu tưởng để biểu diễn các bước của thuật toán. Phác thảo cấu trúc của thuật toán trong phương pháp template bằng cách thực hiện các bước tương ứng. Cân nhắc việc tạo phương thức template cuối cùng để ngăn các lớp con ghi đè nó.
+2. Tạo lớp trừu tường (`abstract`) và khai báo phương thức template và một tập hợp của phương thức trừu tượng để biểu diễn các bước của thuật toán. Phác thảo cấu trúc của thuật toán trong phương pháp template bằng cách thực hiện các bước tương ứng. Cân nhắc việc tạo phương thức template cuối cùng để ngăn các lớp con ghi đè nó.
 3. Sẽ không sao nếu tất cả các bước đều trừu tượng. Tuy nhiên, một số bước có thể được hưởng lợi từ việc triển khai mặc định. Các lớp con không phải triển khai các phương thức đó.
 4. Thêm hook giữa các bước cốt lõi của thuật toán.
 5. Đối với mỗi biến thể của thuật toán, hãy tạo một lớp con cụ thể(concrete subclasses) mới. Nó phải triển khai tất cả các bước trừu tượng, nhưng cũng có thể ghi đè một số bước tùy chọn.

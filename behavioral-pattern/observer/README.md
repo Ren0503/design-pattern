@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-Observer là một design pattern dạng behavioral giúp bạn định nghĩa một cơ chế đăng ký để thông báo cho nhiều đối tượng về bất kỳ sự kiện nào diễn ra với đối tượng mà chúng đang quan sát.
+Observer là một design pattern thuộc nhóm behavioral giúp bạn định nghĩa một cơ chế đăng ký để thông báo cho nhiều đối tượng về bất kỳ sự kiện nào diễn ra với đối tượng mà chúng đang quan sát.
 
 ![intent](./assets/intent.png)
 
@@ -14,7 +14,7 @@ Khách hàng thường sẽ bị hấp dẫn với một vài thương hiệu s�
 
 ![problem](./assets/problem.png)
 
-Thay vào đó, cửa hàng sẽ gửi hàng tấn mail (có thể là spam) cho tất cả khách hàng mỗi lần có sản phẩm mới. Điều này giúp khách hàng tránh những chuyến đi vô nghĩa đến cửa hàng. Nhưng nó sẽ làm cho các khách hàng khác (những người không có hứng thú với sản phẩm mới) khó chịu.
+Thế nên, cửa hàng sẽ gửi hàng tấn mail (có thể là spam) cho tất cả khách hàng mỗi lần có sản phẩm mới. Điều này giúp khách hàng tránh những chuyến đi vô nghĩa đến cửa hàng. Nhưng bù lại, nó sẽ làm cho các khách hàng khác (những người không có hứng thú với sản phẩm mới) khó chịu.
 
 Có vẻ như chúng ta đã xảy ra xung đột. Hoặc khách hàng lãng phí thời gian kiểm tra sản phẩm đã bán chưa hoặc cửa hàng lãng phí nguồn lực để thông báo thừa cho khách hàng.
 
@@ -22,7 +22,7 @@ Có vẻ như chúng ta đã xảy ra xung đột. Hoặc khách hàng lãng ph�
 
 Đối tượng có trạng thái hấp dẫn thường được gọi là subject(chủ thể), nhưng vì nó cũng sẽ thông báo cho các đối tượng khác về những thay đổi đối với trạng thái của nó, nên ta sẽ gọi nó là **publisher**. Tất cả đối tượng khác muốn theo dõi trạng thái của publisher được gọi là **subscriber**.
 
-Pattern Observer đề nghị giải pháp là bạn thêm một cơ chế đăng ký đến lớp publisher để các đối tượng riêng biệt có thể đăng ký hoặc huỷ đăng ký một dòng các sự kiện xảy đến từ publisher. Thật ra mọi thứ không đến nổi quá phức tạp. Thực tế, cơ chế này bao gồm một trường mảng cho lưu trữ danh sách tham chiếu đến đối tượng subscriber và nhiều phương thức công khai cho phép thêm hay xoá subscriber khỏi danh sách.
+Pattern Observer đề nghị giải pháp là bạn thêm một cơ chế đăng ký đến lớp publisher để các đối tượng riêng biệt có thể đăng ký hoặc huỷ đăng ký một dòng các sự kiện xảy đến từ publisher. Thực tế, cơ chế này bao gồm một trường mảng cho lưu trữ danh sách tham chiếu đến đối tượng subscriber và nhiều phương thức công khai cho phép thêm hay xoá subscriber khỏi danh sách.
 
 ![solution1](./assets/solution1.png)
 
@@ -51,7 +51,7 @@ Nhà xuất bản duy trì danh sách người đăng ký và biết họ quan t
 1. **Publisher** phát hành các sự kiện mà các đối tượng khác quan tâm. Các sự kiện này diễn ra khi publisher thay đổi trạng thái của nó hoặc thực thi một vài hành vi. Publisher bao gồm một kết cấu đăng ký cho phép subscriber mới tham gia hay subscriber hiện tại rời khỏi danh sách.
 2. Khi một sự kiện mới diễn ra, publisher sẽ đi qua danh sách đăng ký và gọi phương thức thông báo được khai báo ở interface subscriber cho từng đối tượng subscriber.
 3. **Subscriber** là interface khai báo interface thông báo. Trong hầu hết trường hợp, nó bao gồm một phương thức cập nhật duy nhất. Phương thức này có nhiều tham số giúp publisher truyền một vài chi tiết sự kiện cùng với cập nhật.
-4. **Concrete Subscriber** thực hiện một vài hành động phản hồi lại thông báo được phát hành bới publisher. Tất cả các lớp này phải triển khai cùng interface thế nên publisher không cần ghép với lớp cụ thể.
+4. **Concrete Subscriber** thực hiện một vài hành động phản hồi lại thông báo được phát hành bởi publisher. Tất cả các lớp này phải triển khai cùng interface thế nên publisher không cần ghép với lớp cụ thể.
 5. Thông thường, subscriber cần một vài thông tin ngữ cảnh để xử lý cập nhật chính xác. Vì lý do này, publisher truyền một vài dữ liệu ngữ cảnh như các tham số cho phương thức thông báo. Publisher có thể truyền chính bản thân nó như một tham số, để subscriber có thể nạp bất kỳ dữ liệu cần thiết nào trực tiếp.
 6. **Client** tạo đối tượng publisher và subscriber riêng biệt, sau đó subscriber đăng ký các bản cập nhật publisher. 
 
@@ -87,7 +87,7 @@ class EventManager is
 // subscriber. Ta có thể có dẫn xuất lớp này từ một publisher cơ
 // sở, nhưng điều này không luôn khả thi vì thực tế publisher cụ 
 // thể sẽ có lớp con. Trong trường hợp này, ta có thể vá logic
-// đăng ký với hỗn hợp.
+// đăng ký với composition.
 class Editor is
     public field events: EventManager
     private field file: File
@@ -162,9 +162,9 @@ class Application is
 
 ⚡ Bạn có thể gặp vấn đề này khi làm việc với lớp giao diện người dùng. Ví dụ, bạn tạo nhiều lớp button tuỳ chỉnh, và bạn muốn client kết nối với một vài tuỳ chỉnh code button của bạn để nó kích hoạt bất cứ khi nào người dùng click.
 
-Observer giúp bất kỳ đối tượng nào triển khai interface subscriber đăng ký nhận thông báo sự kiến ở đối tượng publisher. Bạn có thể thêm cơ chế subscription cho button của bạn, giúp client kết nối với code tuỳ chỉnh thông qua lớp subscriber tuỳ chỉnh.
+Observer giúp bất kỳ đối tượng nào triển khai interface subscriber đăng ký nhận thông báo sự kiện ở đối tượng publisher. Bạn có thể thêm cơ chế subscription cho button của bạn, giúp client kết nối với code tuỳ chỉnh thông qua lớp subscriber tuỳ chỉnh.
 
-**🐞 Sử dụng Observer khi một vài đối tượng trong ứng dụng phải quan sát đối tượng khác, nhưng chỉ giới hạn thời và trường hợp cụ thể**
+**🐞 Sử dụng Observer khi một vài đối tượng trong ứng dụng phải quan sát đối tượng khác, nhưng chỉ giới hạn thời gian và trường hợp cụ thể**
 
 ⚡ Danh sách đăng ký là động, nên subscriber có thể tham gia hoặc rời danh sách khi chúng cần.
 
@@ -172,11 +172,11 @@ Observer giúp bất kỳ đối tượng nào triển khai interface subscriber
 
 1. Nhìn qua logic nghiệp vụ và chia nó làm hai phần: phần chức năng cốt lỗi độc lập với các phần khác, sẽ hành động như publisher. Phần còn lại sẽ là tập hợp lớp subscriber.
 
-2. Khai báo interface subscriber. Ở mức tối thiếu, nó nên có mọt phương thức cập nhật duy nhất.
-3. Khai báo interface publisher và mô tả mộ cặp phương thức cho thêm và xoá đối tượng subscriber khỏi danh sách. Hãy nhớ publisher phải làm việc với subscriber thông qua interface subscriber.
+2. Khai báo interface subscriber. Ở mức tối thiếu, nó nên có một phương thức cập nhật duy nhất.
+3. Khai báo interface publisher và mô tả một cặp phương thức cho thêm và xoá đối tượng subscriber khỏi danh sách. Hãy nhớ publisher phải làm việc với subscriber thông qua interface subscriber.
 4. Quyết định nơi đặt danh sách đăng ký và triển khai phương thức đăng ký. Thông thường, code này như nhau với tất cả kiểu publisher, thế nên nơi rõ ràng để đặt nó là lớp trừu tượng được lấy trực tiếp từ interface publisher. Publisher cụ thể mở rộng từ lớp này, kế thừa các hành vi đăng ký.
     
-    Tuy nhiên, nếu bạn áp dụng pattern với hệ phân cấp lớp hiện có, bao gồm cách tiếp cận dựa trên hỗn hợp: đặt logic đăng ký vào đối tượng riêng biệt, và để cho tất cả publisher sử dụng nó. 
+    Tuy nhiên, nếu bạn áp dụng pattern với hệ phân cấp lớp hiện có, bao gồm cách tiếp cận dựa trên composition: đặt logic đăng ký vào đối tượng riêng biệt, và để cho tất cả publisher sử dụng nó. 
 5. Tạo lớp publisher cụ thể. Mỗi lần điều gì diễn ra trong publisher, sẽ phải thông báo cho tất cả subscriber.
 
 6. Triển khai phương thức thông báo cập nhật ở lớp subscriber cụ thể. Hầu hết subscriber sẽ cần dữ liệu ngữ cảnh về sự kiện. Nó có thể được truyền như một tham số cho phương thức thông báo.

@@ -18,7 +18,7 @@ Một số phần tử trong form có thể tương tác với nhau. Ví dụ, k
 
 *Các phần tử có quan hệ với nhau, nên thay đổi một phần tử có thể ảnh hưởng đến những cái khác*
 
-Bằng cách triển khai trực tiếp logic bên trong code của phần tử form bạn sẽ làm cho lớp phần tử khó tái sử dụng ở các form khác trong ứng dụng. Ví dụ bạn không thể dùng lớp checkbox này cho các form khác vì nó đã được kết nối với input "tên chó". Bạn có thể sử dụng tất cả các lớp liên quan đến việc hiển thị form người dùng, hoặc không có lớp nào cả.(*)
+Bằng cách triển khai trực tiếp logic bên trong code của phần tử form bạn sẽ làm cho lớp phần tử khó tái sử dụng ở các form khác trong ứng dụng. Ví dụ bạn không thể dùng lớp checkbox này cho các form khác vì nó đã được kết nối với input "tên chó". Hoặc là bạn có thể sử dụng tất cả các lớp liên quan đến hiển thị form người dùng hoặc là không dùng được gì cả.
 
 ## 😊 Giải pháp
 

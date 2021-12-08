@@ -2,17 +2,17 @@
 
 ## 📜 Mục đích
 
-**Visitor** là một design pattern dạng behavioral giúp bạn tách các thuật toán khỏi đối tượng mà chúng đang hoạt động trên đó.
+**Visitor** là một design pattern thuộc nhóm behavioral giúp bạn tách các thuật toán khỏi đối tượng mà chúng đang hoạt động trên đó.
 
 ![intent](./assets/intent.png)
 
 ## 😟 Vấn đề
 
-Tưởng tượng team bạn đang phát triển một ứng dụng làm việc với thông tin địa lý được cấu trúc dưới dạng một biểu đồ khổng lồ. Mỗi nút trong đồ thị có thể biểu diễn một thực thể phức tạp như một thành phố, nhưng chi tiết hơn như các nhà máy, khu tham quan,... Các nút được kết nối với nhau nếu có một con đường giữa các đối tượng thực mà nó biểu diễn. Hiểu sâu hơn, mỗi loại nút được biểu diễn bởi lớp riêng của nó, trong khi mỗi nút cụ thể là một đối tượng.
+Tưởng tượng team bạn đang phát triển một ứng dụng làm việc với thông tin địa lý được cấu trúc dưới dạng một đồ thị khổng lồ. Mỗi nút trong đồ thị có thể biểu diễn một thực thể phức tạp như một thành phố, nhưng chi tiết hơn như các nhà máy, khu tham quan,... Các nút được kết nối với nhau nếu có một con đường giữa các đối tượng thực mà nó biểu diễn. Hiểu sâu hơn, mỗi loại nút được biểu diễn bởi lớp riêng của nó, trong khi mỗi nút cụ thể là một đối tượng.
 
 ![problem](./assets/problem1.png)
 
-Tại một thời điểm nào đó, bạn có nhiệm vụ xuất biểu đồ sang định dạng XML. Lúc đầu, công việc có vẻ khá đơn giản. Bạn đã lên kế hoạch thêm một phương thức xuất vào từng lớp nút và sau đó tận dụng đệ quy để đi qua từng nút của biểu đồ, thực hiện phương thức xuất. Giải pháp rất đơn giản và gọn gàng: nhờ tính đa hình, bạn không phải ghép đoạn code được gọi là phương thức xuất với các lớp nút cụ thể.
+Tại một thời điểm nào đó, bạn có nhiệm vụ xuất đồ thị sang định dạng XML. Lúc đầu, công việc có vẻ khá đơn giản. Bạn đã lên kế hoạch thêm một phương thức xuất vào từng lớp nút và sau đó tận dụng đệ quy để đi qua từng nút của đồ thị, thực hiện phương thức xuất. Giải pháp rất đơn giản và gọn gàng: nhờ tính đa hình, bạn không phải ghép đoạn code phương thức xuất với các lớp nút cụ thể.
 
 Thật không may, kỹ sư hệ thống đã từ chối cho phép bạn thay đổi các lớp nút hiện có. Anh ấy nói rằng code đã được tạo và anh ấy không muốn mạo hiểm phá vỡ nó vì một lỗi tiềm ẩn trong các thay đổi của bạn.
 
@@ -24,9 +24,9 @@ Có một lý do khác cho việc từ chối. Rất có thể sau khi tính nă
 
 ## 😊 Giải pháp
 
-Pattern Visitor gợi ý rằng bạn nên đặt hành vi mới vào một lớp riêng biệt được gọi là visitor, thay vì cố gắng tích hợp nó vào các lớp hiện có. Đối tượng gốc phải thực hiện hành vi bây giờ được chuyển cho một trong các phương thức của visitor dưới dạng tham số, cung cấp cho phương thức này quyền truy cập vào tất cả dữ liệu cần thiết có trong đối tượng.
+Pattern Visitor gợi ý rằng bạn nên đặt hành vi mới vào một lớp riêng biệt được gọi là visitor, thay vì cố gắng tích hợp nó vào các lớp hiện có. Đối tượng gốc phải thực hiện hành vi bây giờ được chuyển cho một trong những phương thức của visitor dưới dạng tham số, cung cấp cho phương thức này quyền truy cập vào tất cả dữ liệu cần thiết có trong đối tượng.
 
-Bây giờ, điều gì sẽ xảy ra nếu hành vi đó có thể được thực thi trên các đối tượng của các lớp khác nhau? Ví dụ, trong trường hợp này là xuất XML, việc triển khai thực tế có thể sẽ khác một chút trên các lớp nút khác nhau. Do đó, lớp visitor có thể xác định không phải một, mà là một tập hợp các phương thức, mỗi phương thức có thể nhận các tham số thuộc các kiểu khác nhau, như thế này:
+Bây giờ, điều gì sẽ xảy ra nếu hành vi đó có thể được thực thi trên các đối tượng của các lớp khác nhau? Ví dụ, trong trường hợp này là xuất XML, việc triển khai thực tế có thể sẽ khác một chút trên các lớp nút khác nhau. Do đó, lớp visitor phải xác định không phải một, mà là một tập hợp các phương thức, mỗi phương thức có thể nhận các tham số thuộc các kiểu khác nhau, như thế này:
 
 ```c
 class ExportVisitor implements Visitor is
@@ -36,7 +36,7 @@ class ExportVisitor implements Visitor is
     // ...
 ```
 
-Nhưng chính xác thì chúng ta sẽ gọi những phương pháp này như thế nào, đặc biệt là khi xử lý toàn bộ đồ thị? Các phương pháp này có các chữ ký khác nhau, vì vậy ta không thể sử dụng tính đa hình. Để chọn một phương thức visitor thích hợp có thể xử lý một đối tượng nhất định, ta cần kiểm tra lớp của nó.
+Nhưng chính xác thì chúng ta sẽ gọi những phương pháp này như thế nào, đặc biệt là khi xử lý toàn bộ đồ thị? Các phương pháp này có các signature khác nhau, vì vậy ta không thể sử dụng tính đa hình. Để chọn một phương thức visitor thích hợp có thể xử lý một đối tượng nhất định, ta cần kiểm tra lớp của nó.
 
 ```c
 foreach (Node node in graph)
@@ -48,10 +48,11 @@ foreach (Node node in graph)
 }
 ```
 
-Bạn có thể hỏi, tại sao chúng ta không sử dụng phương thức overloading - nạp chồng? Overloading là khi bạn đặt cùng một tên cho tất cả các phương thức, ngay cả khi chúng hỗ trợ các bộ tham số khác nhau. Thật không may, ngay cả trong trường hợp ngôn ngữ lập trình của ta hỗ trợ nó (như Java và C #), thì nó sẽ không giúp ích được gì cả. Vì lớp chính xác của đối tượng nút không được biết trước, cơ chế overloading sẽ không thể xác định phương thức chính xác để thực thi. Nó sẽ mặc định là phương thức nhận một đối tượng của lớp `Node` cơ sở.
+Bạn có thể hỏi, tại sao chúng ta không sử dụng phương thức overloading - nạp chồng? Overloading là khi bạn đặt cùng một tên cho tất cả các phương thức, ngay cả khi chúng có các tham số khác nhau. Thật không may, ngay cả trong trường hợp ngôn ngữ lập trình của ta hỗ trợ overloading (như Java và C #), thì nó cũng không giúp ích được gì cả. Vì lớp chính xác của đối tượng nút không được biết trước, cơ chế overloading sẽ không thể xác định phương thức chính xác để thực thi. Nó sẽ mặc định là phương thức nhận một đối tượng của lớp `Node` cơ sở.
 
-Tuy nhiên, pattern visitor giải quyết vấn đề này. Nó sử dụng một kỹ thuật gọi là **Double Dispatch**, giúp thực thi phương thức thích hợp trên một đối tượng mà không cần các điều kiện rườm rà. Thay vì cho phép client chọn một phiên bản thích hợp của phương thức để gọi, tại sao ta không ủy thác lựa chọn này cho các đối tượng mà chúng ta đang chuyển cho visitor làm tham số ? 
-Vì các đối tượng biết các lớp riêng của chúng, chúng có thể chọn một phương pháp thích hợp cho visitor một cách ít lúng túng hơn. Chúng "accept" một visitor và cho visitor đó biết phương thức truy cập nào nên được thực thi.
+Tuy nhiên, pattern visitor giải quyết vấn đề này. Nó sử dụng một kỹ thuật gọi là [**Double Dispatch**](https://refactoring.guru/design-patterns/visitor-double-dispatch), giúp thực thi phương thức thích hợp trên một đối tượng mà không cần các điều kiện rườm rà. 
+
+Và thay vì cho phép client chọn một phiên bản thích hợp của phương thức để gọi, tại sao ta không ủy thác lựa chọn này cho các đối tượng mà chúng ta đang chuyển cho visitor làm tham số ? Vì các đối tượng biết các lớp riêng của chúng, chúng có thể chọn một phương pháp thích hợp cho visitor một cách ít lúng túng hơn. Chúng "accept" một visitor và cho visitor đó biết phương thức truy cập nào nên được thực thi.
 
 ```c
 // Client code
@@ -91,8 +92,10 @@ Hãy tưởng tượng một đại lý bảo hiểm dày dạn kinh nghiệm đ
 
 1. **Visitor** là interface khai báo một tập hợp các phương thức truy cập có thể lấy các phần tử cụ thể của cấu trúc đối tượng làm tham số. Các phương thức này có thể trùng tên nếu chương trình được viết bằng ngôn ngữ hỗ trợ overloading, nhưng kiểu tham số của chúng phải khác nhau.
 2. **Concrete Visitor** thực hiện một số phiên bản của các hành vi giống nhau, được điều chỉnh cho các lớp phần tử cụ thể khác nhau.
-3. **Element** là interface khai báo một phương thức để "chấp nhận" visitor. Phương thức này phải có một tham số được khai báo với kiểu interface visitor. 
-4. **Concrete Element** thực hiện phương pháp nghiệm thu. Mục đích của phương thức này là chuyển hướng lệnh gọi đến phương thức của visitor thích hợp tương ứng với lớp element hiện tại. Cần biết rằng ngay cả khi một lớp element cơ sở triển khai phương thức này, tất cả các lớp con vẫn phải ghi đè phương thức này trong các lớp của chính chúng và gọi phương thức thích hợp trên đối tượng visitor.
+3. **Element** là interface khai báo một phương thức để "accept" visitor. Phương thức này phải có một tham số được khai báo với kiểu interface visitor. 
+4. **Concrete Element** thực hiện phương pháp nghiệm thu. Mục đích của phương thức này là chuyển hướng lệnh gọi đến phương thức của visitor thích hợp tương ứng với lớp element hiện tại. 
+
+    Cần biết rằng ngay cả khi một lớp element cơ sở triển khai phương thức này, tất cả các lớp con vẫn phải ghi đè phương thức này trong các lớp của chính chúng và gọi phương thức thích hợp trên đối tượng visitor.
 5. **Client** thường đại diện cho một tập hợp hoặc một số đối tượng phức tạp khác (ví dụ, một cây tổng hợp). Thông thường, client không biết tất cả các lớp phần tử cụ thể vì chúng làm việc với các đối tượng từ bộ sưu tập đó thông qua một số interface trừu tượng
 
 ## 👨‍💻 Mã giả

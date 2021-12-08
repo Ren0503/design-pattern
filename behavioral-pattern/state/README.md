@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**State** là một design pattern dạng behavoiral giúp chỉnh sửa hành vi của một đối tượng khi trạng thái bên trong nó thay đổi. Nó xảy ra nếu như một đối tượng thay đổi lớp của nó.
+**State** là một design pattern thuộc nhóm behavoiral giúp chỉnh sửa hành vi của một đối tượng khi trạng thái bên trong nó thay đổi. Nó xảy ra nếu như một đối tượng thay đổi lớp của nó.(*)
 
 ![intent](./assets/intent.png)
 
@@ -83,7 +83,7 @@ Trong ví dụ này, State sẽ làm cho cùng một bộ điều chỉnh nhạc
 
 ![pseudocode](./assets/pseudocode.png)
 
-Đối tượng chính của bộ phát nhạc có liên kết đến một đối tượng state, thứ thực hiện phần lớn công việc thực. Một vài hành động thay thế đối tượng state hiện tại của bộ phát nhạc bằng đối tượng khác, để thay đổi cách mà bộ phát nhạc phản ứng với tương tác của người dùng.
+Đối tượng chính của bộ phát nhạc có liên kết đến một đối tượng state, thứ thực hiện phần lớn công việc thực. Các hành động thay thế đối tượng state hiện tại của bộ phát nhạc bằng đối tượng khác, để thay đổi cách mà bộ phát nhạc phản ứng với tương tác của người dùng.
 
 ```c
 // Lớp AudioPlayer hành động như một context. Nó luôn 
@@ -163,8 +163,8 @@ abstract class State is
 class LockedState extends State is
 
 
-    // Khi bạn mở khoá bộ phát nhac, nó có thể có một trong hai
-    // trạng thái.
+    // Khi bạn mở khoá một bộ phát nhạc bị khoá,
+    // nó có thể có một trong hai trạng thái.
     method clickLock() is
         if (player.playing)
             player.changeState(new PlayingState(player))
@@ -236,10 +236,10 @@ class PlayingState extends State is
 
 1. Xác định lớp nào sẽ hành động như context. Nó có thể là một lớp đã có sẵn hoặc một lớp mới, nếu code trạng thái cụ thể được phân phối trên nhiều lớp.
 2. Với tất cả trạng thái thực, tạo một lớp dẫn xuất từ interface state. Sau đó đi qua tất cả phương thức của context, trích xuất mọi code liên quan đến trạng thái vào lớp mới vừa tạo.
-3. Trong khi chuyển code vào lớp trạng thái, bạn sẽ nhận ra nó phụ thuộc vào thành phần riêng tư của context. Có một vài cách giải quyết là:
-- Làm cho trường hay phương thức đó công khai.
-- Chuyển hành vi bạn đang trích xuất vào phương thức công khai trong context và gọi nó từ lớp state. Cách này khá tệ nhưng nhanh bạn có thể sửa lại sau.
-- Lồng lớp state vào lớp context, nhưng chỉ khi ngôn ngữ lập trình của bạn hỗ trợ lớp lồng nhau.
+3. Trong khi chuyển code vào lớp trạng thái, bạn sẽ gặp trường hợp là nó phụ thuộc vào thành phần riêng tư của context. Có một vài cách giải quyết là:
+    - Làm cho trường hay phương thức đó công khai.
+    - Chuyển hành vi bạn đang trích xuất vào phương thức công khai trong context và gọi nó từ lớp state. Cách này khá tệ nhưng nhanh bạn có thể sửa lại sau.
+    - Lồng lớp state vào lớp context, nhưng chỉ khi ngôn ngữ lập trình của bạn hỗ trợ lớp lồng nhau.
 4. Trong lớp context, thêm trường tham chiếu của kiểu interface state và một setter công khai cho phép ghi đè giá trị lên trường.
 5. Đi qua phương thức của context lần nữa và thay thế điều kiện trạng thái trống với lệnh gọi đến phương thức phù hợp của đối tượng state.
 6. Để chuyển đổi trạng thái context, tạo một trong những lớp state và truyền nó vào context. Bạn có thể làm điều này bên trong context hoặc các state khác, hoặc ở client. Bất cứ khi nào thực hiện xong, lớp sẽ trở nên phụ thuộc vào lớp concrete state mà nó khởi tạo.

@@ -21,9 +21,9 @@ Tạm thời ta bỏ qua vấn đề này và mặc định rằng tất cả đ
 
 ![problem2](./assets/problem2.png)
 
-Hơn thế nữa. Hãy xem xét các snapshot trạng thái của trình soạn thảo. Dữ liệu trong nó bao gồm những gì? Ở mức tối thiểu, nó phải bao gồm các văn bản thực, toạ độ con trỏ, vị trí hiện tại đang scroll,... Để tạo snapshot, bạn cần phải tìm kiếm các giá trị này và đặt chúng vào trong một kiểu container.
+Hơn thế nữa. Hãy xem xét các snapshot trạng thái của trình soạn thảo. Dữ liệu trong nó bao gồm những gì? Ở mức tối thiểu, nó phải bao gồm các văn bản thực, toạ độ con trỏ, vị trí hiện tại đang scroll,... Để tạo snapshot, bạn cần phải tìm kiếm các giá trị này và đặt chúng vào trong một dạng container.
 
-Có thể, bạn sẽ lưu một lượng đối tượng container này trong một vài danh sách để biểu diễn lịch sử thao tác. Do đó, container có lẽ là sẽ trở thành đối tượng của một lớp. Lớp này không có phương thức, những có nhiều trường để phản ánh trạng thái của trình soạn thảo. Để cho phép các đối tượng khác viết và đọc dữ liệu từ snapshot, bạn phải công khai tất cả các trường của nó. Điều này vô tình làm lộ trạng thái của ứng dụng bất kể nó riêng tư hay không. Các lớp khác sẽ trở nên phụ thuộc vào mọi thay đổi nhỏ đối với lớp snapshot, nếu không sẽ xảy ra trong các trường và phương thức riêng tư mà không ảnh hưởng đến các lớp bên ngoài.(*)
+Có thể, bạn sẽ lưu một lượng đối tượng container này trong một vài danh sách để biểu diễn lịch sử thao tác. Do đó, container có lẽ là sẽ trở thành đối tượng của một lớp. Lớp này không có phương thức, những có nhiều trường để ánh xạ trạng thái của trình soạn thảo. Để cho phép các đối tượng khác viết và đọc dữ liệu từ snapshot, bạn phải công khai tất cả các trường của nó. Điều này vô tình làm lộ trạng thái của ứng dụng bất kể nó riêng tư hay không. Các lớp khác sẽ trở nên phụ thuộc vào mọi thay đổi dù rất nhỏ ở lớp snapshot, ngược lại nếu các trường và phương thức này riêng tư thì những gì diễn ra trong đây sẽ không ảnh hưởng gì đến bên ngoài lớp.
 
 Có vẻ như chúng ta đã đi đến ngõ cụt: bạn để lộ tất cả các chi tiết bên trong của các lớp, khiến chúng quá mỏng manh(dễ bị thay đổi), còn nếu hạn chế quyền truy cập vào trạng thái của chúng, thì bạn không thể tạo snapshot. Có cách nào khác để thực hiện "hoàn tác" không?
 
@@ -33,7 +33,7 @@ Tất cả vấn đề trên mà ta gặp phải đều được gây ra bởi h
 
 Memento đề xuất giải pháp uỷ thác việc tạo các snapshot trạng thái cho các chủ sở hữu thực của trạng thái đó, tức là đối tượng gốc. Do đó, thay vì để đối tượng khác cố sao chép trạng thái của trình soạn thảo từ bên ngoài, lớp trình soạn thảo sẽ tự tạo snapshot của chúng vì nó có đầy đủ quyền truy cập vào trạng thái của chúng.
 
-Ý tưởng lưu trữ bản sao của trạng thái đối tượng vào một đối tượng đặc biệt gọi là memento. Nội dung của memento không thể bị truy cập bởi bất kỳ đối tượng nào khác ngoại trừ cái đã tạo ra nó. Các đối tượng khác phải giao tiếp với memento bằng một interface giới hạn,  cho phép nạp dữ liệu của snapshot(thời gian tạo, tên thao tác, ...) nhưng không phải trạng thái của đối tượng ban đầu có trong snapshot.(*)
+Ý tưởng lưu trữ bản sao của trạng thái đối tượng vào một đối tượng đặc biệt gọi là memento. Nội dung của memento không thể bị truy cập bởi bất kỳ đối tượng nào khác ngoại trừ cái đã tạo ra nó. Các đối tượng khác phải giao tiếp với memento bằng một interface giới hạn, cho phép nạp metadata của snapshot(thời gian tạo, tên thao tác, ...) nhưng không được đụng đến trạng thái của đối tượng ban đầu có trong snapshot.
 
 ![solution](./assets/solution.png)
 
@@ -162,8 +162,8 @@ class Command is
 
 ## 📋 Triển khai
 
-1. Xác định lớp nào đóng vai trò originator. Nó sẽ quan trọng để biết chương trình sử dụng một đối tượng trung tâm của loại này hay nhiều loại nhỏ hơn.(*)
-2. Tạo lớp memento, Từng cái một, khai báo tập hợp trường phản chiếu các trường được khai báo ở lớp originator.
+1. Xác định lớp nào đóng vai trò originator. Điều này là cần thiết để biết chương trình sử dụng một đối tượng trung tâm hay nhiều đối tượng nhỏ hơn.
+2. Tạo lớp memento. Từng cái một, khai báo tập hợp trường ánh xạ các trường được khai báo ở lớp originator.
 3. Làm memento bất biến. Memento chỉ nhận dữ liệu một lần thông qua hàm khởi tạo. Lớp này không có setter.
 4. Nếu ngôn ngữ lập trình hỗ trợ lồng lớp, lồng memento vào originator. Nếu không, trích xuất interface trống từ lớp memento và làm tất cả đối tượng khác sử dụng nó tham chiếu đến memento. Bạn có thể thêm thao tác metadata đến interface nhưng không để lộ thứ gì của trạng thái originator.
 
