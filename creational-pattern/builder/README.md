@@ -108,8 +108,8 @@ interface Builder is
 
 
 // Lớp concrete builder theo sau interface builder và cung cấp
-// cách triển khai cho bước xây dựng. Chương trình của bạn sẽ 
-// có nhiều biến thể builder cho các triển khai khác nhau.
+// các triển khai cụ thể cho bước xây dựng. Chương trình của bạn 
+// sẽ có nhiều biến thể builder cho các triển khai khác nhau.
 class CarBuilder implements Builder is
     private field car:Car
 
@@ -122,7 +122,7 @@ class CarBuilder implements Builder is
     method reset() is
         this.car = new Car()
 
-    // Tất cả  các bước tạo làm việc với cùng một sản phẩm.(*)
+    // Tất cả các bước tạo làm việc với cùng một đối tượng sản phẩm.
     method setSeats(...) is
         // Thiết lập số ghế ngồi trong xe.
 

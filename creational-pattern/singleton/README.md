@@ -8,7 +8,7 @@
 
 ## 😟 Vấn đề
 
-Singleton cùng lúc giải quyết hai vấn đề vi phạm đến *Nguyên tắc Trách nhiệm đơn lẻ ( Single Responsibility Principle)*:(*)
+Singleton cùng lúc giải quyết hai vấn đề, vi phạm đến *Nguyên tắc Trách nhiệm đơn lẻ (Single Responsibility Principle)*:
 
 1. **Đảm bảo mỗi lớp chỉ có một thực thể**: Tại sao bất kỳ ai cũng muốn kiểm soát số lượng thực thể (instance) mà một lớp có ? Lý do phổ biến nhất là để quản lý truy cập đến các tài nguyên chung, vd như cơ sở dữ liệu hay file. 
 
@@ -103,9 +103,9 @@ class Application is
 
 **🐞 Sử dụng Singleton khi bạn cần kiểm soát chặt chẽ hơn đối với các biến toàn cục**
 
-⚡ Không giống như các biến toàn cục, Singleton đảm bảo rằng chỉ có một thực thể của một lớp. Không có gì khác, ngoại trừ chính lớp Singleton, có thể thay thế thực thể được lưu trong bộ nhớ cache.(*)
+⚡ Không giống như các biến toàn cục, Singleton đảm bảo rằng không có gì khác ngoại trừ chính lớp Singleton có thể thay đổi được thực thể được lưu.
 
-*Lưu ý rằng bạn luôn có thể điều chỉnh giới hạn này và cho phép tạo bất kỳ số lượng thực thể Singleton nào. Đoạn code duy nhất cần thay đổi là phần thân của phương thức `getInstance`.*(*)
+*Lưu ý rằng bạn luôn có thể điều chỉnh giới hạn thực thể trong Singleton và cho phép tạo bất kỳ số lượng thực thể nào. Đoạn code duy nhất cần thay đổi là phần thân của phương thức `getInstance`.*
 
 ## 📋 Triển khai
 
@@ -133,7 +133,7 @@ class Application is
 
 ❌ Như đã nói, cả hai vấn đề của Singleton đều vi phạm *Nguyên tắc trách nhiệm đơn lẻ*.
 
-❌ Singleton có thể giấu các thiết kế tệ. Ví dụ như khi các thành phần trong chương trình biết quá nhiều về nhau.(*)
+❌ Singleton có thể giấu đi các thiết kế tệ. Ví dụ như khi các thành phần trong chương trình biết quá nhiều về nhau.
 
 ❌ Pattern yêu cầu được xử lý đặc biệt trong môi trường đa luồng, để nhiều luồng sẽ không tạo ra một đối tượng Singleton nhiều lần.
 

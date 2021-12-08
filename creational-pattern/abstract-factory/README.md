@@ -166,8 +166,8 @@ class ApplicationConfigurator is
 
 ⚡  Abstract Factory cung cấp cho bạn interface để tạo các đối tượng từ mỗi lớp trong nhóm sản phẩm miễn là code của bạn tạo đối tượng thông qua interface, bạn sẽ không phải lo lắng các vấn đề tạo sai biến thể của sản phẩm hay không phù hợp với sản phẩm đã tạo trong ứng dụng.
 
-- Khi triển khai Abstract Factory cần lưu ý nếu lớp của bạn có chứa phương thức Factory, nó sẽ làm mờ nhiệm vụ chính của Abstract.(*)
-- Một thiết kế chương trình tốt là khi *mỗi lớp sẽ chỉ làm một nhiệm vụ*. Khi một lớp xử lý nhiều loại sản phẩm, nó có thể đáng giá khi trích xuất các phương thức factory của nó thành một lớp factory độc lập hoặc triển khai Abstract Factory toàn diện.(*)
+- Khi triển khai Abstract Factory cần lưu ý nến bạn có một lớp với một tập hợp phương thức Factory, nó có thể làm mờ nhiệm vụ chính của Abstract.
+- Một thiết kế chương trình tốt là khi *mỗi lớp sẽ chỉ làm một nhiệm vụ*. Khi một lớp xử lý nhiều loại sản phẩm, bạn có thể trích xuất các phương thức factory của nó thành một lớp factory độc lập hoặc triển khai Abstract Factory toàn diện.
 
 ## 📋 Triển khai
 

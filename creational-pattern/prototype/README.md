@@ -54,7 +54,7 @@ Một ví dụ thực nữa của pattern này quá trình nguyên phân trong s
 
 ![structure2](./assets/structure2.png)
 
-1. **Prototype Registry** cung cấp cách để truy cập dễ dàng các prototype được sử dụng thường xuyên. Nó lưu trữ một tập hợp đối tượng đã tạo sẵn cho việc sao chép. Prototype registry đơn giản nhất là bản đồ băm `name → prototype`. Tuy nhiên, nếu bạn cần các tiêu chí tìm kiếm tốt hơn, bạn có thể tự xây dựng một phiên bản registry mạnh mẽ hơn.(*)
+1. **Prototype Registry** cung cấp cách để truy cập dễ dàng các prototype được sử dụng thường xuyên. Nó lưu trữ một tập hợp đối tượng đã tạo sẵn cho việc sao chép. Prototype registry đơn giản nhất là là một hashmap `name → prototype`. Tuy nhiên, nếu bạn cần các tiêu chí tìm kiếm tốt hơn, bạn có thể tự xây dựng một phiên bản registry mạnh mẽ hơn.
 
 ## 👨‍💻 Mã giả
 
@@ -141,7 +141,7 @@ class Application is
 
     method businessLogic() is
         // Prototype chắc chắn vì nó giúp bạn tạo ra bản sao của đối
-        // tượng mà không cần biết bất cứ điều gì về kiểu của nó.(*)
+        // tượng mà không cần biết bất cứ điều gì về kiểu của nó.
         Array shapesCopy = new Array of Shapes.
 
         // Ví dụ, bạn không biết chính xác phần tử trong mảng shape.
@@ -149,8 +149,8 @@ class Application is
         // Nhưng nhờ tính đa hình, khi ta gọi phương thức `clone`
         // trên một hình dạng, chương trình kiểm tra lớp có thực và
         // chạy phương thức clone phù hợp đã định nghĩa trong lớp.
-        // Đó là lý do vì sao ta lấy bản sao phù hợp thay vì 
-        // một tập hợp đối tượng Shape đơn giản.(*)
+        // Đó là lý do vì sao ta nhận được bản sao phù hợp thay vì 
+        // một mảng đối tượng Shape thông thường.
         foreach (s in shapes) do
             shapesCopy.add(s.clone())
 
