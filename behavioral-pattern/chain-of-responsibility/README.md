@@ -37,7 +37,7 @@ Pattern gợi ý bạn liên kết các handler thành một chuỗi(chain). M�
 
 ![solution1](./assets/solution1.png)
 
-Tuy nhiên, có một cách tiếp cận khác nhẹ nhàng hơn (và chuẩn hơn), mỗi khi nhận được yêu cầu, một handler quyết định liệu nó có thể xử lý hay không. Nếu nó có thể, sẽ không phải truyền yêu cầu xa hơn. Thế nên, nó chỉ có một handler để xử lý tất cả yêu cầu hoặc không có handler nào cả. Cách tiếp cận này rất giống với xử lý sự kiện trong ngăn xếp phần tử ở giao diện đồ hoạ người dùng.
+Tuy nhiên, có một cách tiếp cận khác nhẹ nhàng hơn (và chuẩn hơn), mỗi khi nhận được yêu cầu, một handler quyết định liệu nó có thể xử lý hay không. Nếu nó có thể, sẽ không phải truyền yêu cầu xa hơn. Thế nên, nó chỉ có một handler để xử lý tất cả yêu cầu hoặc không có handler nào cả. Cách tiếp cận này rất giống với xử lý sự kiện trong ngăn xếp phần tử ở giao diện đồ hoạ người dùng.(*)
 
 Ví dụ, khi người dùng click một button, sự kiện sẽ truyền đến chuỗi phần tử GUI, bắt đầu với button, tiếp đến là container(có thể là form hoặc panel) và kết thúc ở của sổ chính của ứng dụng. Sự kiện sẽ được xử lý ở phần tử đầu tiên trong chuỗi có thể xử lý nó. Ví dụ này đáng lưu tâm vì nó cho thấy một chuỗi có thể mở rộng từ một đối tượng cây.
 
@@ -47,7 +47,7 @@ Ví dụ, khi người dùng click một button, sự kiện sẽ truyền đế
 
 ## 🚗 Thế Giới Thực
 
-Bạn vừa mua và cài đặt một vài phần cứng lên máy tính của bạn. Ví lý do cá nhân, nên máy tính bạn có nhiều hệ điều hành. Bạn thử boot tất cả và xem phần cứng có được hỗ trợ không. Window nhận ra nó và tự động enable phần cứng. Nhưng, Linux yêu dấu của bạn lại từ chối làm việc với phần cứng mới. Bất lực, bạn quyết định gọi đến số điện thoại hỗ trợ ghi trên hộp.
+Bạn vừa mua và cài đặt một vài phần cứng mới lên máy tính của bạn. Ví lý do cá nhân, nên máy tính bạn có nhiều hệ điều hành. Bạn thử boot tất cả và xem phần cứng có được hỗ trợ không. Window nhận ra nó và tự động enable phần cứng. Nhưng, Linux yêu dấu của bạn lại từ chối làm việc với phần cứng mới. Bất lực, bạn quyết định gọi đến số điện thoại hỗ trợ khi mua phần cứng.
 
 Thứ đầu tiên mà bạn nghe là giọng robot phản hồi tự động. Nó đề nghị các giải pháp phổ biến với nhiều vấn đề khác nhau nhưng không cái nào liên quan đến trường hợp của bạn. Sau đấy, robot kết nối bạn với nhà điều hành trực tiếp.
 
@@ -62,9 +62,11 @@ Sau cùng, nhà điều hành chuyển cuộc gọi của bạn đến kỹ sư,
 ![structure](./assets/structure.png)
 
 1. **Handler** khai báo interface chung cho tất cả concrete handler. Nó thường chỉ bao gồm một phương thức đơn nhất cho tất cả yêu cầu xử lý, nhưng thỉnh thoảng nó có thể chứa phương thức khác cho cài đặt handler tiếp theo trong chuỗi.
-2. **Base Handler** là lớp tuỳ chọn, nơi bạn có thể đặt code mẫu vào có tất cả lớp handler.
-Thông thường, lớp này định nghĩa một trường lưu trữ tham chiếu đến handler kế tiếp. Client có thể tạo chuỗi bằng cách truyền handler đến hàm khởi tạo hoặc setter của handler trước đó. Lớp còn có thể triển khai các xử lý mặc định: nó có thể truyền thực thi sang handler tiếp theo sau khi kiểm tra sự tồn tại của nó.
-3. **Concrete Handler** bao gồm đoạn code thực cho yêu cầu xử lý. Khi nhận yêu cầu, mỗi handler phải quyết định xử lý nó hoặc chuyển nó dọc theo chuỗi.
+2. **Base Handler** là lớp tuỳ chọn, nơi bạn có thể đặt code mẫu vào tất cả lớp handler.
+Thông thường, lớp này định nghĩa một trường lưu trữ tham chiếu đến handler kế tiếp. Client có thể tạo chuỗi bằng cách truyền handler đến hàm khởi tạo hoặc setter của handler trước đó. 
+
+    Lớp còn có thể triển khai các xử lý mặc định: nó có thể truyền thực thi sang handler tiếp theo sau khi kiểm tra sự tồn tại của nó.
+3. **Concrete Handler** bao gồm đoạn code thực cho yêu cầu xử lý. Khi nhận yêu cầu, mỗi handler phải quyết định xử lý nó hoặc truyền nó dọc theo chuỗi.
 Handler thường là khép kín và bất biến, nhận mỗi dữ liệu cần thiết chỉ một lần thông qua hàm khởi tạo.
 4. **Client** có thể tạo chuỗi chỉ một lần hoặc tạo động, dựa trên logic của ứng dụng. Lưu ý yêu cầu có thể được gửi đến bất kỳ handler nào trong chuỗi, không nhất thiết phải là đầu tiên.
 
@@ -80,7 +82,7 @@ Một thành phần đơn giản có thể hiển thị `tooltips` theo ngữ c�
 
 ![pseudocode2](./assets/pseudocode2.png)
 
-Khi người dùng trỏ chuột vào một phần tử và nhấn phím `F1`, ứng dụng sẽ phát hiện thành phần dưới con trỏ và gửi yêu cầu trợ giúp. Yêu cầu nổi lên tất cả các vùng chứa của phần tử cho đến khi đến được phần tử có khả năng hiển thị thông tin trợ giúp.
+Khi người dùng click vào một phần tử và nhấn phím `F1`, ứng dụng sẽ xác định thành phần được click và gửi yêu cầu trợ giúp. Yêu cầu chạy qua tất cả các container của phần tử cho đến khi đến được phần tử có khả năng hiển thị thông tin trợ giúp.
 
 ```c
 // Interface handler khai báo một phương thức cho tạo chuỗi
@@ -99,7 +101,7 @@ abstract class Component implements ComponentWithContextualHelp is
 
     // Thành phần hiển thị tooltip nếu nó có văn bản trợ giúp
     // được chỉ định cho nó. Nếu không nó chuyển tiếp cuộc gọi
-    // đến container, nếu nó tồn tại.
+    // đến container.
     method showHelp() is
         if (tooltipText != null)
             // Hiển thị tooltip.
@@ -119,7 +121,7 @@ abstract class Container extends Component is
 
 
 // Thành phần nguyên thuỷ có thể ổn với triển khai
-// trợ giúp mặc định...
+// trợ giúp mặc định...(*)
 class Button extends Component is
     // ...
 
@@ -170,7 +172,7 @@ class Application is
 ```
 
 ## 💡 Ứng dụng
-**🐞 Sử dụng Chain of Responsibility khi chương trình của bản phải xử lý các loại yêu cầu khác nhau bằng nhiều cách khác nhau, nhưng kiểu yêu cầu chính xác và trận tự của nó thì không biết trước.**
+**🐞 Sử dụng Chain of Responsibility khi chương trình của bạn phải xử lý các loại yêu cầu khác nhau bằng nhiều cách khác nhau, nhưng kiểu yêu cầu chính xác và trật tự của nó thì không biết trước.**
 
 ⚡ CoR giúp bạn liên kết nhiều handler thành một chuỗi và khi nhận yêu cầu, sẽ "hỏi" mỗi handler có thể xử lý nó không. Cách này giúp tất cả handler có cơ hội xử lý yêu cầu.
 
@@ -184,10 +186,11 @@ class Application is
 
 ## 📋 Triển khai
 
-1. Khai báo interface handler và mô tả chữ ký của một phương thức để xử lý các yêu cầu.
-    Quyết định cách client sẽ chuyển dữ liệu yêu cầu vào phương thức. Cách linh hoạt nhất là chuyển yêu cầu thành một đối tượng và chuyển nó đến phương thức xử lý dưới dạng một tham số.
+1. Khai báo interface handler và mô tả signature của một phương thức để xử lý các yêu cầu.
+    Quyết định cách client sẽ truyền dữ liệu yêu cầu vào phương thức. Cách linh hoạt nhất là chuyển yêu cầu thành một đối tượng và chuyển nó đến phương thức xử lý dưới dạng một tham số.
 
-2. Để loại bỏ code mẫu trùng lặp trong concrete handler, nó có thể đáng giá khi tạo một lớp handler cơ sở trừu tượng, bắt nguồn từ interface handler.
+2. Để loại bỏ code mẫu trùng lặp trong concrete handler, nó có thể đáng giá khi tạo một lớp handler cơ sở trừu tượng, bắt nguồn từ interface handler.(*)
+
     Lớp này phải có một trường để lưu trữ một tham chiếu đến handler tiếp theo trong chuỗi. Xem xét việc làm cho lớp trở nên bất biến. Tuy nhiên, nếu bạn định sửa đổi chuỗi trong thời gian chạy, bạn cần xác định một setter để thay đổi giá trị của trường tham chiếu.
 
     Bạn cũng có thể triển khai hành vi mặc định thuận tiện cho phương pháp xử lý, đó là chuyển tiếp yêu cầu đến đối tượng tiếp theo trừ khi không còn đối tượng nào. Các concrete handler có thể sử dụng hành vi này bằng cách gọi phương thức cha.
@@ -195,7 +198,7 @@ class Application is
 3. Từng cái một tạo các lớp con của concrete handler và thực hiện các phương pháp xử lý của chúng. Mỗi handler phải đưa ra hai quyết định khi nhận được yêu cầu:
     - Liệu nó có xử lý yêu cầu hay không.
     - Liệu nó có chuyển yêu cầu theo chuỗi hay không.
-    - 
+
 4. Client có thể tự lắp ráp chuỗi hoặc nhận chuỗi được tạo sẵn từ các đối tượng khác. Trong trường hợp sau, bạn phải triển khai một số lớp factory để xây dựng chuỗi theo cấu hình hoặc cài đặt môi trường.
 
 5. Client có thể kích hoạt bất kỳ handler nào trong chuỗi, không chỉ handler đầu tiên. Yêu cầu sẽ được chuyển dọc theo chuỗi cho đến khi một số handler từ chối chuyển thêm hoặc cho đến khi nó đến cuối chuỗi.

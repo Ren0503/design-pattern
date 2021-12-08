@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**Facade** là design pattern dạng structural cung cấp interface đơn giản cho thư viện, framework hoặc bất kỳ tập hợp lớp phức tạp nào khác.
+**Facade** là design pattern thuộc nhóm structural cung cấp interface đơn giản cho thư viện, framework hoặc bất kỳ tập hợp lớp phức tạp nào khác.
 
 ![intent](./assets/intent.png)
 
@@ -18,7 +18,7 @@ Facade là một lớp cung cấp interface đơn giản cho cho một hệ th�
 
 Có một facade rất tiện lợi khi bạn cần tích hợp ứng dụng của mình với một thư viện phức tạp có hàng tá tính năng, nhưng bạn chỉ cần một vài chức năng trong đó
 
-Ví dụ: một ứng dụng tải video ngắn hài hước về mèo lên mạng xã hội có thể sử dụng thư viện chuyển đổi video chuyên nghiệp. Tuy nhiên, tất cả những gì nó thực sự cần là một lớp với một phương thức duy nhất `encode(filename, format)`. Sau khi tạo một lớp như vậy và kết nối nó với thư viện chuyển đổi video, bạn sẽ có facade đầu tiên của mình..
+Ví dụ: một ứng dụng tải video ngắn hài hước về mèo lên mạng xã hội có thể sử dụng thư viện chuyển đổi video chuyên nghiệp. Tuy nhiên, tất cả những gì bạn thực sự cần là một lớp với một phương thức duy nhất `encode(filename, format)`. Sau khi tạo một lớp như vậy và kết nối nó với thư viện chuyển đổi video, bạn sẽ có facade đầu tiên của mình..
 
 ## 🚗 Thế Giới Thực
 
@@ -104,7 +104,8 @@ class Application is
 
 ⚡ Tạo các facade để xác định các điểm vào cho mỗi cấp của một hệ thống con. Bạn có thể giảm sự ghép nối giữa nhiều hệ thống con bằng cách yêu cầu chúng chỉ giao tiếp thông qua các facade.
 
-Ví dụ: hãy quay lại framework chuyển đổi video. Nó có thể được chia thành hai lớp: liên quan đến video và âm thanh. Đối với mỗi lớp, bạn có thể tạo một facade và sau đó làm cho các lớp của mỗi lớp giao tiếp với nhau thông qua các facade. Cách tiếp cận này trông rất giống với ** Mediator**.
+Ví dụ: hãy quay lại framework chuyển đổi video. Nó có thể được chia thành hai lớp: liên quan đến video và âm thanh. Đối với mỗi lớp, bạn có thể tạo một facade và sau đó làm cho các lớp của mỗi lớp giao tiếp với nhau thông qua các facade. Cách tiếp cận này trông rất giống với **Mediator**.
+
 ## 📋 Triển khai
 
 1. Kiểm tra xem liệu có thể cung cấp interface đơn giản hơn những gì hệ thống con hiện tại đã cung cấp hay không. Bạn đang đi đúng hướng nếu interface này làm cho code client độc lập với nhiều lớp của hệ thống con.

@@ -24,7 +24,7 @@ Nhưng nếu nó là một cấu trúc dữ liệu phức tạp khác như cây 
 
 *Một tập hợp có thể duyệt theo nhiều cách*
 
-Việc thêm nhiều thuật toán duyệt vào tập hợp có thể làm mờ đi nhiệm vụ chính của nó, là lưu trữ dữ liệu hiệu quả. Thêm vào đó, một vài thuật toán chỉ phù hợp với vài ứng dụng cơ bản, thể nên thêm nó vào lớp tập hợp chung có thể sẽ không phù hợp.
+Việc thêm nhiều thuật toán duyệt vào tập hợp có thể làm mờ đi nhiệm vụ chính của nó, là lưu trữ dữ liệu hiệu quả. Thêm vào đó, một vài thuật toán chỉ phù hợp với vài ứng dụng cơ bản, thế nên thêm nó vào lớp tập hợp chung có thể sẽ không phù hợp.
 
 Mặt khác, code client làm việc với nhiều tập hợp khác nhau thường không quan tâm đến chúng lưu trữ phần tử như thế nào. Tuy nhiên, vì tập hợp cung cấp các cách khác nhau để truy cập phần tử, nên bạn không có lựa chọn nào khác ngoài kết hợp code của bạn với lớp tập hợp cụ thể.
 
@@ -56,16 +56,16 @@ Tất cả các tùy chọn này — đi đường ngẫu nhiên sinh ra trong �
 
 ![structure](./assets/structure.png)
 
-1. **Iterator** là interface khai báo các thao tác bắt buộc cho duyệt một tập hợp: lấy phần tử kế tiếp, trả về vị trị hiện tại, chạy lại vòng lặp,...
+1. **Iterator** là interface khai báo các thao tác bắt buộc cho duyệt một tập hợp: lấy phần tử kế tiếp, trả về vị trí hiện tại, chạy lại vòng lặp,...
 2. **Concrete Iterator** triển khai thuật toán cụ thể cho duyệt tập hợp. Đối tượng iterator nên theo dõi quá trình duyệt của nó. Điều này cho phép nhiều iterator duyệt cùng một tập hợp độc lập với nhau.
 3. **Collection** là interface khai báo một hoặc nhiều phương thức để lấy các iterator tương thích với tập hợp. Lưu ý rằng kiểu trả về của phương thức phải được khai báo như interface iterator để cho concrete collection  có thể trả về kiểu iterator khác.
-4. **Concrete Collections** trả về phiên bản mới của một lớp concrete iterator riêng biệt mỗi khi client yêu cầu nó. Bạn có thể hỏi rằng, phần còn lại của code collection ở đâu ? Không cần lo lắng, nó sẽ ở cùng một lớp. Chỉ là những chi tiết này không thực sự quan trọng đối với pattern, vì vậy chúng tôi sẽ bỏ qua chúng.
+4. **Concrete Collections** trả về phiên bản mới của một lớp concrete iterator riêng biệt mỗi khi client yêu cầu nó. Bạn có thể hỏi rằng, phần còn lại của code collection ở đâu ? Không cần lo lắng, nó sẽ ở cùng một lớp. Chỉ là những chi tiết này không thực sự quan trọng đối với pattern, vì vậy chúng tôi sẽ bỏ qua chúng.(*)
 5. **Client** làm việc với cả tập hợp và iterator thông qua interface của chúng. Cách này giúp client không phải ghép với lớp cụ thể, cho phép bạn sử dụng các tập hợp và iterator khác trên cùng một code.
 Thông thường, client không tạo iterator của nó, thay vào đó nó lấy chúng từ tập hợp. Tuy nhiên, trong một số trường hợp nhất định, client có thể tạo trực tiếp một cái; ví dụ, khi client xác định iterator đặc biệt của riêng nó.
 
 ## 👨‍💻 Mã giả
 
-Trong ví dụ này, Iterator được dùng để duyệt qua một tập hợp đặc biệt, một tập kín cho truy cập đến mạng xã hội Facebook. Tập hợp cung cấp nhiều iterator để duyệt hồ sơ người dùng theo nhiều cách khác nhau.
+Trong ví dụ này, Iterator được dùng để duyệt qua một tập hợp đặc biệt, một tập kín cho truy cập đến mạng xã hội Facebook. Tập hợp cung cấp nhiều iterator để duyệt hồ sơ người dùng theo nhiều cách khác nhau.(*)
 
 ![pseudocode](./assets/pseudocode.png)
 
@@ -83,7 +83,7 @@ interface SocialNetwork is
 
 
 // Mỗi concrete collection được ghép với tập hợp lớp concrete iterator
-// mà nó trả về. Nhưng client không cần làm vậy, vì chữ ký số của phương
+// mà nó trả về. Nhưng client không cần làm vậy, vì signature của phương
 // thức này trả về interface iterator.
 class Facebook implements SocialNetwork is
     // ... Phần lớn code của tập hợp sẽ ở đây ...
@@ -178,7 +178,7 @@ class Application is
 
 **🐞 Sử dụng Iterator khi muốn giảm code duyệt trùng lặp trên ứng dụng của bạn**
 
-⚡ Code của các thuật toán lặp đặc biệt thường có xu hướng rất cồng kềnh. Khi được đặt trong logic nghiệp vụ của một ứng dụng, nó có thể làm mờ trách nhiệm của code gốc và làm cho nó khó bảo trì hơn. Di chuyển code duyệt đến các iterator cụ thể có thể giúp bạn làm cho code của ứng dụng gọn gàng và sạch sẽ hơn.
+⚡ Code của các thuật toán lặp đặc biệt thường có xu hướng rất cồng kềnh. Khi được đặt trong logic nghiệp vụ của một ứng dụng, nó có thể làm mờ trách nhiệm của code gốc và làm cho nó khó bảo trì hơn. Chuyển code duyệt đến các iterator cụ thể có thể giúp bạn làm cho code của ứng dụng gọn gàng và sạch sẽ hơn.
 
 **🐞 Sử dụng Iterator khi bạn muốn code của bạn có thể duyệt các cấu trúc dữ liệu khác nhau mà kiểu của cấu trúc đấy là không biết trước**.
 

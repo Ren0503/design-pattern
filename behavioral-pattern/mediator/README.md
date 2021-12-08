@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-Mediator là một desgin pattern dạng behavioral giúp bạn giảm các phụ thuộc hỗn tạp giữa các đối tượng. Pattern hạn chế các giao tiếp trực tiếp giữa các đối tượng và buộc nó giao tiếp thông qua đối tượng mediator.
+Mediator là một desgin pattern thuộc nhóm behavioral giúp bạn giảm các phụ thuộc hỗn tạp giữa các đối tượng. Pattern hạn chế các giao tiếp trực tiếp giữa các đối tượng và buộc nó giao tiếp thông qua đối tượng mediator.
 
 ![intent](./assets/intent.png)
 
@@ -12,17 +12,17 @@ Giả sử bạn có một dialog cho tạo và chỉnh sửa thông tin khách 
 
 ![problem1](./assets/problem1.png)
 
-Một số phần tử trong form có thể tương tác với nhau. Ví dự, khi chọn "I have a dog" ở một chechbox có thể sẽ dẫn đến hiện một input ẩn cho nhập tên chú chó đó. Hay  khi submit một button sẽ phải xác thực các giá trị hợp lệ ở tất cả trường trước khi lưu dữ liệu.
+Một số phần tử trong form có thể tương tác với nhau. Ví dụ, khi chọn "I have a dog" ở một chechbox có thể sẽ dẫn đến hiện một input ẩn cho nhập tên chú chó đó. Hay  khi submit một button sẽ phải xác thực các giá trị hợp lệ ở tất cả trường trước khi lưu dữ liệu.
 
 ![problem2](./assets/problem2.png)
 
 *Các phần tử có quan hệ với nhau, nên thay đổi một phần tử có thể ảnh hưởng đến những cái khác*
 
-Bằng cách triển khai trực tiếp logic bên trong code của phần tử form bạn sẽ làm cho lớp phần tử khó tái sử dụng ở các form khác trong ứng dụng. Ví dụ bạn không thể dùng lớp checkbox này cho các form khác vì nó đã được kết nối với input "tên chó". Bạn có thể sử dụng tất cả các lớp liên quan đến việc hiển thị form người dùng, hoặc không có lớp nào cả.
+Bằng cách triển khai trực tiếp logic bên trong code của phần tử form bạn sẽ làm cho lớp phần tử khó tái sử dụng ở các form khác trong ứng dụng. Ví dụ bạn không thể dùng lớp checkbox này cho các form khác vì nó đã được kết nối với input "tên chó". Bạn có thể sử dụng tất cả các lớp liên quan đến việc hiển thị form người dùng, hoặc không có lớp nào cả.(*)
 
 ## 😊 Giải pháp
 
-Mediator đề nghị giải pháp là bạn nên dừng việc kết nối trực tiếp giữa các thành phần mà bạn muốn nó trở nên độc lập. Thay vào đó, các thành phần này sẽ phải cộng tác gián tiếp qua việc gọi một đối tượng mediator đặc biệt, đối tượng này mới là thứ gọi trực tiếp đến các thành phần thích hợp. Kết quả các thành phần chỉ phụ thuộc vào lớp mediator đơn nhất thay vì được ghép nối với hàng chục  thành phần khác.
+Mediator đề nghị giải pháp là bạn nên dừng việc kết nối trực tiếp giữa các thành phần mà bạn muốn nó trở nên độc lập. Thay vào đó, các thành phần này sẽ phải cộng tác gián tiếp qua việc gọi một đối tượng mediator đặc biệt, đối tượng này mới là thứ gọi trực tiếp đến các thành phần thích hợp. Kết quả là các thành phần chỉ phụ thuộc vào lớp mediator duy nhất thay vì được ghép nối với hàng chục  thành phần khác.
 
 Trong ví dụ với form hồ sơ người dùng, lớp diago sẽ hành động như một mediator. Rất có thể, lớp dialog đã nhận thức được các phần tử con của nó, thế nên bạn không cần thêm phụ thuộc mới vào lớp.
 
@@ -74,7 +74,7 @@ interface Mediator is
 
 
 // Lớp concrete mediator. Các kết nối phức tạp giữa các
-// component riêng biết đã được gỡ rối và chuyền vào mediator.
+// component riêng biệt đã được gỡ rối và chuyền vào mediator.
 class AuthenticationDialog implements Mediator is
     private field title: string
     private field loginOrRegisterChkBx: Checkbox
@@ -88,7 +88,7 @@ class AuthenticationDialog implements Mediator is
         // hiện tại vào hàm khởi tạo để thiết lập liên kết.
 
 
-    // Khi điều gì đó diễn ra với một component, mó thông báo cho
+    // Khi điều gì đó diễn ra với một component, nó thông báo cho
     // mediator. Khi nhận được thông báo, mediator sẽ làm gì đó 
     // hoặc truyền yêu cầu đến component khác.
     method notify(sender, event) is
@@ -130,7 +130,7 @@ class Component is
     method keypress() is
         dialog.notify(this, "keypress")
 
-// Mỗi concrete componetn không giao tiếp với nhau. Chunhs chỉ
+// Mỗi concrete component không giao tiếp với nhau. Chúng chỉ
 // có một kênh giao tiếp để gửi thông báo đến mediator.
 class Button extends Component is
     // ...
@@ -164,7 +164,7 @@ class Checkbox extends Component is
 
 2. Khai báo interface mediator và mô tả giao thức giao tiếp mong muốn giữa mediator và các thành phần khác. Trong hầu hết trường hợp, một phương thức duy nhất cho nhận các thông báo từ các thành phần là đủ.
 
-    Interface này là cốt yêu khi bạn muốn sử dụng lại lớp thành phần ở ngữ cảnh khác. Miễn là thành phần làm việc với mediator thông qua interface chung, bạn có thể liên kết thành phần với triển khai khác của mediator.
+    Interface này là cốt yếu khi bạn muốn sử dụng lại lớp thành phần ở ngữ cảnh khác. Miễn là thành phần làm việc với mediator thông qua interface chung, bạn có thể liên kết thành phần với triển khai khác của mediator.
 
 3. Triển khai lớp mediator cụ thể. Lớp này dùng để lưu trữ tham chiếu đến tất cả thành phần mà nó quản lý.
 

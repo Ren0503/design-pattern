@@ -2,17 +2,17 @@
 
 ## 📜 Mục đích
 
-**Flyweight** là design pattern dạng structural giúp bạn chỉnh các đối tượng vừa với lượng RAM khả dụng bằng các chia sẻ trạng thái chung giữa các đối tượng thay vì giữ tất cả dữ liệu ở mỗi đối tượng.
+**Flyweight** là design pattern thuộc nhóm structural giúp bạn chỉnh các đối tượng phù hợp với dung lượng RAM bằng cách chia sẻ trạng thái chung giữa các đối tượng thay vì giữ tất cả dữ liệu ở một đối tượng.
 
 ![intent](./assets/intent.png)
 
 ## 😟 Vấn đề
 
-Để tìm điều gì vui vẻ sau thời gian dài làm việc, bạn quyết định tạo một video game đơn giản: người chơi di chuyển vòng quanh bản đồ và bắn các đối thủ. Bạn chọn triển khai hệ thống hạt hệ thống phổ biến nhất dùng làm game effect trong Unity 3d)  và tạo các tính năng đặc biệt cho game. Số lượng lớn đạn, tên lửa và mảnh bom từ các vụ nổ sẽ văng khắp bản đồ và mang lại trải nghiệm ly kỳ cho người chơi.
+Để tìm điều gì vui vẻ sau thời gian dài làm việc, bạn quyết định tạo một video game đơn giản: người chơi di chuyển vòng quanh bản đồ và bắn hạ các đối thủ. Bạn chọn triển khai hệ thống hạt (hệ thống phổ biến nhất dùng làm game effect trong Unity 3d)  và tạo các tính năng đặc biệt cho game. Sẽ có rất nhiều mảnh đạn, tên lửa và mảnh bom từ các vụ nổ văng khắp bản đồ và mang lại trải nghiệm ly kỳ cho người chơi.
 
-Khi nó hoàn thành, bạn đã commit lần cuối, tạo game và gửi nó cho người bạn để kiểm tra thử. Mặc dù game chạy hoàn hảo trên máy bạn, nhưng người bạn của bạn lại không thể chơi trong thời gian dài. Vì nó bị crash sau vài phút trên máy anh ta. Sau nhiều giờ tìm hiểu debug log, bạn nhận ra game bị crash vì nó không đủ RAM. Bởi vì máy tính của anh ta không mạnh như máy bạn, nên các sự cố mới xảy ra.
+Sau hoàn thành, bạn commit lần cuối, tạo game và gửi nó cho người bạn để kiểm tra thử. Mặc dù game chạy hoàn hảo trên máy bạn, nhưng người bạn của bạn lại không thể chơi trong thời gian dài. Vì nó bị crash sau vài phút trên máy anh ta. Sau nhiều giờ tìm hiểu debug log, bạn nhận ra game bị crash vì nó không đủ RAM. Bởi vì máy tính của anh ta không mạnh như máy bạn, nên các sự cố mới xảy ra.
 
-Thực ra vấn đề này có liên quan đến hệ thống hạt. Với mỗi hạt, ví dụ như đạn, tên lửa hay mảnh bom sẽ được biểu diễn bởi một đối tượng riêng bao gồm nhiều dữ liệu. Cùng thời điểm đó, nếu người chơi tàn sát lẫn nhau trên màn hình, các hạt mới tạo ra không vừa với lượng RAM còn lại, nên chương trình bị crash. 
+Thực ra vấn đề này có liên quan đến hệ thống hạt. Với mỗi hạt, ví dụ như đạn, tên lửa hay mảnh bom sẽ được biểu diễn bởi một đối tượng riêng bao gồm nhiều dữ liệu. Cùng thời điểm đó, nếu người chơi tàn sát lẫn nhau trên màn hình, các hạt mới tạo ra không vừa với dung lượng RAM còn lại, nên chương trình bị crash. 
 
 ![problem](./assets/problem.png)
 
@@ -24,9 +24,9 @@ Khi kiểm tra kỹ hơn các lớp `Particle`, bạn sẽ nhận ra các trư�
 
 Mặt khác các trạng thái hạt như `coords`(toạ độ), `vector`(hướng chuyển động) và `speed`(tốc độ) là không trùng cho mỗi hạt. Đồng thời, giá trị các trường này sẽ thay đổi theo thời gian. Dữ liệu biểu diễn nó luôn thay đổi khi hạt tồn tại, trong khi màu sắc và sprite không đổi cho mỗi hạt.
 
-Dữ liệu không đổi này của một đối tượng thường được gọi là *intrinsic state(trạng thái nội tại)*. Nó ở bên trong đối tượng; các đối tượng khác chỉ có thể đọc nó, không thể thay đổi nó. Phần còn lại trong trạng thái của đối tượng, thường bị thay đổi “từ bên ngoài” bởi các đối tượng khác, được gọi là *extrinsic state(trạng thái bên ngoài)*.
+Dữ liệu không đổi này của một đối tượng thường được gọi là *intrinsic state(trạng thái nội tại)*. Nó ở bên trong đối tượng; các đối tượng khác chỉ có thể đọc nó, không thể thay đổi nó. Phần còn lại của trạng thái của đối tượng, thường bị thay đổi “từ bên ngoài” bởi các đối tượng khác, được gọi là *extrinsic state(trạng thái bên ngoài)*.
 
-Ý tưởng của Flyweight là thay vì lưu trữ các trạng thái bên ngoài trong đối tượng. Bạn truyền trạng thái đó vào một phương thức cụ thể. Chỉ để trạng thái nội tại bên trong đối tượng, sử dụng lại nó cho các bối cảnh khác nhau. Do đó, bạn sẽ cần ít đối tượng hơn vì chúng chỉ khác nhau ở trạng thái nội tại, thứ có ít biến thể hơn nhiều so với trạng thái bên ngoài.
+Ý tưởng của Flyweight là thay vì lưu trữ các trạng thái bên ngoài trong đối tượng. Bạn truyền trạng thái đó vào một phương thức cụ thể. Chỉ để trạng thái nội tại bên trong đối tượng, sử dụng lại nó cho các bối cảnh khác nhau. Do đó, bạn sẽ cần ít đối tượng hơn vì chúng chỉ khác nhau ở trạng thái nội tại, thứ có ít biến thể hơn nhiều so với trạng thái bên ngoài.(*)
 
 ![solution2](./assets/solution2.png)
 
@@ -42,27 +42,28 @@ Vậy trạng thái bên ngoài được chuyển đi đâu? Một vài lớp s�
 
 Giải pháp gọn gàng hơn là tạo lớp ngữ cảnh riêng để lưu trữ trạng thái bên ngoài cùng với tham chiếu đến đối tượng flyweight. Cách tiếp cận này chỉ yêu cầu một mảng duy nhất trong lớp container.
 
-Đợi đã! Chúng ta không cần tất cả đối tượng ngữ cảnh như ban đầu sao? Về mặt kỹ thuật, thì đúng là như vậy. Nhưng hãy nhìn lại, các đối tượng bây giờ đã nhỏ hơn trước rất nhiều. Các trường tiêu thụ nhiều bộ nhớ nhất đã được chuyển vào các đối tượng flyweight. Bây giờ một ngàn đối tượng ngữ cảnh có thể sử dụng lại một đối tượng flyweight thay vì lưu trữ hàng ngàn bản sao dữ liệu.
+Đợi đã! Chúng ta không cần tất cả đối tượng ngữ cảnh như ban đầu sao? Về mặt kỹ thuật, thì đúng là như vậy. Nhưng hãy nhìn lại, các đối tượng bây giờ đã nhỏ hơn trước rất nhiều. Các trường tiêu thụ nhiều bộ nhớ nhất đã được chuyển vào các đối tượng flyweight. Bây giờ một ngàn đối tượng ngữ cảnh có thể sử dụng lại một đối tượng flyweight thay vì lưu trữ hàng ngàn bản sao dữ liệu.(*)
 
 ### Flyweight và tính bất biến
 
-Vì cùng một đối tượng flyweight có thể dùng trong các bối cảnh khác nhau, bạn phải đảm bảo rằng nó không thể bị sửa đối. Mọt flyweight nên khởi tạo trạng thái một lần duy nhất, thông qua tham số từ hàm khởi tạo.Nó không được để lộ bấy kỳ setter hay trường công khai nào với đối tượng khác.
+Vì cùng một đối tượng flyweight có thể dùng trong các bối cảnh khác nhau, bạn phải đảm bảo rằng nó không thể bị sửa đối. Một flyweight nên khởi tạo trạng thái một lần duy nhất, thông qua tham số từ hàm khởi tạo.Nó không được để lộ bấy kỳ setter hay trường công khai nào với đối tượng khác.
 
 ### Flyweight factory
 
 Để truy cập các flyweight khác nhau tiện lợi hơn, bạn có thể tạo phương thức factory để quản lý pool của đối tượng flyweight đã tồn tại. Phương thức chấp nhận trạng thái nội tại của flyweight mong muốn từ client, tìm kiếm flyweight đã tồn tại ứng với trạng thái này, và trả về nếu tìm gặp. Nếu không nó sẽ tạo flyweight mới và thêm vào pool.
 
-Ở đây có khá nhiều lựa chọn để đặt phương thức này. Đa số là ở flyweight container. Một vài trường hợp, bạn có thể tạo lớp factory mới. Hoặc bạn có thể tạo phương thức factory tĩnh và đặc vào trong nó lớp flyweight.
+Ở đây có khá nhiều lựa chọn để đặt phương thức này. Đa số là ở flyweight container. Một vài trường hợp, bạn có thể tạo lớp factory mới. Hoặc bạn có thể tạo phương thức factory tĩnh và đặt vào trong nó lớp flyweight.
 
 ## 🏢 Cấu trúc
 
 ![structure](./assets/structure.png)
 
-1. Flyweight chỉ là một sự tối ưu hoá. Trước khi áp dụng nó, hãy đảm bảo chương trình của bạn có vấn đề tiêu thụ RAM liên quan đến số lượng khổng lồ các đối tượng giống nhau trong bộ nhớ cùng lúc. Đồng thời vấn đề này không thể giải quyết bằng bất kỳ cách nào khác.
-2. **Flyweight** lớp bao gồm phần trạng thái gốc của đối tượng có thể được chia sẻ giữa nhiều đối tượng. Cùng đối tượng flyweight có thể được sử dụng trong nhiều ngữ cảnh khác nhau. Trạng thái lưu trữ trong flyweight được gọi là *intrinsic*(nội tại). Trạng thái được chuyền đến phương thức của flyweight được gọi là *extrinsic*(bên ngoài).
-3. **Context** lớp bao gồm trạng thái bên ngoài, duy nhất trên tất cả đối tượng gốc. Khi context được ghép nối với một đối tượng flyweight, nó biểu diễn tất cả trạng thái của đối tượng gốc.
-4. Thông thường, hành vi của đối tượng gốc tồn tại trong lớp flyweight. Trong trường hợp này, bất cứ ai gọi phương thức của flyweight cũng phải truyền các bit phù hợp của trạng thái bên ngoài vào tham số của phương thức. Mặt khác, hành vi có thể được chuyền đến lớp context, nới sử dụng liên kết flyweight đơn thuần như một đối tượng dữ liệu.
-5. **Client** tính toán hoặc lưu trữ trạng thái bên ngoài của flyweight. Từ góc nhìn client, một flyweight là một đối tượng mẫu thứ có thể được cấu hình khi đang chạy bằng cách truyền một vài dữ liệu ngữ cảnh vào tham số của phương thức của nó.
+Flyweight chỉ là một sự tối ưu hoá. Trước khi áp dụng nó, hãy đảm bảo chương trình của bạn có vấn đề tiêu thụ RAM liên quan đến số lượng khổng lồ các đối tượng giống nhau trong bộ nhớ cùng lúc. Đồng thời vấn đề này không thể giải quyết bằng bất kỳ cách nào khác.
+
+1. **Flyweight** lớp bao gồm phần trạng thái gốc của đối tượng có thể được chia sẻ giữa nhiều đối tượng. Cùng đối tượng flyweight có thể được sử dụng trong nhiều ngữ cảnh khác nhau. Trạng thái lưu trữ trong flyweight được gọi là *intrinsic*(nội tại). Trạng thái được chuyền đến phương thức của flyweight được gọi là *extrinsic*(bên ngoài).
+2. **Context** lớp bao gồm trạng thái bên ngoài, duy nhất trên tất cả đối tượng gốc. Khi context được ghép nối với một đối tượng flyweight, nó biểu diễn tất cả trạng thái của đối tượng gốc.
+3. Thông thường, hành vi của đối tượng gốc tồn tại trong lớp flyweight. Trong trường hợp này, bất cứ ai gọi phương thức của flyweight cũng phải truyền các bit phù hợp của trạng thái bên ngoài vào tham số của phương thức. Mặt khác, hành vi có thể được chuyền đến lớp context, nới sử dụng liên kết flyweight đơn thuần như một đối tượng dữ liệu.
+4. **Client** tính toán hoặc lưu trữ trạng thái bên ngoài của flyweight. Từ góc nhìn client, một flyweight là một đối tượng mẫu thứ có thể được cấu hình khi đang chạy bằng cách truyền một vài dữ liệu ngữ cảnh vào tham số của phương thức của nó.
 
 ## 👨‍💻 Mã giả
 
@@ -70,17 +71,17 @@ Trong ví dụ này, Flyweight giúp giảm mức sử dụng bộ nhớ khi hi�
 
 ![structure](./assets/structure.png)
 
-Pattern mổ rộng trạng thái nội tại bị lặp của lớp `Tree` và chuyển nói vào lớp flyweight `TreeType`.
+Pattern mở rộng trạng thái nội tại bị lặp của lớp `Tree` và chuyển nói vào lớp flyweight `TreeType`.
 
 Bây giờ thay vì lưu trữ cùng một dữ liệu trong nhiều đối tượng, nó chỉ lưu trong vài đối tượng flyweight và liên kết đến đối tượng `Tree` phù hợp,thứ hành động như một context. Code client tạo đối tượng cây mới sử dụng flyweight factory, thứ gói gọn sự phức tạp của việc tìm kiếm đối tượng phù hợp và sử dụng lại nó nếu cần.
 
 ```c
-// Lớp flyweight bao gồm một phần trạng tháu của cây. Các
+// Lớp flyweight bao gồm một phần trạng thái của cây. Các
 // trường lưu trữ giá trị đơn nhất cho từng cây riêng biêt.
 // Ví dụ, bạn sẽ không tìm thấy ở đây toạ độ cây. Nhưng ở đây
-// sẽ có cấu và màu sắc được dùng cung giữa nhiều cây. Vì dữ 
-// liệu này thường rất LỚN, bạn không muốn lãng phí phần lớn
-// bộ nhớ để lưu trữ nó cho từng đối tượng cây. Vì thế mà,
+// sẽ có cấu hình và màu sắc được dùng cung giữa nhiều cây. 
+// Vì dữ liệu này thường rất LỚN, bạn không muốn lãng phí phần
+// lớn bộ nhớ để lưu trữ nó cho từng đối tượng cây. Vì thế mà,
 // bạn trích xuất kết cấu, màu sắc và các dữ liệu lặp lại khác
 // vào một đối tượng riêng biệt mà các cây có thể tham chiếu
 // đến.

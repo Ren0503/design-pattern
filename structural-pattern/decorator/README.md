@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**Decorator** là một design pattern dạng structural giúp bạn thêm một hành vi mới vào đối tượng bằng cách đặt đối tượng đó vào trong một đối tượng đặc biệt có chứa hành vi đấy
+**Decorator** là một design pattern thuộc nhóm structural giúp bạn thêm một hành vi mới vào đối tượng bằng cách đặt đối tượng đó vào trong một đối tượng đặc biệt có chứa hành vi đấy
 
 ![intent](./assets/intent.png)
 
@@ -14,7 +14,7 @@ Phiên bản ban đầu của thư viện dựa trên lớp `Notifier` chỉ g�
 
 ![problem1](./assets/problem1.png)
 
-Vào một thời điểm nào đó, bạn nhận về góp ý là người dùng của thư viện mong muốn nhiều hơn thông báo từ email. Phần lớn họ muốn nhận thêm thông báo SMS. Số khác muốn thông báo trên Facebook, và một vài doanh nghiệp sử dụng muốn nhận thông báo từ Slack.
+Vào một thời điểm nào đó, bạn nhận về góp ý từ người dùng là họ mong muốn nhiều hơn thông báo từ email. Phần lớn họ muốn nhận thêm thông báo SMS. Số khác muốn thông báo trên Facebook, và một vài doanh nghiệp sử dụng muốn nhận thông báo từ Slack.
 
 ![problem2](./assets/problem2.png)
 
@@ -22,7 +22,7 @@ Vào một thời điểm nào đó, bạn nhận về góp ý là người dùn
 
 Nhưng lại có thêm một góp ý nữa là "Tại sao bạn không gửi nhiều kiểu thông báo cùng lúc? Nếu nhà bạn đang cháy, bạn có muốn nhận được thông tin từ mọi phương tiện không?"
 
-Bạn sẽ phải giải quyết thêm vấn đề này bằng cách tạo lớp con đặc biệt là kết hợp tất cả phương thức thông báo trong một lớp. Tuy nhiên, bạn sẽ nhanh chóng nhận ra là cách tiếp cận này làm cho code phình to lên, không chỉ là ở thư viện mà cả ở code client.
+Bạn sẽ phải giải quyết thêm vấn đề này bằng cách tạo lớp con đặc biệt là kết hợp tất cả phương thức thông báo trong một lớp. Tuy nhiên, rất nhanh chóng để nhận ra là cách tiếp cận này làm cho code phình to lên, không chỉ là ở thư viện mà cả ở code client.
 
 ![problem3](./assets/problem3.png)
 
@@ -77,12 +77,12 @@ Mặc quần áo là ví dụ rõ ràng nhất sử dụng decorator. Khi bạn 
 
 ## 👨‍💻 Mã giả
 
-Trong ví dụ này, Decorator cho phép bạn nén và mã hóa dữ liệu nhạy cảm độc lập với phần code sử dụng dữ liệu này.
+Trong ví dụ này, Decorator cho phép bạn nén và mã hóa dữ liệu quan trọng độc lập với phần code sử dụng dữ liệu này.
 
 ![pseudocode](./assets/pseudocode.png)
 
 Ứng dụng bọc đối tượng nguồn dữ liệu bằng một cặp decorator. Cả hai thay đổi cách dữ liệu được ghi và đọc từ ổ đĩa:
-- Trước khi ghi dữ liệu vào ổ đĩa, decorator mã hoá và nén nó lại. Lớp gốc ghi dữ liệu - đã được mã hoá và bảo vệ - vào tệp mà không cần biết về bất kỳ thay đổi gì.
+- Trước khi ghi dữ liệu vào ổ đĩa, decorator mã hoá và nén nó lại. Lớp gốc ghi dữ liệu - đã được mã hoá và bảo vệ - vào file mà không cần biết về bất kỳ thay đổi gì.
 - Sau khi dữ liệu được đọc từ ổ đĩa, nó đi đến cùng decorator, nơi giải nén và giải mã nó.
 
 Decorator và lớp nguồn dữ liệu triển khai cùng interface, điều này làm cho tất cả chúng có thể hoán đổi cho nhau trong code client.
@@ -158,7 +158,7 @@ class CompressionDecorator extends DataSourceDecorator is
         // 2. Giải nén nếu dữ liệu được nén
         // 3. Trả về kết quả
 
-// Lụa chọn 1. Ví dụ đơn giản của decorator.
+// Lựa chọn 1. Ví dụ đơn giản của decorator.
 class Application is
     method dumbUsageExample() is
         source = new FileDataSource("somefile.dat")
@@ -225,9 +225,9 @@ class ApplicationConfigurator is
 2. Tìm ra phương thức chung cho component chính và các lớp tuỳ chọn. Tạo interface component và khai báo các phương thức cho nó.
 3. Tạo lớp concrete component và xác định hành vi cơ sở của nó.
 4. Tạo lớp decorator cơ sở. Nó nên có trường lưu trữ tham chiếu đến các đối tượng được bọc. Trường này nên khai báo cùng kiểu interface component để cho phép liên kết đến concrete component cũng như các decorator. Decorator cơ sở sẽ uỷ thác tất cả công việc cho các đối tượng được bọc.
-5. Đảm bảo tất cả lớp triền khai theo interface component.
+5. Đảm bảo tất cả lớp triển khai theo interface component.
 6. Tạo concrete decorator bằng cách mở rộng nó từ decorator cơ sở. Concrete decorator phải thực thi hành vi của nó trước hoặc sau gọi đến phương thức cha (nơi lưu uỷ thác công việc cho đối tượng được bọc).
-7. Code client phải chịu trách nhiệm tạo decorator và soạn chúng khi cần sử dụng.
+7. Code client phải chịu trách nhiệm tạo decorator và soạn chúng khi cần sử dụng.(*)
 
 ## ⚖️ Ưu nhược điểm
 
@@ -245,7 +245,7 @@ class ApplicationConfigurator is
 
 ❌ Gặp khó khi xoá một wrapper cụ thể khỏi ngăn xếp.
 
-❌ Gặp khó khi triển khai decorator khi hành vi của nó không theo thứ tự trong ngăn xếp.
+❌ Gặp khó khi triển khai decorator nếu hành vi của nó không theo thứ tự trong ngăn xếp.
 
 ❌ Code cấu hình ban đầu của lớp sẽ rất tệ.
 

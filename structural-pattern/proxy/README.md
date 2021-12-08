@@ -2,19 +2,19 @@
 
 ## 📜 Mục đích
 
-**Proxy** là một design pattern dạng structural cho phép bạn cung cấp một vật thay thế hoặc vật giữ chỗ cho một đối tượng khác. Một proxy kiểm soát quyền truy cập đến đối tượng ban đầu, cho phép bạn thực hiện điều gì đó trước hoặc sau khi yêu cầu được chuyển đến đối tượng ban đầu.
+**Proxy** là một design pattern thuộc nhóm structural cho phép bạn cung cấp một vật thay thế hoặc vật giữ chỗ cho một đối tượng khác. Một proxy kiểm soát quyền truy cập đến đối tượng ban đầu, cho phép bạn thực hiện điều gì đó trước hoặc sau khi yêu cầu được chuyển đến đối tượng ban đầu.
 
 ![intent](./assets/intent.png)
 
 ## 😟 Vấn đề
 
-Tại sao bạn muốn kiểm soát truy cập đến một đối tượng? Hãy xem một ví dụ: nếu bạn có một đối tượng khổng lồ tiêu thụ một lượng lớn tài nguyên hệ thống. Bạn sẽ chỉ cần nó trong một khoảng thời gian chứ không phải mọi lúc.
+Tại sao bạn muốn kiểm soát truy cập đến một đối tượng? Hãy xem một ví dụ: nếu bạn có một đối tượng khổng lồ tiêu thụ một lượng lớn tài nguyên hệ thống. Bạn sẽ chỉ cần nó trong một vài thời điểm chứ không phải mọi lúc.
 
 ![problem](./assets/problem.png)
 
-Thế nên bạn có thể triển khai lazy initialization: tạo đối tượng chỉ khi thực sự cần đến nó. Tất cả đối tượng của client sẽ cần thực thị một số code deferred initialization. Thật không may điều này có thể gây ra code trùng lặp.
+Thế nên bạn có thể triển khai lazy initialization: tạo đối tượng chỉ khi thực sự cần đến nó. Tất cả đối tượng của client sẽ cần thực thi một số code deferred initialization. Thật không may điều này có thể gây ra code trùng lặp.
 
-Nếu như đặt code này trực tiếp vào lớp đối tượng thì chỉ có thể thực hiện ở thế giới lý tưởng, vì thực tế lớp này có thể là một phần của một thư viện bên thứ 3 đóng.
+Nếu như đặt code này trực tiếp vào lớp đối tượng thì chỉ có thể thực hiện ở thế giới lý tưởng, vì thực tế lớp này có thể là một phần của một thư viện bên thứ 3.
 
 ## 😊 Giải pháp
 
@@ -30,13 +30,13 @@ Vậy điều này có lợi ích gì? Nếu bạn cần thực thi điều gì 
 
 ![analogy](./assets/analogy.png)
 
-Credit card là một proxy cho một tài khoản khoản ngân hàng, thứ là proxy cho một khoản tiền mặt. Cả hai triển khai cùng interface để bạn có thể sử dụng nó cho thanh toán. Điều này làm khách hàng cảm thấy tuyệt vì họ không cần phải mang theo tiền mặt mọi lúc. Đồng thời chủ shop cũng cảm thấy vui vẻ vì số tiền từ một giao dịch điện tử đến tài khoản ngân hàng của shop sẽ giảm nguy cơ bị mất đặt cọc hay bị cướp trên đường. 
+Credit card là một proxy cho một tài khoản khoản ngân hàng, thứ là proxy cho một khoản tiền mặt. Cả hai triển khai cùng interface để bạn có thể sử dụng nó cho thanh toán. Điều này làm khách hàng cảm thấy thoải mái vì họ không cần phải mang theo tiền mặt mọi lúc. Đồng thời chủ shop cũng cảm thấy vui vẻ vì số tiền từ một giao dịch điện tử đến tài khoản ngân hàng của shop sẽ giảm nguy cơ bị mất đặt cọc hay bị cướp trên đường. 
 
 ## 🏢 Cấu trúc
 
 ![structure](./assets/structure.png)
 
-1. **Service Interface** khai bao interface của **Service**. Proxy phải theo sau interface này để có thể cải trang bản thân như một đối tượng dịch vụ.
+1. **Service Interface** khai báo interface của **Service**. Proxy phải theo sau interface này để có thể cải trang bản thân như một đối tượng dịch vụ.
 2. **Service** lớp cung cấp logic nghiệp vụ hữu ích thực sự.
 3. **Proxy** lớp có trường tham chiếu đến một đối tượng dịch vụ. Sau khi proxy kết thúc tiến trình của nó (lazy initialization, logging, điều khiển truy cập, catching,...) nó truyền yêu cầu đến đối tượng dịch vụ thực.
 Thông thường, proxy quản lý chu kỳ hoàn chỉnh của đối tượng dịch vụ.
@@ -50,7 +50,7 @@ Ví dụ này, minh họa cách Proxy có thể giúp lưu vào bộ nhớ cache
 
 Thư viện cung cấp cho ta một lớp để tải video về. Tuy nhiên, nó rất kém hiệu quả. Nếu ứng dụng client yêu cầu cùng một video nhiều lần, thư viện sẽ tải nó nhiều lần thay vì lưu vào bộ nhớ đệm và sử dụng lại file tải về đầu tiên.
 
-Lóp proxy triển khai cùng interface như downloader gốc và uỷ thác cho nó tất cả công việc. Tuy nhiên, nó sẽ theo dõi các file đã tải về và lấy kết quả từ bộ đệm khi ứng dụng yêu cầu cùng một video nhiều lần.
+Lóp proxy triển khai cùng interface như lớp tải về gốc và uỷ thác cho nó tất cả công việc. Tuy nhiên, nó sẽ theo dõi các file đã tải về và lấy kết quả từ bộ đệm khi ứng dụng yêu cầu cùng một video nhiều lần.
 
 ```c
 // Interface của dịch vụ từ xa.
@@ -172,7 +172,7 @@ Proxy cũng có thể theo dõi xem client đã sửa đổi đối tượng d�
 
 ## 📋 Triển khai
 
-1. Nếu không có interface dịch vụ nào có sẵn, hãy tạo một interface để làm cho các đối tượng proxy và dịch vụ có thể hoán đổi cho nhau. Không phải lúc nào bạn cũng có thể trích xuất interface khỏi lớp dịch vụ vì bạn cần thay đổi tất cả các ứng dụng client dịch vụ để sử dụng interface đó. Kế hoạch B là làm cho proxy trở thành lớp con của lớp dịch vụ và theo cách này nó sẽ kế thừa interface của dịch vụ.
+1. Nếu không có interface dịch vụ nào có sẵn, hãy tạo một interface để làm cho các đối tượng proxy và dịch vụ có thể hoán đổi cho nhau. Không phải lúc nào bạn cũng có thể trích xuất interface khỏi lớp dịch vụ vì bạn cần thay đổi tất cả các ứng dụng client dịch vụ để sử dụng interface đó. Kế hoạch B là làm cho proxy trở thành lớp con của lớp dịch vụ và theo cách này nó sẽ kế thừa interface của dịch vụ.(*)
 2. Tạo lớp proxy. Nó phải có một trường để lưu trữ một tham chiếu đến dịch vụ. Thông thường, proxy tạo và quản lý toàn bộ vòng đời của các dịch vụ của họ. Trong những trường hợp hiếm hoi, một dịch vụ được client chuyển tới proxy thông qua một phương thức khởi tạo.
 3. Thực hiện các phương pháp ủy quyền theo mục đích của chúng. Trong hầu hết các trường hợp, sau khi thực hiện một số công việc, proxy sẽ ủy quyền công việc cho đối tượng dịch vụ.
 4. Xem xét việc thêm một phương pháp tạo quyết định xem client nhận được một proxy hay một dịch vụ thực sự. Đây có thể là một phương thức tĩnh đơn giản trong lớp proxy hoặc một phương thức gốc đầy đủ.
