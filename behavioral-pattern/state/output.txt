@@ -1,7 +1,7 @@
-Context: Transition to ConcreteStateA
+Context: Transition to 14ConcreteStateA.
 ConcreteStateA handles request1.
 ConcreteStateA wants to change the state of the context.
-Context: Transition to ConcreteStateB
+Context: Transition to 14ConcreteStateB.
 ConcreteStateB handles request2.
 ConcreteStateB wants to change the state of the context.
-Context: Transition to ConcreteStateA
+Context: Transition to 14ConcreteStateA.
