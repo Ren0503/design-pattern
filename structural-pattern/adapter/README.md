@@ -8,9 +8,9 @@
 
 ## 😟 Vấn đề
 
-Tượng tượng bạn đang tạo một ứng dụng giám sát thị trường chứng khoán. Ứng dụng sẽ tải dữ liệu chứng khoán từ nhiều nguồn dưới dạng XML, và hiện thị nó dưới dạng biểu đồ và sơ đồ cho người dùng.
+Tượng tượng bạn đang tạo một ứng dụng giám sát thị trường chứng khoán. Ứng dụng sẽ tải dữ liệu chứng khoán từ nhiều nguồn dưới dạng XML, và hiển thị nó dưới dạng biểu đồ và sơ đồ cho người dùng.
 
-Vào một thời điểm nào đó, bạn quyết định cải tiến ứng dụng bằng việc tích hợp thư viện bên thứ ba cho phân tích dữ liệu. Nhưng có một vấn đề là thư viện này chỉ làm việc với dữ liệu dạng JSON. 
+Vào một thời điểm nào đó, bạn quyết định cải tiến ứng dụng bằng việc tích hợp một thư viện bên thứ ba cho phân tích dữ liệu. Nhưng có một vấn đề là thư viện này chỉ làm việc với dữ liệu dạng JSON. 
 
 ![problem](./assets/problem.png)
 
@@ -22,14 +22,14 @@ Nếu bạn thay đổi thư viện để nó làm việc với XML nó có th�
 
 Bạn có thể tạo ra một *adapter*, là một đối tượng đặc biệt có thể chuyển đổi interface của một đối tượng cho các đối tượng khác hiểu được nó.
 
-Adapter sẽ bọc một đối tượng để giấu đi sự phức tạp đằng sau cái chuyển đổi đấy. Đối tượng được bọc thậm chí còn không biết gì về adapter. Ví dụ như bạn bọc một đối tượng có đơn vị đo lường là kilomet và met, với bộ adapter sẽ chuyển đổi tất cả dữ liệu sang các đơn vị là feet và miles.
+Adapter sẽ bọc một đối tượng để giấu đi sự phức tạp đằng sau chuyển đổi đấy. Đối tượng được bọc thậm chí còn không biết gì về adapter. Ví dụ như bạn có thể bọc một đối tượng có đơn vị đo lường là kilomet và met, với bộ adapter sẽ chuyển đổi tất cả dữ liệu sang các đơn vị là feet và miles.
 
 Adapter không chỉ có thể chuyển đổi dữ liệu thành nhiều định dạng khác nhau mà còn có thể giúp các đối tượng có interface khác nhau cộng tác. Đây là cách nó hoạt động:
 1. Adapter lấy interface và tương thích của nó với một đối tượng đã tồn tại.
-2. Sử dụng interface đối tượng đã tồn tại có thể gọi đến phương thức adapter.
-3. Khi nhận được lệnh gọi, adapter sẽ chuyển yêu cầu đến đối tượng thứ hai, nhưng theo một định dạng và trật tự mà đối tượng thứ hai mong đợi.
+2. Sử dụng interface, đối tượng đã tồn tại có thể gọi đến phương thức adapter.
+3. Khi nhận được lệnh gọi, adapter sẽ chuyển yêu cầu đến đối tượng thứ hai, nhưng theo một định dạng và trật tự mà đối tượng thứ hai có thể hiểu được.
 
-Đôi khi, ta có thể tạo adapter hai chiều có thể chuyển đổi cuộc gọi theo cả hai hướng.
+Đôi khi, ta có thể tạo adapter hai chiều để chuyển đổi cuộc gọi theo cả hai hướng.
 
 ![solution](./assets/solution.png)
 
@@ -153,13 +153,13 @@ Giải pháp tốt hơn là đưa các hàm bị thiếu vào lớp adapter. Sau
 
 2. Khai báo client interface và mô tả cách client giao tiếp với service.
 
-3. Tạo lớp adapter theo client interface. Để trống tất cả phương thức ngay bây giờ.
+3. Tạo lớp adapter theo client interface. Tạm thời để trống tất cả phương thức.
 
 4. Thêm trường vào lớp adapter để lưu trữ tham chiếu đến đối tượng service. Cách phổ biến là tạo trường này thông qua hàm khởi tạo, nhưng đôi khi truyền nó cho adapter khi gọi các phương thức của nó sẽ thuận tiện hơn.
 
-5. Từng cái một, triển khai tất cả phương thức của client interface trong lớp adapter. Adapter nên uỷ thác phần lớp phần lớn công việc thực cho đối tượng service, chỉ xử lý interface hoặc chuyển đổi định dạng dữ liệu.(*)
+5. Triển khai tất cả phương thức của client interface trong lớp adapter. Adapter nên uỷ thác phần lớp phần lớn công việc thực cho đối tượng service, và chỉ xử lý interface hoặc chuyển đổi định dạng dữ liệu.
 
-6. Client nên sử dụng adapter thông qua client interface. Điều này giúp bạn thay đổi hoặc mở rộng adapter không ảnh hưởng đến code client.
+6. Client nên sử dụng adapter thông qua client interface. Điều này giúp bạn thay đổi hoặc mở rộng adapter mà không ảnh hưởng đến code client.
 
 ## ⚖️ Ưu nhược điểm
 

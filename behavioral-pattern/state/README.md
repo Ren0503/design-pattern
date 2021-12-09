@@ -2,7 +2,7 @@
 
 ## 📜 Mục đích
 
-**State** là một design pattern thuộc nhóm behavoiral giúp chỉnh sửa hành vi của một đối tượng khi trạng thái bên trong nó thay đổi. Nó xảy ra nếu như một đối tượng thay đổi lớp của nó.(*)
+**State** là một design pattern thuộc nhóm behavoiral giúp chỉnh sửa hành vi của một đối tượng khi trạng thái bên trong nó thay đổi. Nó xảy ra nếu như một đối tượng thay đổi lớp của nó.
 
 ![intent](./assets/intent.png)
 

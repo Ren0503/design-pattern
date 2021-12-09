@@ -26,7 +26,7 @@ Mặt khác các trạng thái hạt như `coords`(toạ độ), `vector`(hướ
 
 Dữ liệu không đổi này của một đối tượng thường được gọi là *intrinsic state(trạng thái nội tại)*. Nó ở bên trong đối tượng; các đối tượng khác chỉ có thể đọc nó, không thể thay đổi nó. Phần còn lại của trạng thái của đối tượng, thường bị thay đổi “từ bên ngoài” bởi các đối tượng khác, được gọi là *extrinsic state(trạng thái bên ngoài)*.
 
-Ý tưởng của Flyweight là thay vì lưu trữ các trạng thái bên ngoài trong đối tượng. Bạn truyền trạng thái đó vào một phương thức cụ thể. Chỉ để trạng thái nội tại bên trong đối tượng, sử dụng lại nó cho các bối cảnh khác nhau. Do đó, bạn sẽ cần ít đối tượng hơn vì chúng chỉ khác nhau ở trạng thái nội tại, thứ có ít biến thể hơn nhiều so với trạng thái bên ngoài.(*)
+Ý tưởng của Flyweight là thay vì lưu trữ các trạng thái bên ngoài trong đối tượng. Bạn truyền trạng thái đó vào một phương thức cụ thể. Chỉ giữ lại trạng thái nội tại bên trong đối tượng, sử dụng nó cho các bối cảnh khác nhau. Do đó, bạn sẽ cần ít các đối tượng này hơn vì chúng chỉ khác nhau ở trạng thái nội tại, thứ có ít biến thể hơn nhiều so với trạng thái bên ngoài.
 
 ![solution2](./assets/solution2.png)
 
@@ -42,7 +42,7 @@ Vậy trạng thái bên ngoài được chuyển đi đâu? Một vài lớp s�
 
 Giải pháp gọn gàng hơn là tạo lớp ngữ cảnh riêng để lưu trữ trạng thái bên ngoài cùng với tham chiếu đến đối tượng flyweight. Cách tiếp cận này chỉ yêu cầu một mảng duy nhất trong lớp container.
 
-Đợi đã! Chúng ta không cần tất cả đối tượng ngữ cảnh như ban đầu sao? Về mặt kỹ thuật, thì đúng là như vậy. Nhưng hãy nhìn lại, các đối tượng bây giờ đã nhỏ hơn trước rất nhiều. Các trường tiêu thụ nhiều bộ nhớ nhất đã được chuyển vào các đối tượng flyweight. Bây giờ một ngàn đối tượng ngữ cảnh có thể sử dụng lại một đối tượng flyweight thay vì lưu trữ hàng ngàn bản sao dữ liệu.(*)
+Đợi đã! Chúng ta không cần tất cả đối tượng ngữ cảnh như ban đầu sao? Về mặt kỹ thuật, thì đúng là như vậy. Nhưng hãy nhìn lại, các đối tượng bây giờ đã nhỏ hơn trước rất nhiều. Các trường tiêu thụ nhiều bộ nhớ nhất đã được chuyển vào các đối tượng flyweight. Bây giờ một ngàn đối tượng ngữ cảnh có thể sử dụng lại một đối tượng flyweight thay vì phải tự lưu trữ hàng ngàn bản sao dữ liệu.
 
 ### Flyweight và tính bất biến
 

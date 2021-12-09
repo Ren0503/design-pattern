@@ -52,7 +52,7 @@ Quân đội của hầu hết quốc gia đều có cấu trúc như cây phân
 
 ![pseudocode](./assets/pseudocode.png)
 
-Lớp `CompoundGraphic` là một container có thể bao gồm bất kỳ số lượng hình dạng con nào, bao gồm cả các container khác. Một hình dạng container có cùng phương thức với hình dạng đơn giản. Tuy nhiên, thay vì thực hiện điều gì đó trên chính nó, thì nó chuyển yêu cầu xuống tất cả con của nó và tính tổng bằng đệ quy.(*)
+Lớp `CompoundGraphic` là một container có thể bao gồm bất kỳ số lượng hình dạng con nào, bao gồm cả các container khác. Một hình dạng container có cùng phương thức với hình dạng đơn giản. Tuy nhiên, thay vì thực hiện điều gì đó trên chính nó, thì nó chuyển yêu cầu xuống tất cả con của nó và tính tổng bằng đệ quy.
 
 Code client làm việc với tất cả hình dạng qua interface chung duy nhất cho tất cả lớp hình dạng. Do đó, client không biết nó đang làm việc với dạng đơn giản hay phức hợp. Nó có thể làm việc với các đối tượng có cấu trúc phức tạp mà không cần ghép với lớp cụ thể tạo nên cấu trúc đấy.
 

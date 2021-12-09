@@ -227,7 +227,7 @@ class ApplicationConfigurator is
 4. Tạo lớp decorator cơ sở. Nó nên có trường lưu trữ tham chiếu đến các đối tượng được bọc. Trường này nên khai báo cùng kiểu interface component để cho phép liên kết đến concrete component cũng như các decorator. Decorator cơ sở sẽ uỷ thác tất cả công việc cho các đối tượng được bọc.
 5. Đảm bảo tất cả lớp triển khai theo interface component.
 6. Tạo concrete decorator bằng cách mở rộng nó từ decorator cơ sở. Concrete decorator phải thực thi hành vi của nó trước hoặc sau gọi đến phương thức cha (nơi lưu uỷ thác công việc cho đối tượng được bọc).
-7. Code client phải chịu trách nhiệm tạo decorator và soạn chúng khi cần sử dụng.(*)
+7. Code client phải chịu trách nhiệm tạo decorator và cấu trúc chúng khi cần sử dụng.
 
 ## ⚖️ Ưu nhược điểm
 
