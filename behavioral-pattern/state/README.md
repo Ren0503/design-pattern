@@ -260,7 +260,7 @@ class PlayingState extends State is
 
 ## 🔁 Quan hệ với các pattern khác
 
-**Bridge**, **State**, **Strategy** (và ở một mức độ nào đó là **Adapter**) có cấu trúc rất giống nhau. Thật vậy, tất cả các pattern này đều dựa trên bố cục là ủy thác công việc cho các đối tượng khác. Tuy nhiên, chúng giải quyết các vấn đề khác nhau. Một pattern không chỉ là một công thức để cấu trúc code của bạn theo một cách cụ thể. Nó còn có thể giao tiếp với các nhà phát triển khác về vấn đề mà pattern giải quyết.
+**Bridge**, **State**, **Strategy** (và ở một mức độ nào đó là **Adapter**) có cấu trúc rất giống nhau. Thật vậy, tất cả các pattern này đều dựa trên nguyên tắc là ủy thác công việc cho các đối tượng khác. Tuy nhiên, chúng giải quyết các vấn đề khác nhau. Một pattern không chỉ là một công thức để cấu trúc code của bạn theo một cách cụ thể. Nó còn có thể truyền đạt đến các dev khác về vấn đề mà pattern giải quyết.
 
 **State** có thể được coi là một phần mở rộng của **Strategy**. Cả hai pattern đều dựa trên kết hợp: chúng thay đổi hành vi của ngữ cảnh bằng cách ủy quyền một số công việc cho các đối tượng trợ giúp. **Strategy** làm cho các đối tượng này hoàn toàn độc lập và không biết về nhau. Tuy nhiên, **State** không hạn chế sự phụ thuộc giữa các trạng thái cụ thể, cho phép chúng thay đổi trạng thái của ngữ cảnh theo ý muốn.
 

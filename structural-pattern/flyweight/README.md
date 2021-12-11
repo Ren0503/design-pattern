@@ -166,13 +166,13 @@ class Forest is
 
 ## 🔁 Quan hệ với các pattern khác
 
-Bạn có thể triển khai các nút leaf chia sẻ của cây **Composite** dưới dạng **Flyweights** để tiết kiệm một số RAM.
+Bạn có thể triển khai các nút leaf chia sẻ của cây **Composite** dưới dạng **Flyweights** để tiết kiệm dung lượng RAM.
 
 **Flyweight** cho thấy cách tạo nhiều đối tượng nhỏ, trong khi **Facade** cho thấy cách tạo một đối tượng duy nhất đại diện cho toàn bộ hệ thống con.
 
 **Flyweight** sẽ giống với **Singleton** nếu bạn bằng cách nào đó giảm được tất cả các trạng thái được chia sẻ của các đối tượng xuống chỉ còn một đối tượng flyweight. Nhưng có hai điểm khác biệt cơ bản giữa các pattern này:
 
-- Chỉ nên có một thực thể **Singleton**, trong khi lóp **Flyweight** có thể có nhiều thực thể với các trạng thái nội tại khác nhau.
+- Chỉ nên có một thực thể **Singleton**, trong khi lớp **Flyweight** có thể có nhiều thực thể với các trạng thái nội tại khác nhau.
 - Đối tượng **Singleton** có thể thay đổi được. Đối tượng **Flyweight** là bất biến.
 
 # Nguồn

@@ -206,7 +206,7 @@ Observer giúp bất kỳ đối tượng nào triển khai interface subscriber
 - **Mediator** loại bỏ các kết nối trực tiếp giữa người gửi và người nhận, buộc họ phải giao tiếp gián tiếp thông qua một đối tượng trung gian.
 - **Observer** cho phép người nhận đăng ký động và hủy đăng ký nhận yêu cầu. 
 
-Sự khác biệt giữa **Mediator** và **Observer** thường khó nắm bắt. Trong hầu hết các trường hợp, bạn có thể triển khai một trong các mẫu này; nhưng đôi khi bạn có thể áp dụng đồng thời cả hai. Hãy xem chúng ta có thể làm điều đó như thế nào.
+Sự khác biệt giữa **Mediator** và **Observer** thường khó nắm bắt. Trong hầu hết các trường hợp, bạn có thể triển khai một trong các pattern này; nhưng đôi khi bạn có thể áp dụng đồng thời cả hai. Hãy xem chúng ta có thể làm điều đó như thế nào.
 
 - Mục tiêu chính của **Mediator** là loại bỏ sự phụ thuộc lẫn nhau giữa một tập hợp các thành phần hệ thống. Thay vào đó, các thành phần này trở nên phụ thuộc vào một đối tượng mediator duy nhất. Mục tiêu của **Observer** là thiết lập các kết nối động một chiều giữa các đối tượng, nơi một số đối tượng đóng vai trò là cấp dưới của những đối tượng khác.
 

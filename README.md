@@ -1,6 +1,6 @@
 # DESIGN PATTERN LÀ GÌ ?
 
-![design-pattern](./assets/design-pattern.png)
+![design-pattern](./assets/design-patterns.png)
 
 Design Pattern là một giải pháp tổng thể cho các vấn đề chung trong thiết kế phần mềm. Nó cũng tương tự các bản thiết kế cho xây dựng nhà cửa, chúng được dùng để giải quyết các vấn đề lặp đi lặp lại trong thiết kế của bạn.
 

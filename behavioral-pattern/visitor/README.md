@@ -90,13 +90,13 @@ Hãy tưởng tượng một đại lý bảo hiểm dày dạn kinh nghiệm đ
 
 ![structure](./assets/structure.png)
 
-1. **Visitor** là interface khai báo một tập hợp các phương thức truy cập có thể lấy các phần tử cụ thể của cấu trúc đối tượng làm tham số. Các phương thức này có thể trùng tên nếu chương trình được viết bằng ngôn ngữ hỗ trợ overloading, nhưng kiểu tham số của chúng phải khác nhau.
-2. **Concrete Visitor** thực hiện một số phiên bản của các hành vi giống nhau, được điều chỉnh cho các lớp phần tử cụ thể khác nhau.
+1. **Visitor** là interface khai báo một tập hợp các phương thức truy cập có thể lấy các concrete element của cấu trúc đối tượng làm tham số. Các phương thức này có thể trùng tên nếu chương trình được viết bằng ngôn ngữ hỗ trợ overloading, nhưng kiểu tham số của chúng phải khác nhau.
+2. **Concrete Visitor** thực hiện một số phiên bản của các hành vi giống nhau, được điều chỉnh cho các lớp concrete element khác nhau.
 3. **Element** là interface khai báo một phương thức để "accept" visitor. Phương thức này phải có một tham số được khai báo với kiểu interface visitor. 
 4. **Concrete Element** thực hiện phương pháp nghiệm thu. Mục đích của phương thức này là chuyển hướng lệnh gọi đến phương thức của visitor thích hợp tương ứng với lớp element hiện tại. 
 
     Cần biết rằng ngay cả khi một lớp element cơ sở triển khai phương thức này, tất cả các lớp con vẫn phải ghi đè phương thức này trong các lớp của chính chúng và gọi phương thức thích hợp trên đối tượng visitor.
-5. **Client** thường đại diện cho một tập hợp hoặc một số đối tượng phức tạp khác (ví dụ, một cây tổng hợp). Thông thường, client không biết tất cả các lớp phần tử cụ thể vì chúng làm việc với các đối tượng từ bộ sưu tập đó thông qua một số interface trừu tượng
+5. **Client** thường đại diện cho một tập hợp hoặc một số đối tượng phức tạp khác (ví dụ, một cây tổng hợp). Thông thường, client không biết tất cả các lớp concrete element vì chúng làm việc với các đối tượng từ tập hợp đó thông qua một số interface trừu tượng
 
 ## 👨‍💻 Mã giả
 
@@ -242,9 +242,9 @@ class Application is
 
 Bạn có thể coi **Visitor** như một phiên bản mạnh mẽ của **Command**. Các đối tượng của nó có thể thực thi các hoạt động trên các đối tượng khác nhau của các lớp khác nhau.
 
-Bạn có thể sử dụng **Visitor** cùng với **Iterator** để xem qua một cấu trúc dữ liệu phức tạp và thực hiện một số thao tác trên các phần tử của nó, ngay cả khi tất cả chúng đều có các lớp khác nhau
+Bạn có thể sử dụng **Visitor** cùng với **Iterator** để duyệt qua một cấu trúc dữ liệu phức tạp và thực hiện một số thao tác trên các phần tử của nó, ngay cả khi tất cả chúng đều có các lớp khác nhau
 
-Bạn có thể sử dụng **Visitor** để thực hiện một hoạt động trên toàn bộ cây **Composite**.
+Bạn có thể sử dụng **Visitor** để thực hiện một thao tác trên toàn bộ cây **Composite**.
 
 # Nguồn
 

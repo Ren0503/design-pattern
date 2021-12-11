@@ -265,11 +265,11 @@ Các trình xử lý **CoR** có thể thực hiện các hoạt động tùy ý
 
 - Tuy nhiên, các pattern cũng có thể hợp tác: bạn có thể sử dụng **Decorator** để mở rộng hành vi của một đối tượng cụ thể trong cây **Composite**.
 
-Các thiết kế sử dụng nhiều **Composite** và **Decorator** thường có thể được hưởng lợi từ việc sử dụng Prototype. Áp dụng pattern cho phép bạn sao chép các cấu trúc phức tạp thay vì xây dựng lại chúng từ đầu.
+Các thiết kế sử dụng nhiều **Composite** và **Decorator** thường có thể được hưởng lợi từ việc sử dụng **Prototype**. Áp dụng pattern cho phép bạn sao chép các cấu trúc phức tạp thay vì xây dựng lại chúng từ đầu.
 
 **Decorator** cho phép bạn thay đổi vẻ ngoài của một đối tượng, trong khi **Strategy** cho phép bạn thay đổi ruột.
 
-**Decorator** và **Proxy** có cấu trúc tương tự, nhưng nội dung rất khác nhau. Cả hai pattern đều được xây dựng trên nguyên tắc bố cục, trong đó một đối tượng được cho là ủy quyền một số công việc cho đối tượng khác. Sự khác biệt là **Proxy** thường tự quản lý vòng đời của đối tượng dịch vụ của nó, trong khi thành phần của **Decorator** luôn được kiểm soát bởi client.
+**Decorator** và **Proxy** có cấu trúc tương tự, nhưng nội dung rất khác nhau. Cả hai pattern đều được xây dựng trên cùng nguyên tắc, trong đó một đối tượng được cho là ủy quyền một số công việc cho đối tượng khác. Sự khác biệt là **Proxy** thường tự quản lý vòng đời của đối tượng dịch vụ của nó, trong khi thành phần của **Decorator** luôn được kiểm soát bởi client.
 
 # Nguồn 
 

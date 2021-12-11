@@ -201,7 +201,7 @@ Proxy cũng có thể theo dõi xem client đã sửa đổi đối tượng d�
 
 **Adapter** cung cấp một interface khác cho đối tượng được bọc, **Proxy** cung cấp cho nó một interface tương tự và **Decorator** cung cấp cho nó một interface nâng cao.
 
-**Decorator** và **Proxy** có cấu trúc tương tự, nhưng nội dung rất khác nhau. Cả hai pattern đều được xây dựng trên nguyên tắc bố cục, trong đó một đối tượng được cho là ủy quyền một số công việc cho đối tượng khác. Sự khác biệt là **Proxy** thường tự quản lý vòng đời của đối tượng dịch vụ của nó, trong khi thành phần của **Decorator** luôn được kiểm soát bởi client.
+**Decorator** và **Proxy** có cấu trúc tương tự, nhưng nội dung rất khác nhau. Cả hai pattern đều được xây dựng trên cùng nguyên tắc, trong đó một đối tượng được cho là ủy quyền một số công việc cho đối tượng khác. Sự khác biệt là **Proxy** thường tự quản lý vòng đời của đối tượng dịch vụ của nó, trong khi thành phần của **Decorator** luôn được kiểm soát bởi client.
 
 **Facade** tương tự như **Proxy** ở chỗ cả hai đều đệm một thực thể phức tạp và tự khởi tạo nó. Không giống như **Facade**, **Proxy** có interface giống với đối tượng dịch vụ của nó, điều này làm cho chúng có thể hoán đổi cho nhau.
 

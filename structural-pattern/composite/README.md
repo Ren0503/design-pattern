@@ -188,7 +188,7 @@ Bạn có thể sử dụng **Iterator** để duyệt qua các cây **Composite
 
 Bạn có thể sử dụng **Visitor** để thực hiện một hoạt động trên toàn bộ cây **Composite**.
 
-Bạn có thể triển khai các nút leaf chia sẻ của cây **Composite** dưới dạng **Flyweights** để tiết kiệm một số RAM.
+Bạn có thể triển khai các nút leaf chia sẻ của cây **Composite** dưới dạng **Flyweights** để tiết kiệm dung lượng RAM.
 
 **Composite** và **Decorator** có các sơ đồ cấu trúc tương tự vì cả hai đều dựa vào thành phần đệ quy để tổ chức một số lượng các đối tượng kết thúc mở.
 

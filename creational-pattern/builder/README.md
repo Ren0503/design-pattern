@@ -289,7 +289,7 @@ Nhiều pattern bắt đầu bằng cách sử dụng **Factory Method** (ít ph
 
 Bạn có thể sử dụng **Builder** khi tạo các cây **Composite** phức tạp vì bạn có thể lập trình các bước xây dựng của nó để hoạt động một cách đệ quy.
 
-Bạn có thể kết hợp **Builder** với **Bridge**: lớp director đóng vai trò trừu tượng, trong khi các builder khác đóng vai trò triển khai.
+Bạn có thể kết hợp **Builder** với **Bridge**: lớp director đóng vai trò abstract, trong khi các builder khác đóng vai trò implementation.
 
 Tất cả các **Abstract Factory**, **Builder** và **Prototype** đều có thể được triển khai dưới dạng các **Singleton**.
 
