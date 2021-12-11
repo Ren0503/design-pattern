@@ -1,6 +1,6 @@
-# DESIGN PATTERN TRONG C++
+# DESIGN PATTERN LÀ GÌ ?
 
-![design-pattern](./assets/cpp.png)
+![design-pattern](./assets/design-pattern.png)
 
 Design Pattern là một giải pháp tổng thể cho các vấn đề chung trong thiết kế phần mềm. Nó cũng tương tự các bản thiết kế cho xây dựng nhà cửa, chúng được dùng để giải quyết các vấn đề lặp đi lặp lại trong thiết kế của bạn.
 
@@ -68,6 +68,46 @@ Hệ thống các design pattern được chia thành 3 nhóm: nhóm Creational,
     + [**Strategy**](./behavioral-pattern/strategy)
     + [**Template Method**](./behavioral-pattern/template-method)
     + [**Visitor**](./behavioral-pattern/visitor)
+
+# Code Example
+
+Code ví dụ của RefactoringGuru
+
+## C#
+
+[![csharp](./assets/csharp.png)](https://github.com/RefactoringGuru/design-patterns-csharp)
+
+## C++
+
+[![cpp](./assets/cpp.png)](https://github.com/RefactoringGuru/design-patterns-cpp)
+
+## Go
+
+[![go](./assets/go.png)](https://github.com/RefactoringGuru/design-patterns-go)
+
+## Java
+
+[![java](./assets/java.png)](https://github.com/RefactoringGuru/design-patterns-java)
+
+## PHP
+
+[![php](./assets/php.png)](https://github.com/RefactoringGuru/design-patterns-php)
+
+## Python
+
+[![python](./assets/python.png)](https://github.com/RefactoringGuru/design-patterns-python)
+
+## Ruby
+
+[![ruby](./assets/ruby.png)](https://github.com/RefactoringGuru/design-patterns-ruby)
+
+## Swift
+
+[![swift](./assets/swift.png)](https://github.com/RefactoringGuru/design-patterns-swift)
+
+## TypeScript
+
+[![typescript](./assets/typescript.png)](https://github.com/RefactoringGuru/design-patterns-typescript)
 
 # Nguồn
 
