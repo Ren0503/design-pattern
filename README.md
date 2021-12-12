@@ -73,42 +73,25 @@ Hệ thống các design pattern được chia thành 3 nhóm: nhóm Creational,
 
 Code ví dụ của RefactoringGuru
 
-## C#
+| | Ngôn ngữ | Source Code |
+|-|----------|-------------|
+|![csharp](./assets/csharp.png)| C# | https://github.com/RefactoringGuru/design-patterns-csharp |
+|![cpp](./assets/cpp.png)| C++ | https://github.com/RefactoringGuru/design-patterns-cpp |
+|![go](./assets/go.png)| GO | https://github.com/RefactoringGuru/design-patterns-go |
+|![java](./assets/java.png)| JAVA | https://github.com/RefactoringGuru/design-patterns-java |
+|![php](./assets/php.png)| PHP | https://github.com/RefactoringGuru/design-patterns-php |
+|![python](./assets/python.png)| PYTHON | https://github.com/RefactoringGuru/design-patterns-python |
+|![ruby](./assets/ruby.png)| RUBY | https://github.com/RefactoringGuru/design-patterns-ruby |
+|![swift](./assets/swift.png)| SWIFT | https://github.com/RefactoringGuru/design-patterns-swift |
+|![typescript](./assets/typescript.png)| TYPESCRIPT | https://github.com/RefactoringGuru/design-patterns-typescript |
 
-[![csharp](./assets/csharp.png)](https://github.com/RefactoringGuru/design-patterns-csharp)
-
-## C++
-
-[![cpp](./assets/cpp.png)](https://github.com/RefactoringGuru/design-patterns-cpp)
-
-## Go
-
-[![go](./assets/go.png)](https://github.com/RefactoringGuru/design-patterns-go)
-
-## Java
-
-[![java](./assets/java.png)](https://github.com/RefactoringGuru/design-patterns-java)
-
-## PHP
-
-[![php](./assets/php.png)](https://github.com/RefactoringGuru/design-patterns-php)
-
-## Python
-
-[![python](./assets/python.png)](https://github.com/RefactoringGuru/design-patterns-python)
-
-## Ruby
-
-[![ruby](./assets/ruby.png)](https://github.com/RefactoringGuru/design-patterns-ruby)
-
-## Swift
-
-[![swift](./assets/swift.png)](https://github.com/RefactoringGuru/design-patterns-swift)
-
-## TypeScript
-
-[![typescript](./assets/typescript.png)](https://github.com/RefactoringGuru/design-patterns-typescript)
 
 # Nguồn
 
-[**refactoring**](https://refactoring.guru/design-patterns)
+## Sách 
+
+![book](./assets/book.png)
+
+## Tác giả: [Refactoring.Guru](https://refactoring.guru)
+
+![author](./assets/author.png)
